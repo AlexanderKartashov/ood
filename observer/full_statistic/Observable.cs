@@ -8,13 +8,22 @@ namespace full_statistic
 {
 	public abstract class Observable<T> : IObservable<T>
 	{
-		private readonly ISet<IObserver<T>> _observers = new HashSet<IObserver<T>>();
+		private readonly ISet<ObserverInfo<T>> _observers = new HashSet<ObserverInfo<T>>();
 
-		public void NotifyObservers() => _observers.ToList().ForEach(x => x.Update(GetChangedData()));
+		public void NotifyObservers()
+		{
+			_observers.OrderBy(x => x.Priority).ToList().ForEach(x => x.Observer.Update(GetChangedData()));
+		}
 
-		public void RegisterObserver(IObserver<T> observer) => _observers.Add(observer);
+		public void RegisterObserver(IObserver<T> observer, uint priority = 0)
+		{
+			_observers.Add(new ObserverInfo<T>{ Observer = observer, Priority = priority });
+		}
 
-		public void RemoveObserver(IObserver<T> observer) => _observers.Remove(observer);
+		public void RemoveObserver(IObserver<T> observer)
+		{
+			_observers.Remove(new ObserverInfo<T> { Observer = observer, Priority = 0 });
+		}
 
 		protected abstract T GetChangedData();
 	}

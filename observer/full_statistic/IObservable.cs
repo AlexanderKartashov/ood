@@ -8,7 +8,7 @@ namespace full_statistic
 {
 	public interface IObservable<T>
 	{
-		void RegisterObserver(IObserver<T> observer);
+		void RegisterObserver(IObserver<T> observer, uint priority = 0);
 		void NotifyObservers();
 		void RemoveObserver(IObserver<T> observer);
 	}

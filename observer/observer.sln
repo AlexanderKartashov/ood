@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "full_statistic_test", "full
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.SafeObserverRemoveTest", "NUnit.SafeObserverRemoveTest\NUnit.SafeObserverRemoveTest.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.TestObserversWithPriority", "NUnit.TestObserversWithPriority\NUnit.TestObserversWithPriority.csproj", "{9D191984-3E24-4152-94CF-4EB64D9CB530}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D191984-3E24-4152-94CF-4EB64D9CB530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D191984-3E24-4152-94CF-4EB64D9CB530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D191984-3E24-4152-94CF-4EB64D9CB530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D191984-3E24-4152-94CF-4EB64D9CB530}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

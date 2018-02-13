@@ -20,21 +20,21 @@ namespace NUnit.SafeObserverRemoveTest
 			SelfRemovingObserver observer0 = new SelfRemovingObserver(data);
 			MockObserver observer1 = new MockObserver();
 			MockObserver observer2 = new MockObserver();
-			data.RegisterObserver(observer0);
-			data.RegisterObserver(observer1);
+			data.RegisterObserver(observer0, 2);
+			data.RegisterObserver(observer1, 1);
 			data.RegisterObserver(observer2);
 
-			Assert.DoesNotThrow(() => { data.SetMeasurements(0, 0.7, 750); });
+			Assert.That(() => { data.SetMeasurements(0, 0.7, 750); }, Throws.Nothing);
 
-			Assert.AreEqual(observer0.Calls, 1);
-			Assert.AreEqual(observer1.Calls, 1);
-			Assert.AreEqual(observer2.Calls, 1);
+			Assert.That(observer0.Calls, Is.EqualTo(1));
+			Assert.That(observer1.Calls, Is.EqualTo(1));
+			Assert.That(observer2.Calls, Is.EqualTo(1));
 
-			Assert.DoesNotThrow(() => { data.SetMeasurements(15, 0.5, 759); });
+			Assert.That(() => { data.SetMeasurements(15, 0.5, 759); }, Throws.Nothing);
 
-			Assert.AreEqual(observer0.Calls, 1);
-			Assert.AreEqual(observer1.Calls, 2);
-			Assert.AreEqual(observer2.Calls, 2);
+			Assert.That(observer0.Calls, Is.EqualTo(1));
+			Assert.That(observer1.Calls, Is.EqualTo(2));
+			Assert.That(observer2.Calls, Is.EqualTo(2));
 		}
 	}
 }
