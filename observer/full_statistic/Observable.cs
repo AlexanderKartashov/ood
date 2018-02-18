@@ -12,7 +12,7 @@ namespace full_statistic
 
 		public void NotifyObservers()
 		{
-			_observers.OrderBy(x => x.Priority).ToList().ForEach(x => x.Observer.Update(GetChangedData()));
+			_observers.OrderByDescending(x => x.Priority).ToList().ForEach(x => x.Observer.Update(GetChangedData()));
 		}
 
 		public void RegisterObserver(IObserver<T> observer, uint priority = 0)
