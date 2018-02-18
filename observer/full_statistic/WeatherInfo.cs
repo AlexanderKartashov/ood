@@ -11,5 +11,19 @@ namespace full_statistic
 		public double Temperature { get; set; }
 		public double Humidity { get; set; }
 		public double Pressure { get; set; }
+
+		public override bool Equals(object obj)
+		{
+			if (!(obj is WeatherInfo))
+			{
+				return false;
+			}
+
+			var other = obj as WeatherInfo;
+			return
+				Temperature == other.Temperature &&
+				Pressure == other.Pressure &&
+				Humidity == other.Humidity;
+		}
 	}
 }

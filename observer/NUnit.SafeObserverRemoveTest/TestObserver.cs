@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using full_statistic;
+using NSubstitute;
 
 namespace NUnit.SafeObserverRemoveTest
 {
@@ -17,24 +18,48 @@ namespace NUnit.SafeObserverRemoveTest
 		{
 			WeatherData data = new WeatherData();
 
-			SelfRemovingObserver observer0 = new SelfRemovingObserver(data);
-			MockObserver observer1 = new MockObserver();
-			MockObserver observer2 = new MockObserver();
-			data.RegisterObserver(observer0, 2);
-			data.RegisterObserver(observer1, 1);
-			data.RegisterObserver(observer2);
+			var selfRemovingObserver = Substitute.For<full_statistic.IObserver<WeatherInfo>>();
+			selfRemovingObserver.When(x => x.Update(Arg.Any<WeatherInfo>())).Do(Callback.Always(x => data.RemoveObserver(selfRemovingObserver)));
 
-			Assert.That(() => { data.SetMeasurements(0, 0.7, 750); }, Throws.Nothing);
+			var simpleObserver1 = Substitute.For<full_statistic.IObserver<WeatherInfo>>();
+			var simpleObserver2 = Substitute.For<full_statistic.IObserver<WeatherInfo>>();
 
-			Assert.That(observer0.Calls, Is.EqualTo(1));
-			Assert.That(observer1.Calls, Is.EqualTo(1));
-			Assert.That(observer2.Calls, Is.EqualTo(1));
+			data.RegisterObserver(selfRemovingObserver);
+			data.RegisterObserver(simpleObserver1);
+			data.RegisterObserver(simpleObserver2);
 
-			Assert.That(() => { data.SetMeasurements(15, 0.5, 759); }, Throws.Nothing);
+			{
+				Assert.That(() => { data.SetMeasurements(0, 0.7, 750); }, Throws.Nothing);
 
-			Assert.That(observer0.Calls, Is.EqualTo(1));
-			Assert.That(observer1.Calls, Is.EqualTo(2));
-			Assert.That(observer2.Calls, Is.EqualTo(2));
+				var expected = new WeatherInfo()
+				{
+					Temperature = 0,
+					Pressure = 750,
+					Humidity = 0.7
+				};
+				selfRemovingObserver.Received(1).Update(expected);
+				simpleObserver1.Received(1).Update(expected);
+				simpleObserver2.Received(1).Update(expected);
+			}
+
+			selfRemovingObserver.ClearReceivedCalls();
+			simpleObserver1.ClearReceivedCalls();
+			simpleObserver2.ClearReceivedCalls();
+
+			{
+				var expected = new WeatherInfo()
+				{
+					Temperature = 15,
+					Pressure = 759,
+					Humidity = 0.5
+				};
+
+				Assert.That(() => { data.SetMeasurements(15, 0.5, 759); }, Throws.Nothing);
+
+				selfRemovingObserver.DidNotReceive().Update(Arg.Any<WeatherInfo>());
+				simpleObserver1.Received(1).Update(Arg.Is(expected));
+				simpleObserver2.Received(1).Update(Arg.Is(expected));
+			}
 		}
 	}
 }
