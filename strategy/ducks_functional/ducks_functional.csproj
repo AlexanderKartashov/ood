@@ -46,6 +46,7 @@
     <Compile Include="Duck.cs" />
     <Compile Include="Fly\FlyNoWay.cs" />
     <Compile Include="Fly\FlyWithWings.cs" />
+    <Compile Include="Fly\FlyWithWingsWithState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quack\MuteQuack.cs" />
     <Compile Include="Quack\Quack.cs" />

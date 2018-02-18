@@ -22,7 +22,7 @@ namespace lab_1_3
 				Console.Out.WriteLine(FormatDuckActivitiesString(mallardDuck, stringBuilder, "Mallard duck"));
 			}
 
-			// no classes
+			// only lambdas
 			{
 				var stringBuilder = new StringBuilder();
 				var redheadDuck = ducks_functional.Duck.CreateDuck(
@@ -45,6 +45,33 @@ namespace lab_1_3
 				);
 				Console.Out.WriteLine(FormatDuckActivitiesString(rubberDuck, stringBuilder, "Rubber duck"));
 			}
+
+			// functional with state
+			{
+				var stringBuilder = new StringBuilder();
+				var smartMallargDuck = ducks_functional.Duck.CreateDuck(
+					stringBuilder,
+					() => ducks_functional.Dance.Manuette.Dance(stringBuilder),
+					() => ducks_functional.Quack.DuckQuack.Quack(stringBuilder),
+					ducks_functional.Fly.FlyWithWingsWithState.Fly(stringBuilder)
+				);
+
+				Console.Out.WriteLine(FormatDuckActivitiesString(smartMallargDuck, stringBuilder, "Smart mallard duck"));
+				Console.Out.WriteLine(FormatDuckActivitiesString(smartMallargDuck, stringBuilder, "Smart mallard duck"));
+				Console.Out.WriteLine(FormatDuckActivitiesString(smartMallargDuck, stringBuilder, "Smart mallard duck"));
+
+				{
+					var anotherSmartMallargDuck = ducks_functional.Duck.CreateDuck(
+						stringBuilder,
+						() => ducks_functional.Dance.Manuette.Dance(stringBuilder),
+						() => ducks_functional.Quack.DuckQuack.Quack(stringBuilder),
+						ducks_functional.Fly.FlyWithWingsWithState.Fly(stringBuilder)
+					);
+
+					Console.Out.WriteLine(FormatDuckActivitiesString(anotherSmartMallargDuck, stringBuilder, "Smart mallard duck #2"));
+					Console.Out.WriteLine(FormatDuckActivitiesString(anotherSmartMallargDuck, stringBuilder, "Smart mallard duck #2"));
+				}
+			}
 		}
 
 		private static string FormatDuckActivitiesString(ducks_functional.Duck duck, StringBuilder stringBuilder, string duckName)
@@ -56,7 +83,9 @@ namespace lab_1_3
 			stringBuilder.Append(", quacks: ");
 			duck.Quack();
 
-			return stringBuilder.ToString();
+			var str = stringBuilder.ToString();
+			stringBuilder.Clear();
+			return str;
 		}
 	}
 }
