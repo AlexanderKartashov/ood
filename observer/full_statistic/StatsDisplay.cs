@@ -14,6 +14,8 @@ namespace full_statistic
 		private AverageValue _temp = new AverageValue();
 		private AverageValue _pressure = new AverageValue();
 		private AverageValue _humidity = new AverageValue();
+		private AverageValue _windDirection = new AverageValue();
+		private AverageValue _windSpeed = new AverageValue();
 
 		public StatsDisplay(TextWriter tw) => _tw = tw;
 
@@ -22,6 +24,8 @@ namespace full_statistic
 			_temp.Update(data.Temperature);
 			_pressure.Update(data.Pressure);
 			_humidity.Update(data.Humidity);
+			_windDirection.Update(data.WindDirection);
+			_windSpeed.Update(data.WindSpeed);
 
 			PrintStatsData();
 		}
@@ -31,6 +35,9 @@ namespace full_statistic
 			PrintValue("Temperature", _temp);
 			PrintValue("Humidity", _humidity);
 			PrintValue("Pressure", _pressure);
+			PrintValue("Wind direction", _windDirection);
+			PrintValue("Wind speed", _windSpeed);
+			_tw.WriteLine("========================");
 		}
 
 		private void PrintValue(string valueName, AverageValue value)

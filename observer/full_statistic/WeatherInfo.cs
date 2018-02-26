@@ -11,6 +11,9 @@ namespace full_statistic
 		public double Temperature { get; set; }
 		public double Humidity { get; set; }
 		public double Pressure { get; set; }
+		public double WindSpeed { get; set; }
+		public double WindDirection { get; set; }
+		public String StationName { get; set; }
 
 		public override bool Equals(object obj)
 		{
@@ -23,7 +26,10 @@ namespace full_statistic
 			return
 				Temperature == other.Temperature &&
 				Pressure == other.Pressure &&
-				Humidity == other.Humidity;
+				Humidity == other.Humidity &&
+				WindSpeed == other.WindSpeed && 
+				WindDirection == other.WindDirection &&
+				StationName == other.StationName;
 		}
 	}
 }

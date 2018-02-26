@@ -15,7 +15,8 @@ namespace NUnit.TestObserversWithPriority
 		[Test]
 		public void TestObserverRegistrationWithPriority()
 		{
-			WeatherData data = new WeatherData();
+			var station = "station";
+			WeatherData data = new WeatherData(station);
 
 			var simpleObserver1 = Substitute.For<full_statistic.IObserver<WeatherInfo>>();
 			var simpleObserver2 = Substitute.For<full_statistic.IObserver<WeatherInfo>>();
@@ -25,12 +26,15 @@ namespace NUnit.TestObserversWithPriority
 			data.RegisterObserver(simpleObserver2, 42); // hightest priority
 			data.RegisterObserver(simpleObserver3, 13); // middle priority
 
-			Assert.That(() => { data.SetMeasurements(0, 0.7, 750); }, Throws.Nothing);
+			Assert.That(() => { data.SetMeasurements(0, 0.7, 750, 90, 10); }, Throws.Nothing);
 			var expected = new WeatherInfo()
 			{
 				Temperature = 0,
 				Pressure = 750,
-				Humidity = 0.7
+				Humidity = 0.7,
+				WindSpeed = 10,
+				WindDirection = 90,
+				StationName = station
 			};
 			Received.InOrder(() => {
 				simpleObserver2.Update(Arg.Is(expected));
