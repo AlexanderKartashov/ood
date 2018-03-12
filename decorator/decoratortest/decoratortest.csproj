@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E421A598-DAE4-4911-88D5-6F0512B9C034}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>decorator</RootNamespace>
-    <AssemblyName>decorator</AssemblyName>
+    <ProjectGuid>{8E657F44-9151-42ED-ACED-61AC3E26C553}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>decoratortest</RootNamespace>
+    <AssemblyName>decoratortest</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,32 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Beverage.cs" />
-    <Compile Include="coffee\DoubleCappuccino.cs" />
-    <Compile Include="coffee\DoubleLatte.cs" />
-    <Compile Include="condiments\ChocolateLoubles.cs" />
-    <Compile Include="condiments\ChocolateCrumbs.cs" />
-    <Compile Include="condiments\Cinnamon.cs" />
-    <Compile Include="coffee\Capuccino.cs" />
-    <Compile Include="condiments\CoconutFlakes.cs" />
-    <Compile Include="coffee\Coffee.cs" />
-    <Compile Include="CondimentDecorator.cs" />
-    <Compile Include="condiments\Cream.cs" />
-    <Compile Include="condiments\Liqueur.cs" />
-    <Compile Include="IBeverage.cs" />
-    <Compile Include="condiments\IceCubes.cs" />
-    <Compile Include="coffee\Latte.cs" />
-    <Compile Include="condiments\Lemon.cs" />
-    <Compile Include="milkshake\MiddleMilkshake.cs" />
-    <Compile Include="milkshake\Milkshake.cs" />
-    <Compile Include="milkshake\SmallMilkshake.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="condiments\Syrup.cs" />
-    <Compile Include="tea\BlackTea.cs" />
-    <Compile Include="tea\GreenTea.cs" />
-    <Compile Include="tea\OolongTea.cs" />
-    <Compile Include="tea\PuerTea.cs" />
-    <Compile Include="tea\Tea.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\decorator\decorator.csproj">
+      <Project>{e421a598-dae4-4911-88d5-6f0512b9c034}</Project>
+      <Name>decorator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

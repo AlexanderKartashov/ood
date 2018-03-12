@@ -4,15 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace decorator
+namespace decorator.tea
 {
-	public class Tea : Beverage
+	class PuerTea : Tea
 	{
-		public Tea()
-		: base(description: "Tea")
+		public PuerTea(String description = "Puer tea")
+		: base()
 		{
 		}
-
-		public override double Cost => 30;
 	}
 }

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace decorator
+namespace decorator.coffee
 {
-	public class Milkshake : Beverage
+	public class Capuccino : Coffee
 	{
-		public Milkshake()
-		: base(description: "Milkshake")
+		public Capuccino(String description = "Capuccino")
+			: base(description)
 		{
 		}
 
