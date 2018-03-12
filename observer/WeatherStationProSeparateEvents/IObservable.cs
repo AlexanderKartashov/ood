@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherStationProSeparateEvents
 {
-	public interface IObservable<T>
+	public interface IObservable<T, EventType>
 	{
 		void RegisterObserver(IObserver<T> observer, EventType eventType, uint priority = 0);
 		void NotifyObservers(IList<EventType> changedValues);

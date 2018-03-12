@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherStationProSeparateEvents
 {
-	public class WeatherData : Observable<WeatherInfo>
+	public class WeatherData : Observable<WeatherInfo, EventType>
 	{
 		private WeatherInfo _prevValue = new WeatherInfo {
 			Pressure = double.MaxValue,
