@@ -33,9 +33,10 @@ namespace WeatherStationDuoProEventsPush
 				StationName = _stationName
 			};
 
-			if (MeasurementsChanged != null)
+			var events = MeasurementsChanged;
+			if (events != null)
 			{
-				MeasurementsChanged.Invoke(this, _currentValue);
+				events.Invoke(this, _currentValue);
 			}
 		}
 	}
