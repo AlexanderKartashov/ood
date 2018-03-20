@@ -60,9 +60,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\full_statistic\full_statistic.csproj">
+    <ProjectReference Include="..\full_statistic\WeatherStationPro.csproj">
       <Project>{5be98825-263f-4ffd-85a5-4d72ef6b4742}</Project>
-      <Name>full_statistic</Name>
+      <Name>WeatherStationPro</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

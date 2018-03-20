@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using full_statistic;
+using WeatherStationPro;
+using WeatherStation;
 
-namespace full_statistic_test
+namespace WeatherStationProDuoTest
 {
 	class Program
 	{
@@ -13,21 +14,22 @@ namespace full_statistic_test
 		{
 			var tw = Console.Out;
 
-			WeatherData wd = new WeatherData("");
+			WeatherStationPro.WeatherData wdOut = new WeatherStationPro.WeatherData("out");
+			WeatherStation.WeatherData wdIn = new WeatherStation.WeatherData("in");
 
-			Display display = new Display(tw);
-			wd.RegisterObserver(display, 0);
+			WeatherStation.Display displayIn = new WeatherStation.Display(tw);
+			wdIn.RegisterObserver(displayIn, 0);
 
-			StatsDisplay statsDisplay = new StatsDisplay(tw);
-			wd.RegisterObserver(statsDisplay, 10);
+			WeatherStationPro.Display statsDisplayOut = new WeatherStationPro.Display(tw);
+			wdOut.RegisterObserver(statsDisplayOut, 10);
 
-			wd.SetMeasurements(3, 0.7, 760, 90, 2);
-			wd.SetMeasurements(4, 0.8, 761, 100, 3);
+			wdOut.SetMeasurements(3, 0.7, 760, 90, 2);
+			wdIn.SetMeasurements(4, 0.8, 761);
 
-			wd.RemoveObserver(statsDisplay);
+			wdOut.RemoveObserver(statsDisplayOut);
 
-			wd.SetMeasurements(10, 0.8, 761, 180, 1);
-			wd.SetMeasurements(-10, 0.8, 761, 220, 10);
+			wdIn.SetMeasurements(10, 0.8, 761);
+			wdOut.SetMeasurements(-10, 0.8, 761, 220, 10);
 		}
 	}
 }

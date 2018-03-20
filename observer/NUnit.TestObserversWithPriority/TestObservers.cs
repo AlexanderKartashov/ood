@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using full_statistic;
+using WeatherStationPro;
 using NSubstitute;
 
 namespace NUnit.TestObserversWithPriority
@@ -18,9 +18,9 @@ namespace NUnit.TestObserversWithPriority
 			var station = "station";
 			WeatherData data = new WeatherData(station);
 
-			var simpleObserver1 = Substitute.For<full_statistic.IObserver<WeatherInfo>>();
-			var simpleObserver2 = Substitute.For<full_statistic.IObserver<WeatherInfo>>();
-			var simpleObserver3 = Substitute.For<full_statistic.IObserver<WeatherInfo>>();
+			var simpleObserver1 = Substitute.For<WeatherStationPro.IObserver<WeatherInfo>>();
+			var simpleObserver2 = Substitute.For<WeatherStationPro.IObserver<WeatherInfo>>();
+			var simpleObserver3 = Substitute.For<WeatherStationPro.IObserver<WeatherInfo>>();
 
 			data.RegisterObserver(simpleObserver1, 0); // lowest priority
 			data.RegisterObserver(simpleObserver2, 42); // hightest priority

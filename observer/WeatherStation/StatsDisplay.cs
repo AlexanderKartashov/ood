@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
-using WeatherStationPro;
 using common;
 
-namespace WeatherStationPro
+namespace WeatherStation
 {
 	public class StatsDisplay : IObserver<WeatherInfo>
 	{
@@ -17,9 +16,6 @@ namespace WeatherStationPro
 		private AverageValue _pressure = new AverageValue();
 		private AverageValue _humidity = new AverageValue();
 
-		private AverageValue _windDirection = new AverageValue();
-		private AverageValue _windSpeed = new AverageValue();
-
 		public StatsDisplay(TextWriter tw) => _tw = tw;
 
 		public void Update(WeatherInfo data)
@@ -27,8 +23,6 @@ namespace WeatherStationPro
 			_temp.Update(data.Temperature);
 			_pressure.Update(data.Pressure);
 			_humidity.Update(data.Humidity);
-			_windDirection.Update(data.WindDirection);
-			_windSpeed.Update(data.WindSpeed);
 
 			PrintStatsData();
 		}
@@ -38,8 +32,6 @@ namespace WeatherStationPro
 			PrintValue("Temperature", _temp);
 			PrintValue("Humidity", _humidity);
 			PrintValue("Pressure", _pressure);
-			PrintValue("Wind direction", _windDirection);
-			PrintValue("Wind speed", _windSpeed);
 			_tw.WriteLine("========================");
 		}
 

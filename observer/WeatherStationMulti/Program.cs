@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using full_statistic;
+using WeatherStationPro;
 
 namespace WeatherStationMulti
 {
@@ -17,7 +17,9 @@ namespace WeatherStationMulti
 			WeatherData wdOut = new WeatherData("out");
 
 			Display display = new Display(tw);
+			StatsDisplay sDisplay = new StatsDisplay(tw);
 			wdIn.RegisterObserver(display, 0);
+			wdIn.RegisterObserver(sDisplay, 2);
 			wdOut.RegisterObserver(display, 10);
 
 			wdIn.SetMeasurements(3, 0.7, 760, 90, 2);

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace full_statistic
+namespace common
 {
-	class AverageValue
+	public class AverageValue
 	{
 		private int _count = 0;
 		private double _minValue = double.MaxValue;

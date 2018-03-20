@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F68879E8-CDEE-4394-BD00-3EC3A18173DB}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{479D4A7A-09CB-4595-A4A1-4D7665A8A5FB}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WeatherStationMulti</RootNamespace>
-    <AssemblyName>WeatherStationMulti</AssemblyName>
+    <RootNamespace>WeatherStation</RootNamespace>
+    <AssemblyName>WeatherStation</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,9 +29,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,13 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Display.cs" />
+    <Compile Include="IObservable.cs" />
+    <Compile Include="IObserver.cs" />
+    <Compile Include="Observable.cs" />
+    <Compile Include="ObserverInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatsDisplay.cs" />
+    <Compile Include="WeatherData.cs" />
+    <Compile Include="WeatherInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\full_statistic\full_statistic.csproj">
-      <Project>{5be98825-263f-4ffd-85a5-4d72ef6b4742}</Project>
-      <Name>full_statistic</Name>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{c69d86a8-66c9-4cac-a68e-f2350e6797ab}</Project>
+      <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

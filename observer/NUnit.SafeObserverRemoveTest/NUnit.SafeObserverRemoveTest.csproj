@@ -63,13 +63,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\full_statistic\full_statistic.csproj">
-      <Project>{5be98825-263f-4ffd-85a5-4d72ef6b4742}</Project>
-      <Name>full_statistic</Name>
-    </ProjectReference>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WeatherStation\WeatherStation.csproj">
+      <Project>{479d4a7a-09cb-4595-a4a1-4d7665a8a5fb}</Project>
+      <Name>WeatherStation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

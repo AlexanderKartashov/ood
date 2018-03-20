@@ -4,10 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeatherStationPro;
 
-namespace full_statistic
+namespace WeatherStationPro
 {
-	public class Display : IObserver<WeatherInfo>
+	public class Display : WeatherStationPro.IObserver<WeatherInfo>
 	{
 		private readonly TextWriter _textWriter;
 

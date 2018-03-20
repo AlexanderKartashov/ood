@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeatherStationPro
+namespace WeatherStation
 {
 	public abstract class Observable<T> : IObservable<T>
 	{

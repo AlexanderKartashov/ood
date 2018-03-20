@@ -4,15 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeatherStationPro
+namespace WeatherStation
 {
 	public class WeatherData : Observable<WeatherInfo>
 	{
 		private double _temperature = 0.0;
 		private double _humidity = 0.0;
 		private double _pressure = 760.0;
-		private double _windDirection = 0;
-		private double _windSpeed = 0;
 		private String _stationName;
 
 		public WeatherData(String stationName)
@@ -23,18 +21,14 @@ namespace WeatherStationPro
 		public double Temperature { get => _temperature; }
 		public double Humidity { get => _humidity; }
 		public double Pressure { get => _pressure; }
-		public double WindDirection { get => _windDirection; }
-		public double WindSpeed { get => _windSpeed; }
 
 		public void MeasurementsChanged() => NotifyObservers();
 
-		public void SetMeasurements(double temp, double humidity, double pressure, double windDirection, double windSpeed)
+		public void SetMeasurements(double temp, double humidity, double pressure)
 		{
 			_humidity = humidity;
 			_temperature = temp;
 			_pressure = pressure;
-			_windSpeed = windSpeed;
-			_windDirection = windDirection;
 
 			MeasurementsChanged();
 		}
@@ -46,8 +40,6 @@ namespace WeatherStationPro
 				Temperature = Temperature,
 				Humidity = Humidity,
 				Pressure = Pressure,
-				WindSpeed = WindSpeed,
-				WindDirection = WindDirection,
 				StationName = _stationName
 			};
 		}
