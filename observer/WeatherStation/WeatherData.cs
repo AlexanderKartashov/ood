@@ -8,9 +8,6 @@ namespace WeatherStation
 {
 	public class WeatherData : Observable<WeatherInfo>
 	{
-		private double _temperature = 0.0;
-		private double _humidity = 0.0;
-		private double _pressure = 760.0;
 		private String _stationName;
 
 		public WeatherData(String stationName)
@@ -18,17 +15,17 @@ namespace WeatherStation
 			_stationName = stationName;
 		}
 
-		public double Temperature { get => _temperature; }
-		public double Humidity { get => _humidity; }
-		public double Pressure { get => _pressure; }
+		public double Temperature { get; private set; } = 0.0;
+		public double Humidity { get; private set; } = 0.0;
+		public double Pressure { get; private set; } = 760.0;
 
 		public void MeasurementsChanged() => NotifyObservers();
 
 		public void SetMeasurements(double temp, double humidity, double pressure)
 		{
-			_humidity = humidity;
-			_temperature = temp;
-			_pressure = pressure;
+			Humidity = humidity;
+			Temperature = temp;
+			Pressure = pressure;
 
 			MeasurementsChanged();
 		}

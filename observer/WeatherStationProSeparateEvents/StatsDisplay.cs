@@ -15,8 +15,7 @@ namespace WeatherStationProSeparateEvents
 		private AverageValue _temp = new AverageValue();
 		private AverageValue _pressure = new AverageValue();
 		private AverageValue _humidity = new AverageValue();
-		private AverageValue _windDirection = new AverageValue();
-		private AverageValue _windSpeed = new AverageValue();
+		private AverageWind _wind = new AverageWind();
 
 		public StatsDisplay(TextWriter tw) => _tw = tw;
 
@@ -25,8 +24,8 @@ namespace WeatherStationProSeparateEvents
 			_temp.Update(data.Temperature);
 			_pressure.Update(data.Pressure);
 			_humidity.Update(data.Humidity);
-			_windDirection.Update(data.WindDirection);
-			_windSpeed.Update(data.WindSpeed);
+			_wind.Update(data.WindSpeed, data.WindDirection);
+
 			PrintStatsData();
 		}
 
@@ -35,8 +34,8 @@ namespace WeatherStationProSeparateEvents
 			PrintValue("Temperature", _temp);
 			PrintValue("Humidity", _humidity);
 			PrintValue("Pressure", _pressure);
-			PrintValue("Wind direction", _windDirection);
-			PrintValue("Wind speed", _windSpeed);
+			var averageWind = _wind.Average;
+			_tw.WriteLine($"Average wind: speed {averageWind.Item1}, direction {averageWind.Item2}");
 			_tw.WriteLine("========================");
 		}
 
