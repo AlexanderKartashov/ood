@@ -8,8 +8,13 @@ namespace streams
 {
 	interface IOutputDataStream
 	{
+		// Записывает в поток данных байт
+		// Выбрасывает исключение std::ios_base::failure в случае ошибки
 		void WriteByte(byte data);
 
-		//void WriteBlock(const void* srcData, long size) = 0;
+		// Записывает в поток блок данных размером size байт, 
+		// располагающийся по адресу srcData,
+		// В случае ошибки выбрасывает исключение std::ios_base::failure
+		void WriteBlock(byte[] data);
 	}
 }
