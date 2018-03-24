@@ -11,12 +11,13 @@ namespace streams
 	{
 		public Dictionary<byte, byte> GenerateReplacementTable(int key)
 		{
-			Dictionary<byte, byte> replacementTable = new Dictionary<byte, byte>(byte.MaxValue);
+			const int rangeElementsCount = byte.MaxValue + 1;
+			Dictionary<byte, byte> replacementTable = new Dictionary<byte, byte>(rangeElementsCount);
 
 			var rand = new Random(key);
-			var shuffledIndecies = Enumerable.Range(0, byte.MaxValue).OrderBy(x => rand.Next()).Select(x => (byte)x).ToArray();
+			var shuffledIndecies = Enumerable.Range(0, rangeElementsCount).OrderBy(x => rand.Next()).Select(x => (byte)x).ToArray();
 
-			Enumerable.Range(0, byte.MaxValue).Select(i => (byte)i).ToList().ForEach(x => {
+			Enumerable.Range(0, rangeElementsCount).Select(i => (byte)i).ToList().ForEach(x => {
 				replacementTable[x] = shuffledIndecies[x];
 			});
 

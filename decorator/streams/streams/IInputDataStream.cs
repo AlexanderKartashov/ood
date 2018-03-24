@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace streams
 {
-	interface IInputDataStream
+	public interface IInputDataStream
 	{
 		// Возвращает признак достижения конца данных потока
 		// Выбрасывает исключение std::ios_base::failuer в случае ошибки
@@ -19,6 +19,6 @@ namespace streams
 		// Считывает из потока блок данных размером size байт, записывая его в память
 		// по адресу dstBuffer
 		// Возвращает количество реально прочитанных байт. Выбрасывает исключение в случае ошибки
-		void ReadBlock(byte[] buffer);
+		byte[] ReadBlock(int size);
 	}
 }

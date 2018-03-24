@@ -11,21 +11,24 @@ namespace StreamsUnitTest
 {
 	[TestFixture]
 	[Parallelizable]
-	public class ReplacementTableGeneratorTest
+	public class ReplacementTableGeneratorWithDifferentKeysTest
 	{
 		[Test]
-		[Parallelizable]
-		public void ReplacementTablesWithDiffetentKeysNotEqual([Random(1, int.MaxValue, 10000)] int i)
+		public void ReplacementTablesWithDiffetentKeysNotEqual([Random(1, int.MaxValue, 1000)] int i)
 		{
 			ReplacementTableGenerator generator = new ReplacementTableGenerator();
 			var table1 = generator.GenerateReplacementTable(i);
 			var table2 = generator.GenerateReplacementTable(i - 1);
 			CollectionAssert.AreNotEquivalent(table1, table2);
 		}
+	}
 
+	[TestFixture]
+	[Parallelizable]
+	public class ReplacementTableGeneratorWithEqualKeysTest
+	{
 		[Test]
-		[Parallelizable]
-		public void ReplacementTablesWithSameKeyAreEqual([Random(0, int.MaxValue, 10000)] int i)
+		public void ReplacementTablesWithSameKeyAreEqual([Random(0, int.MaxValue, 1000)] int i)
 		{
 			ReplacementTableGenerator generator = new ReplacementTableGenerator();
 			var table1 = generator.GenerateReplacementTable(i);

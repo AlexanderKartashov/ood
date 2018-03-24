@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DecriptionDecorator.cs" />
+    <Compile Include="EncriptionDecorator.cs" />
+    <Compile Include="EncriptionWithReplacementTable.cs" />
+    <Compile Include="IEncriptionStrategy.cs" />
     <Compile Include="IInputDataStream.cs" />
     <Compile Include="IOutputDataStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
