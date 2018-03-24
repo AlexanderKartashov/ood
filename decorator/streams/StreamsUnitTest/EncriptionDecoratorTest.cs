@@ -10,7 +10,7 @@ namespace StreamsUnitTest
 	public class EncriptionDecoratorTest
 	{
 		[Test]
-		public void TestEncriptInWriteCall([Range(0, byte.MaxValue - 1)] byte i)
+		public void TestWriteByte([Range(0, byte.MaxValue - 1)] byte i)
 		{
 			var strategy = Substitute.For<IEncriptionStrategy>();
 			var stream = Substitute.For<IOutputDataStream>();
@@ -25,7 +25,8 @@ namespace StreamsUnitTest
 			stream.DidNotReceive().WriteBlock(Arg.Any<byte[]>());
 		}
 
-		public void TestEncriptInWriteBlockCall()
+		[Test]
+		public void TestWriteBlock()
 		{
 			var strategy = Substitute.For<IEncriptionStrategy>();
 			var stream = Substitute.For<IOutputDataStream>();
@@ -38,14 +39,14 @@ namespace StreamsUnitTest
 
 			Assert.That(() => encription.WriteBlock(bytes), Throws.Nothing);
 
-			strategy.Received(bytes.Length).Encript(Arg.Any<byte>());
-			strategy.DidNotReceive().Decript(Arg.Any<byte>());
-			stream.Received(1).WriteBlock(Arg.Is(expected));
-			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
-
 			// original data not changed
 			byte[] originalBytes = Enumerable.Range(0, 100).Select(x => (byte)x).ToArray();
 			Assert.That(bytes, Is.EquivalentTo(originalBytes));
+
+			strategy.Received(bytes.Length).Encript(Arg.Any<byte>());
+			strategy.DidNotReceive().Decript(Arg.Any<byte>());
+			stream.Received(1).WriteBlock(Arg.Is<byte[]>(x => x.SequenceEqual(expected)));
+			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
 		}
 	}
 }

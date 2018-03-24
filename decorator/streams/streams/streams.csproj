@@ -40,14 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompressionDecorator.cs" />
+    <Compile Include="DecompressionDecorator.cs" />
     <Compile Include="DecriptionDecorator.cs" />
     <Compile Include="EncriptionDecorator.cs" />
     <Compile Include="EncriptionWithReplacementTable.cs" />
+    <Compile Include="ICompressionStrategy.cs" />
     <Compile Include="IEncriptionStrategy.cs" />
     <Compile Include="IInputDataStream.cs" />
     <Compile Include="IOutputDataStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReplacementTableGenerator.cs" />
+    <Compile Include="RLECompressionStrategy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
