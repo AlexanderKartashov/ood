@@ -14,10 +14,21 @@ namespace StreamsUnitTest
 	public class CompressionDecoratorTest
 	{
 		[Test]
-		public void TestMethod()
+		public void TestWriteBlock()
 		{
-			// TODO: Add your test code here
-			Assert.Fail("WriteBlock");
+			var strategy = Substitute.For<ICompressionStrategy>();
+			var stream = Substitute.For<IOutputDataStream>();
+
+			byte[] data = Enumerable.Range(0, 100).Select(x => (byte)x).ToArray();
+			strategy.Compress(Arg.Is(data)).Returns(data);
+
+			var encription = new CompressionDecorator(stream, strategy);
+			Assert.That(() => encription.WriteBlock(data), Throws.Nothing);
+
+			stream.Received(1).WriteBlock(Arg.Is(data));
+			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
+			strategy.Received(1).Compress(Arg.Is(data));
+			strategy.DidNotReceive().Decompress(Arg.Any<byte[]>());
 		}
 
 		[Test]

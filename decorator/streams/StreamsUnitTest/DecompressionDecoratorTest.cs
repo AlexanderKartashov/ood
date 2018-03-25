@@ -14,10 +14,22 @@ namespace StreamsUnitTest
 	public class DecompressionDecoratorTest
 	{
 		[Test]
-		public void TestMethod()
+		public void TestReadBlock()
 		{
-			// TODO: Add your test code here
-			Assert.Fail("ReadBlock");
+			var strategy = Substitute.For<ICompressionStrategy>();
+			var stream = Substitute.For<IInputDataStream>();
+			byte[] res = Enumerable.Range(0, 100).Select(x => (byte)x).ToArray();
+			stream.ReadBlock(Arg.Is(100)).Returns(res);
+			strategy.Decompress(Arg.Is(res)).Returns(res);
+
+			var encription = new DecompressionDecorator(stream, strategy);
+			Assert.That(() => encription.ReadBlock(100), Is.EqualTo(res));
+
+			stream.DidNotReceive().ReadByte();
+			stream.DidNotReceive().IsEOF();
+			stream.Received(1).ReadBlock(Arg.Is(100));
+			strategy.DidNotReceive().Compress(Arg.Any<byte[]>());
+			strategy.Received(1).Decompress(Arg.Is(res));
 		}
 
 		[Test]
