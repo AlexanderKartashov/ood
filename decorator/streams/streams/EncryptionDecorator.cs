@@ -2,13 +2,13 @@
 
 namespace streams
 {
-	public class EncriptionDecorator : IOutputDataStream
+	public class EncryptionDecorator : IOutputDataStream
 	{
 		private readonly IOutputDataStream _stream;
-		private readonly IEncriptionStrategy _encriptionStrategy;
+		private readonly IEncryptionStrategy _encriptionStrategy;
 
-		public EncriptionDecorator(IOutputDataStream stream,
-			IEncriptionStrategy encriptionStrategy)
+		public EncryptionDecorator(IOutputDataStream stream,
+			IEncryptionStrategy encriptionStrategy)
 		{
 			_stream = stream ?? throw new ArgumentNullException(nameof(stream));
 			_encriptionStrategy = encriptionStrategy ?? throw new ArgumentNullException(nameof(encriptionStrategy));
@@ -20,14 +20,14 @@ namespace streams
 			data.CopyTo(localData, 0);
 			for (var i = 0; i < localData.Length; ++i)
 			{
-				localData[i] = _encriptionStrategy.Encript(localData[i]);
+				localData[i] = _encriptionStrategy.Encrypt(localData[i]);
 			}
 			_stream.WriteBlock(localData);
 		}
 
 		public void WriteByte(byte data)
 		{
-			_stream.WriteByte(_encriptionStrategy.Encript(data));			
+			_stream.WriteByte(_encriptionStrategy.Encrypt(data));			
 		}
 	}
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace streams
 {
-	public interface IEncriptionStrategy
+	public interface IEncryptionStrategy
 	{
-		byte Encript(byte value);
-		byte Decript(byte value);
+		byte Encrypt(byte value);
+		byte Decrypt(byte value);
 	}
 }

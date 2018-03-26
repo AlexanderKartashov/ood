@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using streams;
 
 namespace transform
 {
@@ -24,46 +25,11 @@ namespace transform
 
 		static void Process(CommandLineOptions options)
 		{
+			var streamsDecorator = new StreamsDecorator();
+			(IInputDataStream input, IOutputDataStream output) = streamsDecorator.ProccessCommandLineOptions(options);
 
-
-			if (options.Compress)
-			{
-
-			}
-			if (options.Decompress)
-			{
-
-			}
-			if (options.Encrypt.HasValue)
-			{
-
-			}
-			if (options.Decrypt.HasValue)
-			{
-
-			}
+			var pipeline = new StreamsPipeline();
+			pipeline.Pipeline(input, output);
 		}
 	}
-
-	class CommandLineOptions
-	{
-		[Option('e', "encrypt", Required = false)]
-		public int? Encrypt { get; set; }
-
-		[Option('d', "decrypt", Required = false)]
-		public int? Decrypt { get; set; }
-
-		[Option('c', "compress", Required = false, Default = false)]
-		public bool Compress { get; set; }
-
-		[Option('u', "decompress", Required = false, Default = false)]
-		public bool Decompress { get; set; }
-
-		[Option('i', "input", Required = true)]
-		public string Input { get; set; }
-
-		[Option('o', "output", Required = true)]
-		public string Output { get; set; }
-	}
-
 }

@@ -9,21 +9,21 @@ namespace streams
 {
 	public class OutputFileStream : IOutputDataStream
 	{
-		private readonly FileStream _file;
+		private readonly BinaryWriter _file;
 
 		public OutputFileStream(string filePath)
 		{
-			
+			_file = new BinaryWriter(new FileStream(filePath, FileMode.Create), Encoding.ASCII);
 		}
 
 		public void WriteBlock(byte[] data)
 		{
-			throw new NotImplementedException();
+			_file.Write(data);
 		}
 
 		public void WriteByte(byte data)
 		{
-			throw new NotImplementedException();
+			_file.Write(data);
 		}
 	}
 }

@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace streams
 {
-	public class EncriptionWithReplacementTable : IEncriptionStrategy
+	public class EncryptionWithReplacementTable : IEncryptionStrategy
 	{
 		private readonly Dictionary<byte, byte> _replacementTable;
 
-		public EncriptionWithReplacementTable(Dictionary<byte, byte> replacementTable) => _replacementTable = replacementTable ?? throw new ArgumentNullException(nameof(replacementTable));
+		public EncryptionWithReplacementTable(Dictionary<byte, byte> replacementTable) => _replacementTable = replacementTable ?? throw new ArgumentNullException(nameof(replacementTable));
 
-		public byte Decript(byte value)
+		public byte Decrypt(byte value)
 		{
 			return _replacementTable.ContainsValue(value)
 				? _replacementTable.First(x => x.Value == value).Key
 				: throw new ArgumentException(value.ToString());
 		}
 
-		public byte Encript(byte value)
+		public byte Encrypt(byte value)
 		{
 			return _replacementTable.ContainsKey(value)
 				? _replacementTable[value]

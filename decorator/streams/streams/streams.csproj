@@ -68,11 +68,11 @@
   <ItemGroup>
     <Compile Include="CompressionDecorator.cs" />
     <Compile Include="DecompressionDecorator.cs" />
-    <Compile Include="DecriptionDecorator.cs" />
-    <Compile Include="EncriptionDecorator.cs" />
-    <Compile Include="EncriptionWithReplacementTable.cs" />
+    <Compile Include="DecryptionDecorator.cs" />
+    <Compile Include="EncryptionDecorator.cs" />
+    <Compile Include="EncryptionWithReplacementTable.cs" />
     <Compile Include="ICompressionStrategy.cs" />
-    <Compile Include="IEncriptionStrategy.cs" />
+    <Compile Include="IEncryptionStrategy.cs" />
     <Compile Include="IInputDataStream.cs" />
     <Compile Include="InputFileStream.cs" />
     <Compile Include="IOutputDataStream.cs" />
