@@ -9,11 +9,11 @@ namespace transform
 {
 	class CommandLineOptions
 	{
-		[Option('e', "encrypt", Required = false, MetaValue = "<key>")]
-		public int? Encrypt { get; set; }
+		[Option('e', "encrypt", Required = false, MetaValue = "<keys>")]
+		public IEnumerable<int> Encrypt { get; set; }
 
-		[Option('d', "decrypt", Required = false, MetaValue = "<key>")]
-		public int? Decrypt { get; set; }
+		[Option('d', "decrypt", Required = false, MetaValue = "<keys>")]
+		public IEnumerable<int> Decrypt { get; set; }
 
 		[Option('c', "compress", Required = false, Default = false)]
 		public bool Compress { get; set; }

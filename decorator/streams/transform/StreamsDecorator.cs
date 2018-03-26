@@ -19,9 +19,9 @@ namespace transform
 				output = AddCompression(output);
 			}
 
-			if (options.Encrypt.HasValue)
+			if (options.Encrypt != null)
 			{
-				output = AddEncryption(output, options.Encrypt.Value);
+				output = AddEncryption(output, options.Encrypt);
 			}
 
 			IInputDataStream input = null;
@@ -35,9 +35,9 @@ namespace transform
 					input = AddDecompression(input);
 				}
 
-				if (options.Decrypt.HasValue)
+				if (options.Decrypt != null)
 				{
-					input = AddDecryption(input, options.Decrypt.Value);
+					input = AddDecryption(input, options.Decrypt);
 				}
 			}
 			else
@@ -48,9 +48,13 @@ namespace transform
 			return (input, output);
 		}
 
-		IInputDataStream AddDecryption(IInputDataStream input, int key)
+		IInputDataStream AddDecryption(IInputDataStream input, IEnumerable<int> keys)
 		{
-			return new DecryptionDecorator(input, new EncryptionWithReplacementTable(new ReplacementTableGenerator().GenerateReplacementTable(key)));
+			IInputDataStream stream = input;
+			keys.ToList().ForEach(x => {
+				stream = new DecryptionDecorator(stream, new EncryptionWithReplacementTable(new ReplacementTableGenerator().GenerateReplacementTable(x)));
+			});
+			return stream;
 		}
 
 		IInputDataStream AddDecompression(IInputDataStream input)
@@ -63,9 +67,13 @@ namespace transform
 			return new CompressionDecorator(output, new RLECompressionStrategy());
 		}
 
-		IOutputDataStream AddEncryption(IOutputDataStream output, int key)
+		IOutputDataStream AddEncryption(IOutputDataStream output, IEnumerable<int> keys)
 		{
-			return new EncryptionDecorator(output, new EncryptionWithReplacementTable(new ReplacementTableGenerator().GenerateReplacementTable(key)));
+			IOutputDataStream stream = output;
+			keys.ToList().ForEach(x => {
+				stream = new EncryptionDecorator(stream, new EncryptionWithReplacementTable(new ReplacementTableGenerator().GenerateReplacementTable(x)));
+			});
+			return stream;
 		}
 
 		string GetAbsolutePath(string filePath)
