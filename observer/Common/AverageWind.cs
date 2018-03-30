@@ -60,49 +60,7 @@ namespace common
 				return (0, 0);
 			}
 
-			if (x == 0 && y > 0)
-			{
-				return (
-					radius,
-					Math.PI / 2
-				);
-			}
-			if (x == 0 && y < 0)
-			{
-				return (
-					radius,
-					-1 * Math.PI / 2
-				);
-			}
-			if (x == 0 && y == 0)
-			{
-				return (0, 0);
-			}
-
-			var div = y / x;
-			if (x > 0)
-			{
-				return (
-					radius,
-					Math.Atan(div)
-				);
-			}
-			if (x < 0 && y >= 0)
-			{
-				return (
-					radius,
-					Math.Atan(div) + Math.PI
-				);
-			}
-			if (x < 0 && y < 0)
-			{
-				return (
-					radius,
-					Math.Atan(div) - Math.PI
-				);
-			}
-
-			return (0, 0);
+			return (radius, Math.Atan2(x, y));
 		}
 
 		private (double, double) ToDecart(double value, double angle)

@@ -22,8 +22,8 @@ namespace WeatherStationMulti
 			wdIn.RegisterObserver(sDisplay, 2);
 			wdOut.RegisterObserver(display, 10);
 
-			wdIn.SetMeasurements(3, 0.7, 760, 90, 2);
-			wdIn.SetMeasurements(4, 0.8, 761, 100, 3);
+			wdIn.SetMeasurements(3, 0.7, 760, 45, 3);
+			wdIn.SetMeasurements(4, 0.8, 761, 0, 3);
 
 			wdOut.SetMeasurements(3, 0.7, 760, 0, 0);
 		}
