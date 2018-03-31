@@ -14,6 +14,11 @@ namespace streams
 			_encriptionStrategy = encriptionStrategy ?? throw new ArgumentNullException(nameof(encriptionStrategy));
 		}
 
+		public void Dispose()
+		{
+			_stream.Dispose();
+		}
+
 		public void WriteBlock(byte[] data)
 		{
 			byte[] localData = new byte[data.Length];

@@ -16,54 +16,51 @@ namespace StreamsUnitTest
 		[Test]
 		public void TestReadBlock()
 		{
-			var strategy = Substitute.For<ICompressionStrategy>();
 			var stream = Substitute.For<IInputDataStream>();
-			byte[] res = Enumerable.Range(0, 100).Select(x => (byte)x).ToArray();
-			stream.ReadBlock(Arg.Is(100)).Returns(res);
-			strategy.Decompress(Arg.Is(res)).Returns(res);
+			stream.ReadBlock(Arg.Is(2)).Returns(new byte[] { 10, 0 }, new byte[] { 1, 1 }, new byte[] { 50, 100 });
 
-			var encription = new DecompressionDecorator(stream, strategy);
-			Assert.That(() => encription.ReadBlock(100), Is.EqualTo(res));
+			var expected = Enumerable.Repeat(0, 10).Concat(Enumerable.Repeat(1, 1).Concat(Enumerable.Repeat(100, 49))).ToArray();
+
+			var encription = new RLEDecompressionDecorator(stream);
+			Assert.That(() => encription.ReadBlock(60), Is.EqualTo(expected));
 
 			stream.DidNotReceive().ReadByte();
-			stream.DidNotReceive().IsEOF();
-			stream.Received(1).ReadBlock(Arg.Is(100));
-			strategy.DidNotReceive().Compress(Arg.Any<byte[]>());
-			strategy.Received(1).Decompress(Arg.Is(res));
+			stream.Received(3).ReadBlock(Arg.Is(2));
 		}
 
 		[Test]
 		public void TestReadByte()
 		{
-			var strategy = Substitute.For<ICompressionStrategy>();
 			var stream = Substitute.For<IInputDataStream>();
-			stream.ReadByte().Returns((byte)0);
+			stream.ReadBlock(Arg.Is(2)).Returns(new byte[] { 5, 0 });
 
-			var encription = new DecompressionDecorator(stream, strategy);
-			Assert.That(() => encription.ReadByte(), Is.EqualTo(0b0));
+			var encription = new RLEDecompressionDecorator(stream);
+			Assert.That(() => encription.ReadByte(), Is.EqualTo(0));
 
-			stream.Received(1).ReadByte();
-			stream.DidNotReceive().IsEOF();
-			stream.DidNotReceive().ReadBlock(Arg.Any<int>());
-			strategy.DidNotReceive().Compress(Arg.Any<byte[]>());
-			strategy.DidNotReceive().Decompress(Arg.Any<byte[]>());
+			stream.DidNotReceive().ReadByte();
+			stream.Received(1).ReadBlock(Arg.Is(2));
 		}
 
 		[Test]
 		public void TestIsEOF([Values(true, false)] bool value)
 		{
-			var strategy = Substitute.For<ICompressionStrategy>();
 			var stream = Substitute.For<IInputDataStream>();
 			stream.IsEOF().Returns(value);
 
-			var encription = new DecompressionDecorator(stream, strategy);
+			var encription = new RLEDecompressionDecorator(stream);
 			Assert.That(() => encription.IsEOF(), Is.EqualTo(value));
 
 			stream.Received(1).IsEOF();
 			stream.DidNotReceive().ReadByte();
 			stream.DidNotReceive().ReadBlock(Arg.Any<int>());
-			strategy.DidNotReceive().Compress(Arg.Any<byte[]>());
-			strategy.DidNotReceive().Decompress(Arg.Any<byte[]>());
+
+			stream.ClearReceivedCalls();
+
+			stream.ReadBlock(2).Returns(new byte[] { 5, 0 });
+			encription.ReadByte();
+			Assert.That(() => encription.IsEOF(), Is.EqualTo(false));
+			stream.Received(1).IsEOF();
 		}
 	}
 }
+

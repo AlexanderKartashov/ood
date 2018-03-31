@@ -1,0 +1,53 @@
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -o "random.txt" 
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -i "random.txt" -c -o "compressed.txt" 
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -i "random.txt" -e 42 -o "encrypted.txt" 
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -i "random.txt" -c -e 42 -o "encripted.txt" 
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -i "random.txt" -e 42 42 -o "doubleEncrypted.txt" 
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -i "random.txt" -e 42 42 -c -o "compressedDoubleEncrypted.txt" 
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -i "compressed.txt" -u -o "decompressed.txt" 
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -i "encrypted.txt" -d 42 -o "decrypted.txt" 
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -i "encripted.txt" -u -d 42 -o "decompressedDecrypted.txt" 
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -i "doubleEncrypted.txt" -d 42 42 -o "doubleDecrypted.txt" 
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -i "compressedDoubleEncrypted.txt" -d 42 42 -u -o "decompressedDoubleDecrypted.txt" 
+
+F:\ood\decorator\streams\transform>fc /b "bin\\release\\""random.txt" "bin\\release\\""decompressed.txt" 
+Сравнение файлов BIN\\RELEASE\\random.txt и BIN\\RELEASE\\DECOMPRESSED.TXT
+FC: различия не найдены
+
+
+F:\ood\decorator\streams\transform>fc /b "bin\\release\\""random.txt" "bin\\release\\""decrypted.txt" 
+Сравнение файлов BIN\\RELEASE\\random.txt и BIN\\RELEASE\\DECRYPTED.TXT
+FC: различия не найдены
+
+
+F:\ood\decorator\streams\transform>fc /b "bin\\release\\""random.txt" "bin\\release\\""decompressedDecrypted.txt" 
+Сравнение файлов BIN\\RELEASE\\random.txt и BIN\\RELEASE\\DECOMPRESSEDDECRYPTED.TXT
+FC: различия не найдены
+
+
+F:\ood\decorator\streams\transform>fc /b "bin\\release\\""random.txt" "bin\\release\\""doubleDecrypted.txt" 
+Сравнение файлов BIN\\RELEASE\\random.txt и BIN\\RELEASE\\DOUBLEDECRYPTED.TXT
+FC: различия не найдены
+
+
+F:\ood\decorator\streams\transform>fc /b "bin\\release\\""random.txt" "bin\\release\\""decompressedDoubleDecrypted.txt" 
+Сравнение файлов BIN\\RELEASE\\random.txt и BIN\\RELEASE\\DECOMPRESSEDDOUBLEDECRYPTED.TXT
+FC: различия не найдены
+
+
+F:\ood\decorator\streams\transform>call ""bin\\release\\"transform.exe" -i "encrypted.txt" -d 42 -o "decryptedWithAnotherKey.txt" 
+
+F:\ood\decorator\streams\transform>fc /b "bin\\release\\""random.txt" "bin\\release\\""decryptedWithAnotherKey.txt"  1>encriptionKeysDiff.txt 
+
+F:\ood\decorator\streams\transform>fc /b "bin\\release\\""encrypted.txt" "bin\\release\\""doubleEncrypted.txt"  1>encriptionCountsDiff.txt 

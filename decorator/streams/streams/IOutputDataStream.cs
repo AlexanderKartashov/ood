@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace streams
 {
-	public interface IOutputDataStream
+	public interface IOutputDataStream : IDisposable
 	{
 		// Записывает в поток данных байт
 		// Выбрасывает исключение std::ios_base::failure в случае ошибки

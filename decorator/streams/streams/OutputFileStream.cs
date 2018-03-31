@@ -16,6 +16,11 @@ namespace streams
 			_file = new BinaryWriter(new FileStream(filePath, FileMode.Create), Encoding.ASCII);
 		}
 
+		public void Dispose()
+		{
+			// do nothing
+		}
+
 		public void WriteBlock(byte[] data)
 		{
 			_file.Write(data);

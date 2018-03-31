@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace streams
 {
-	public interface ICompressionStrategy
+	class RLECompressionState
 	{
-		byte[] Compress(byte[] bytes);
-
-		byte[] Decompress(byte[] bytes);
+		public byte Count { get; set; } = 1;
+		public byte Value { get; set; } = 0;
 	}
 }

@@ -10,7 +10,19 @@ namespace transform
 {
 	class StreamsDecorator
 	{
-		public (IInputDataStream input, IOutputDataStream output) ProccessCommandLineOptions(CommandLineOptions options)
+		public class Streams : IDisposable
+		{
+			public IInputDataStream InputStream { get; set; }
+			public IOutputDataStream OutputStream { get; set; }
+
+			public void Dispose()
+			{
+				OutputStream.Dispose();
+			}
+		}
+
+
+		public Streams ProccessCommandLineOptions(CommandLineOptions options)
 		{
 			string outputFilePath = GetAbsolutePath(options.Output);
 			IOutputDataStream output = new OutputFileStream(outputFilePath);
@@ -45,7 +57,7 @@ namespace transform
 				input = new RandomStream();
 			}
 
-			return (input, output);
+			return new Streams{ InputStream = input, OutputStream = output };
 		}
 
 		IInputDataStream AddDecryption(IInputDataStream input, IEnumerable<int> keys)
@@ -59,12 +71,12 @@ namespace transform
 
 		IInputDataStream AddDecompression(IInputDataStream input)
 		{
-			return new DecompressionDecorator(input, new RLECompressionStrategy());
+			return new RLEDecompressionDecorator(input);
 		}
 
 		IOutputDataStream AddCompression(IOutputDataStream output)
 		{
-			return new CompressionDecorator(output, new RLECompressionStrategy());
+			return new RLECompressionDectorator(output);
 		}
 
 		IOutputDataStream AddEncryption(IOutputDataStream output, IEnumerable<int> keys)

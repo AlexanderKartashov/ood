@@ -11,11 +11,7 @@ namespace transform
 	{
 		public void Pipeline(IInputDataStream input, IOutputDataStream output)
 		{
-			while(!input.IsEOF())
-			{
-				const int size = 1024 * 1024; // 1MB
-				output.WriteBlock(input.ReadBlock(size));
-			}
+			
 		}
 	}
 }

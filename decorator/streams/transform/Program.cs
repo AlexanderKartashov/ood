@@ -26,10 +26,14 @@ namespace transform
 		static void Process(CommandLineOptions options)
 		{
 			var streamsDecorator = new StreamsDecorator();
-			(IInputDataStream input, IOutputDataStream output) = streamsDecorator.ProccessCommandLineOptions(options);
-
-			var pipeline = new StreamsPipeline();
-			pipeline.Pipeline(input, output);
+			using (var streams = streamsDecorator.ProccessCommandLineOptions(options))
+			{
+				while (!streams.InputStream.IsEOF())
+				{
+					const int size = 1024 * 1024; // 1MB
+					streams.OutputStream.WriteBlock(streams.InputStream.ReadBlock(size));
+				}
+			}
 		}
 	}
 }
