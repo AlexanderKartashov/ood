@@ -7,7 +7,7 @@ namespace StreamsUnitTest
 {
 	[TestFixture]
 	[Parallelizable]
-	public class EncriptionDecoratorTest
+	public class EncryptionDecoratorTest
 	{
 		[Test]
 		public void TestWriteByte([Range(0, byte.MaxValue - 1)] byte i)
@@ -16,8 +16,8 @@ namespace StreamsUnitTest
 			var stream = Substitute.For<IOutputDataStream>();
 			strategy.Encrypt(Arg.Is(i)).Returns((byte)(i + 1));
 
-			var encription = new EncryptionDecorator(stream, strategy);
-			Assert.That(() => encription.WriteByte(i), Throws.Nothing);
+			var encryption = new EncryptionDecorator(stream, strategy);
+			Assert.That(() => encryption.WriteByte(i), Throws.Nothing);
 
 			strategy.Received(1).Encrypt(i);
 			strategy.DidNotReceive().Decrypt(Arg.Any<byte>());
@@ -35,9 +35,9 @@ namespace StreamsUnitTest
 			strategy.Encrypt(Arg.Any<byte>()).Returns(x => (byte)(x.Arg<byte>() + 1));
 
 			byte[] expected = Enumerable.Range(1, 100).Select(x => (byte)x).ToArray();
-			var encription = new EncryptionDecorator(stream, strategy);
+			var encryption = new EncryptionDecorator(stream, strategy);
 
-			Assert.That(() => encription.WriteBlock(bytes), Throws.Nothing);
+			Assert.That(() => encryption.WriteBlock(bytes), Throws.Nothing);
 
 			// original data not changed
 			byte[] originalBytes = Enumerable.Range(0, 100).Select(x => (byte)x).ToArray();

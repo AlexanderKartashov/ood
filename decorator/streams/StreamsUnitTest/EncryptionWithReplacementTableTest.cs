@@ -24,57 +24,57 @@ namespace StreamsUnitTest
 			const byte maxValue = 100;
 			Dictionary<byte, byte> dictionary = new Dictionary<byte, byte>(maxValue);
 			Enumerable.Range(0, maxValue).ToList().ForEach(x => dictionary.Add((byte)x, (byte)(x + 1)));
-			EncryptionWithReplacementTable encription = new EncryptionWithReplacementTable(dictionary);
+			EncryptionWithReplacementTable encryption = new EncryptionWithReplacementTable(dictionary);
 
-			Assert.That(() => { encription.Decrypt(byte.MaxValue); }, Throws.ArgumentException);
-			Assert.That(() => { encription.Decrypt(0); }, Throws.ArgumentException);
-			Assert.That(() => { encription.Encrypt(byte.MaxValue); }, Throws.TypeOf<KeyNotFoundException>());
+			Assert.That(() => { encryption.Decrypt(byte.MaxValue); }, Throws.ArgumentException);
+			Assert.That(() => { encryption.Decrypt(0); }, Throws.ArgumentException);
+			Assert.That(() => { encryption.Encrypt(byte.MaxValue); }, Throws.TypeOf<KeyNotFoundException>());
 		}
 	}
 
 	[TestFixture]
 	[Parallelizable]
-	public class EncryptionWithReplacementTableEncriptionTest
+	public class EncryptionWithReplacementTableEncryptionTest
 	{
 		private Dictionary<byte, byte> _dictionary;
 		private const byte _maxValue = 100;
-		private EncryptionWithReplacementTable _encription;
+		private EncryptionWithReplacementTable _encryption;
 
 		[SetUp]
 		public void Setup()
 		{
 			_dictionary = new Dictionary<byte, byte>();
 			Enumerable.Range(0, _maxValue).ToList().ForEach(x => _dictionary.Add((byte)x, (byte)(x + 1)));
-			_encription = new EncryptionWithReplacementTable(_dictionary);
+			_encryption = new EncryptionWithReplacementTable(_dictionary);
 		}
 
 		[Test]
-		public void TestEncription([Range(0, _maxValue - 1)] byte i)
+		public void TestEncryption([Range(0, _maxValue - 1)] byte i)
 		{
-			Assert.That(_encription.Encrypt(i), Is.EqualTo((byte)(i + 1)));
+			Assert.That(_encryption.Encrypt(i), Is.EqualTo((byte)(i + 1)));
 		}
 	}
 
 	[TestFixture]
 	[Parallelizable]
-	public class EncryptionWithReplacementTableDecriptionTest
+	public class EncryptionWithReplacementTableDecryptionTest
 	{
 		private Dictionary<byte, byte> _dictionary;
 		private const byte _maxValue = 100;
-		private EncryptionWithReplacementTable _encription;
+		private EncryptionWithReplacementTable _encryption;
 
 		[SetUp]
 		public void Setup()
 		{
 			_dictionary = new Dictionary<byte, byte>();
 			Enumerable.Range(0, _maxValue).ToList().ForEach(x => _dictionary.Add((byte)x, (byte)(x + 1)));
-			_encription = new EncryptionWithReplacementTable(_dictionary);
+			_encryption = new EncryptionWithReplacementTable(_dictionary);
 		}
 
 		[Test]
-		public void TestDecription([Range(1, _maxValue)] byte i)
+		public void TestDecryption([Range(1, _maxValue)] byte i)
 		{
-			Assert.That(_encription.Decrypt(i), Is.EqualTo((byte)(i - 1)));
+			Assert.That(_encryption.Decrypt(i), Is.EqualTo((byte)(i - 1)));
 		}
 	}
 }

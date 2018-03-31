@@ -21,28 +21,28 @@ namespace StreamsUnitTest
 			var stream = Substitute.For<IOutputDataStream>();
 			byte[] data = Enumerable.Repeat(0, 100).Select(x => (byte)x).ToArray();
 
-			var encription = new RLECompressionDectorator(stream);
-			Assert.That(() => encription.WriteBlock(data), Throws.Nothing);
+			var compression = new RLECompressionDectorator(stream);
+			Assert.That(() => compression.WriteBlock(data), Throws.Nothing);
 
 			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
 			stream.DidNotReceive().WriteBlock(Arg.Any<byte[]>());
 
-			Assert.That(() => encription.WriteByte(0), Throws.Nothing);
+			Assert.That(() => compression.WriteByte(0), Throws.Nothing);
 			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
 			stream.DidNotReceive().WriteBlock(Arg.Any<byte[]>());
 
-			Assert.That(() => encription.WriteBlock(data), Throws.Nothing);
+			Assert.That(() => compression.WriteBlock(data), Throws.Nothing);
 			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
 			stream.Received(1).WriteBlock(Arg.Is<byte[]>(x => x.SequenceEqual(new byte[] { _maxCount, 0 })));
 
 			stream.ClearReceivedCalls();
 
-			Assert.That(() => encription.WriteBlock(new byte[] { 5 }), Throws.Nothing);
+			Assert.That(() => compression.WriteBlock(new byte[] { 5 }), Throws.Nothing);
 			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
 			stream.Received(1).WriteBlock(Arg.Is<byte[]>(x => x.SequenceEqual(new byte[] { 74, 0 })));
 
 			stream.ClearReceivedCalls();
-			encription.Dispose();
+			compression.Dispose();
 			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
 			stream.Received(1).WriteBlock(Arg.Is<byte[]>(x => x.SequenceEqual(new byte[] { 1, 5 })));
 		}
@@ -52,33 +52,33 @@ namespace StreamsUnitTest
 		{
 			var stream = Substitute.For<IOutputDataStream>();
 
-			var encription = new RLECompressionDectorator(stream);
+			var compression = new RLECompressionDectorator(stream);
 			for (var i = 0; i < _maxCount; ++i)
 			{
-				Assert.That(() => encription.WriteByte(0), Throws.Nothing);
+				Assert.That(() => compression.WriteByte(0), Throws.Nothing);
 
 				stream.DidNotReceive().WriteByte(Arg.Any<byte>());
 				stream.DidNotReceive().WriteBlock(Arg.Any<byte[]>());
 			}
 
-			Assert.That(() => encription.WriteByte(0), Throws.Nothing);
+			Assert.That(() => compression.WriteByte(0), Throws.Nothing);
 			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
 			stream.Received(1).WriteBlock(Arg.Is<byte[]>(x => x.SequenceEqual(new byte[] { _maxCount, 0 })));
 
 			stream.ClearReceivedCalls();
 
-			Assert.That(() => encription.WriteByte(1), Throws.Nothing);
+			Assert.That(() => compression.WriteByte(1), Throws.Nothing);
 			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
 			stream.Received(1).WriteBlock(Arg.Is<byte[]>(x => x.SequenceEqual(new byte[] { 1, 0 })));
 
 			stream.ClearReceivedCalls();
 
-			Assert.That(() => encription.WriteByte(0), Throws.Nothing);
+			Assert.That(() => compression.WriteByte(0), Throws.Nothing);
 			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
 			stream.Received(1).WriteBlock(Arg.Is<byte[]>(x => x.SequenceEqual(new byte[] { 1, 1 })));
 
 			stream.ClearReceivedCalls();
-			encription.Dispose();
+			compression.Dispose();
 			stream.DidNotReceive().WriteByte(Arg.Any<byte>());
 			stream.Received(1).WriteBlock(Arg.Is<byte[]>(x => x.SequenceEqual(new byte[] { 1, 0 })));
 		}

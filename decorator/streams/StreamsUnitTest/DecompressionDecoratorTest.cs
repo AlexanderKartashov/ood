@@ -11,7 +11,7 @@ namespace StreamsUnitTest
 {
 	[TestFixture]
 	[Parallelizable]
-	public class DecompressionDecoratorTest
+	public class DedecompressionDecoratorTest
 	{
 		[Test]
 		public void TestReadBlock()
@@ -21,8 +21,8 @@ namespace StreamsUnitTest
 
 			var expected = Enumerable.Repeat(0, 10).Concat(Enumerable.Repeat(1, 1).Concat(Enumerable.Repeat(100, 49))).ToArray();
 
-			var encription = new RLEDecompressionDecorator(stream);
-			Assert.That(() => encription.ReadBlock(60), Is.EqualTo(expected));
+			var decompression = new RLEDecompressionDecorator(stream);
+			Assert.That(() => decompression.ReadBlock(60), Is.EqualTo(expected));
 
 			stream.DidNotReceive().ReadByte();
 			stream.Received(3).ReadBlock(Arg.Is(2));
@@ -34,8 +34,8 @@ namespace StreamsUnitTest
 			var stream = Substitute.For<IInputDataStream>();
 			stream.ReadBlock(Arg.Is(2)).Returns(new byte[] { 5, 0 });
 
-			var encription = new RLEDecompressionDecorator(stream);
-			Assert.That(() => encription.ReadByte(), Is.EqualTo(0));
+			var decompression = new RLEDecompressionDecorator(stream);
+			Assert.That(() => decompression.ReadByte(), Is.EqualTo(0));
 
 			stream.DidNotReceive().ReadByte();
 			stream.Received(1).ReadBlock(Arg.Is(2));
@@ -47,8 +47,8 @@ namespace StreamsUnitTest
 			var stream = Substitute.For<IInputDataStream>();
 			stream.IsEOF().Returns(value);
 
-			var encription = new RLEDecompressionDecorator(stream);
-			Assert.That(() => encription.IsEOF(), Is.EqualTo(value));
+			var decompression = new RLEDecompressionDecorator(stream);
+			Assert.That(() => decompression.IsEOF(), Is.EqualTo(value));
 
 			stream.Received(1).IsEOF();
 			stream.DidNotReceive().ReadByte();
@@ -57,8 +57,8 @@ namespace StreamsUnitTest
 			stream.ClearReceivedCalls();
 
 			stream.ReadBlock(2).Returns(new byte[] { 5, 0 });
-			encription.ReadByte();
-			Assert.That(() => encription.IsEOF(), Is.EqualTo(false));
+			decompression.ReadByte();
+			Assert.That(() => decompression.IsEOF(), Is.EqualTo(false));
 			stream.Received(1).IsEOF();
 		}
 	}

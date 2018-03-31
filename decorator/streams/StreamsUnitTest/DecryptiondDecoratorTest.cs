@@ -7,7 +7,7 @@ namespace StreamsUnitTest
 {
 	[TestFixture]
 	[Parallelizable]
-	public class DecriptiondDecoratorTest
+	public class DecryptiondDecoratorTest
 	{
 		[Test]
 		public void TestReadByte([Range(0, byte.MaxValue - 1)] byte i)
@@ -17,8 +17,8 @@ namespace StreamsUnitTest
 			stream.ReadByte().Returns(i);
 			strategy.Decrypt(Arg.Is(i)).Returns((byte)(i + 1));
 
-			var encription = new DecryptionDecorator(stream, strategy);
-			Assert.That(() => encription.ReadByte(), Is.EqualTo(i + 1));
+			var decryption = new DecryptionDecorator(stream, strategy);
+			Assert.That(() => decryption.ReadByte(), Is.EqualTo(i + 1));
 
 			strategy.Received(1).Decrypt(i);
 			strategy.DidNotReceive().Encrypt(Arg.Any<byte>());
@@ -38,9 +38,9 @@ namespace StreamsUnitTest
 			strategy.Decrypt(Arg.Any<byte>()).Returns(x => (byte)(x.Arg<byte>() + 1));
 
 			byte[] expected = Enumerable.Range(1, 100).Select(x => (byte)x).ToArray();
-			var encription = new DecryptionDecorator(stream, strategy);
+			var decryption = new DecryptionDecorator(stream, strategy);
 
-			Assert.That(() => encription.ReadBlock(bytes.Length), Is.EquivalentTo(expected));
+			Assert.That(() => decryption.ReadBlock(bytes.Length), Is.EquivalentTo(expected));
 
 			strategy.Received(bytes.Length).Decrypt(Arg.Any<byte>());
 			strategy.DidNotReceive().Encrypt(Arg.Any<byte>());
@@ -56,8 +56,8 @@ namespace StreamsUnitTest
 			var stream = Substitute.For<IInputDataStream>();
 			stream.IsEOF().Returns(value);
 
-			var encription = new DecryptionDecorator(stream, strategy);
-			Assert.That(() => encription.IsEOF(), Is.EqualTo(value));
+			var decryption = new DecryptionDecorator(stream, strategy);
+			Assert.That(() => decryption.IsEOF(), Is.EqualTo(value));
 
 			stream.Received(1).IsEOF();
 			stream.DidNotReceive().ReadByte();
