@@ -15,6 +15,6 @@ namespace painter
 			_shapes.Add(shape);
 		}
 
-		public IEnumerable<Shape> Shapes { get => _shapes; }
+		public IEnumerator<Shape> Shapes { get => _shapes.GetEnumerator(); }
 	}
 }

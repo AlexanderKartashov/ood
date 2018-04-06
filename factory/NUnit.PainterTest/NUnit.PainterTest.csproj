@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesignerTests.cs" />
     <Compile Include="EllipseTests.cs" />
     <Compile Include="ColorParserTests.cs" />
     <Compile Include="EllipseParserTests.cs" />
