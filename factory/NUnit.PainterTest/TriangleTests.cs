@@ -1,6 +1,7 @@
 ﻿using NSubstitute;
 using NUnit.Framework;
 using painter;
+using painter.shapes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace painter.Tests
 		private static Point?[] Values = { null, new Point(0, 0) };
 
 		[Test]
-		public void InitTest(
+		public void InitTriangleTest(
 			[ValueSource("Values")] Point? vertex1,
 			[ValueSource("Values")] Point? vertex2,
 			[ValueSource("Values")] Point? vertex3
@@ -33,7 +34,7 @@ namespace painter.Tests
 		}
 
 		[Test]
-		public void DrawTest()
+		public void DrawTriangleTest()
 		{
 			var canvas = Substitute.For<ICanvas>();
 			var vertex1 = new Point(10, 20);

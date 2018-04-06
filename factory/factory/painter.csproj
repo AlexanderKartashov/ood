@@ -41,18 +41,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Color.cs" />
-    <Compile Include="Ellipse.cs" />
+    <Compile Include="parsers\EllipseParser.cs" />
+    <Compile Include="parsers\ColorParser.cs" />
+    <Compile Include="parsers\IShapeParser.cs" />
+    <Compile Include="parsers\RectangleParser.cs" />
+    <Compile Include="parsers\RectangularPolygonParser.cs" />
+    <Compile Include="parsers\RegexGenerator.cs" />
+    <Compile Include="shapes\Ellipse.cs" />
     <Compile Include="ICanvas.cs" />
     <Compile Include="IPainter.cs" />
     <Compile Include="IShapeFactory.cs" />
     <Compile Include="PictureDraft.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="shapes\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rectangle.cs" />
-    <Compile Include="RectangularPolygon.cs" />
+    <Compile Include="shapes\Rectangle.cs" />
+    <Compile Include="shapes\RectangularPolygon.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="ShapeFactory.cs" />
-    <Compile Include="Triangle.cs" />
+    <Compile Include="shapes\Triangle.cs" />
+    <Compile Include="parsers\TriangleParser.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

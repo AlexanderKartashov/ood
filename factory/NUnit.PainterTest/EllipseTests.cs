@@ -1,6 +1,7 @@
 ﻿using NSubstitute;
 using NUnit.Framework;
 using painter;
+using painter.shapes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace painter.Tests
 		private static Point?[] Values = { null, new Point(0, 0) };
 
 		[Test]
-		public void InitTest(
+		public void InitEllipseTest(
 			[ValueSource("Values")] Point? leftTop,
 			[ValueSource("Values")] Point? size)
 		{
@@ -31,7 +32,7 @@ namespace painter.Tests
 		}
 
 		[Test]
-		public void DrawTest()
+		public void DrawEllipseTest()
 		{
 			var canvas = Substitute.For<ICanvas>();
 			var leftTop = new Point(10, 15);
