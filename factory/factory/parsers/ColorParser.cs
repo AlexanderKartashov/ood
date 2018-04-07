@@ -1,4 +1,5 @@
 ﻿using painter;
+using painter_declarations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace painter.parsers
 		static public Color Parse(String descr)
 		{
 			var parsedEnum = (Color)Enum.Parse(typeof(Color), descr, true);
-			return Enum.IsDefined(typeof(Color), parsedEnum) ? parsedEnum : throw new ArgumentException("invalid enum value");
+			return Enum.IsDefined(typeof(Color), parsedEnum) ? parsedEnum : throw new ArgumentException($"invalid color value {descr}");
 		}
 	}
 }

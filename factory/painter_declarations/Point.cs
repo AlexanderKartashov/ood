@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace painter.shapes
+namespace painter_declarations
 {
 	public struct Point
 	{

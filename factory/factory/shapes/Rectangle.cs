@@ -1,4 +1,5 @@
-﻿using System;
+﻿using painter_declarations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace painter.shapes
 
 		public Rectangle(Point? leftTop, Point? rightBottom, Color color)
 		{
-			Color = color;
+			_color = color;
 			_leftTop = leftTop ?? throw new ArgumentNullException(nameof(leftTop));
 			_rightBottom = rightBottom ?? throw new ArgumentNullException(nameof(rightBottom));
 		}

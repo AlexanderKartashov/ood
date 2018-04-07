@@ -1,4 +1,5 @@
-﻿using System;
+﻿using painter_declarations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +9,11 @@ namespace painter.shapes
 {
 	public class RectangularPolygon : Shape
 	{
-		//private readonly Point _center;
-		//private readonly uint _radius;
-		//private readonly uint _vertexCount;
-		private IList<Point> _points;
+		private IList<Point> _points = new List<Point>();
 
 		public RectangularPolygon(Point? center, uint radius, uint vertexCount, Color color)
 		{
-			Color = color;
+			_color = color;
 			CalculateVertices(
 				center ?? throw new ArgumentNullException(nameof(center)),
 				radius != 0 ? radius : throw new ArgumentException(nameof(radius)),
@@ -30,15 +28,20 @@ namespace painter.shapes
 			for (var i = 0; i < vertexCount; ++i)
 			{
 				var point = new Point(
-					(int)Math.Round(radius * Math.Cos(anglePart * i)),
-					(int)Math.Round(radius * Math.Sin(anglePart * i))
+					(int)Math.Round(radius * Math.Cos(anglePart * i * Math.PI / 180.0f)) + center.X,
+					(int)Math.Round(radius * Math.Sin(anglePart * i * Math.PI / 180.0f)) + center.Y
 				);
+				_points.Add(point);
 			}
 		}
 
 		protected override void DrawImpl(ICanvas canvas)
 		{
-			throw new NotImplementedException();
+			for(var i = 0; i < _points.Count - 1; ++i)
+			{
+				canvas.DrawLine(_points[i], _points[i + 1]);
+			}
+			canvas.DrawLine(_points[_points.Count - 1], _points[0]);
 		}
 	}
 }

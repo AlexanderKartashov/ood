@@ -7,6 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "painter", "factory\painter.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.PainterTest", "NUnit.PainterTest\NUnit.PainterTest.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "canvas", "canvas\canvas.csproj", "{5A4BE5A2-826C-45CB-9D70-E60E8DFE3DEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "painter_client", "painter_client\painter_client.csproj", "{0C7BFD1E-2679-42D0-9112-C67AFBD108C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "painter_client_common", "painter_clinet_common\painter_client_common.csproj", "{3A91229D-F578-4828-8834-501D38E90DA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "painter_client_mef", "painter_client_mef\painter_client_mef.csproj", "{E00C4E36-FAB9-46A8-BC35-B45B8D6F9C65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "painter_declarations", "painter_declarations\painter_declarations.csproj", "{8012552C-F695-48AE-8DB8-FC4E18E02789}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +31,26 @@ Global
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A4BE5A2-826C-45CB-9D70-E60E8DFE3DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A4BE5A2-826C-45CB-9D70-E60E8DFE3DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A4BE5A2-826C-45CB-9D70-E60E8DFE3DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A4BE5A2-826C-45CB-9D70-E60E8DFE3DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C7BFD1E-2679-42D0-9112-C67AFBD108C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C7BFD1E-2679-42D0-9112-C67AFBD108C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C7BFD1E-2679-42D0-9112-C67AFBD108C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C7BFD1E-2679-42D0-9112-C67AFBD108C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A91229D-F578-4828-8834-501D38E90DA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A91229D-F578-4828-8834-501D38E90DA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A91229D-F578-4828-8834-501D38E90DA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A91229D-F578-4828-8834-501D38E90DA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E00C4E36-FAB9-46A8-BC35-B45B8D6F9C65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E00C4E36-FAB9-46A8-BC35-B45B8D6F9C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E00C4E36-FAB9-46A8-BC35-B45B8D6F9C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E00C4E36-FAB9-46A8-BC35-B45B8D6F9C65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8012552C-F695-48AE-8DB8-FC4E18E02789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8012552C-F695-48AE-8DB8-FC4E18E02789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8012552C-F695-48AE-8DB8-FC4E18E02789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8012552C-F695-48AE-8DB8-FC4E18E02789}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

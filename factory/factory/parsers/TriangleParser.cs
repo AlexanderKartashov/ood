@@ -1,9 +1,12 @@
 ﻿using painter.shapes;
+using painter_declarations;
 using System;
+using System.ComponentModel.Composition;
 using System.Text.RegularExpressions;
 
 namespace painter.parsers
 {
+	[Export(typeof(IShapeParser))]
 	public class TriangleParser : IShapeParser
 	{
 		private readonly string _regex;
@@ -37,7 +40,7 @@ namespace painter.parsers
 			}
 			else
 			{
-				throw new ArgumentException("invalid string format");
+				throw new ArgumentException($"Invalid triangle data {description}");
 			}
 		}
 	}

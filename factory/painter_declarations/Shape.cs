@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace painter
+namespace painter_declarations
 {
 	public abstract class Shape
 	{
-		public Color Color { get; protected set; } = Color.Black;
+		protected Color _color = Color.Black;
 
 		public void Draw(ICanvas canvas)
 		{
-			canvas.SetColor(Color);
+			canvas.SetColor(_color);
 			DrawImpl(canvas);
 		}
 

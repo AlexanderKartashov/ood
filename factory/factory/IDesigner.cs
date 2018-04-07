@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace painter
 {
-	public enum Color
+	public interface IDesigner
 	{
-		Green,
-		Red,
-		Blue,
-		Yellow,
-		Pink,
-		Black
+		PictureDraft CreateDraft(TextReader textReader, TextWriter errorReporter);
 	}
 }

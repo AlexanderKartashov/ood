@@ -72,6 +72,10 @@
       <Project>{F5AB24B1-4655-419F-80C2-C1CA5CB5FE98}</Project>
       <Name>painter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\painter_declarations\painter_declarations.csproj">
+      <Project>{8012552c-f695-48ae-8db8-fc4e18e02789}</Project>
+      <Name>painter_declarations</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

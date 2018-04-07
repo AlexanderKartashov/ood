@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace painter
 {
-	public class Designer
+	public class Designer : IDesigner
 	{
 		private readonly IShapeFactory _shapeFactory;
 
@@ -22,20 +22,20 @@ namespace painter
 				return pictureDraft;
 			}
 
-			string str = "";
-			do
+			string str = textReader.ReadLine();
+			while (str != null && str.Length != 0)
 			{
 				try
 				{
-					str = textReader.ReadLine();
 					pictureDraft.AddShape(_shapeFactory.CreateShape(str));
 				}
 				catch (Exception e)
 				{
 					errorReporter?.WriteLine(e.Message);
 				}
+
+				str = textReader.ReadLine();
 			}
-			while (str.Length != 0);
 
 			return pictureDraft;
 		}

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using painter.parsers;
+using painter_declarations;
 using System;
 using System.Collections.Generic;
 using System.Linq;

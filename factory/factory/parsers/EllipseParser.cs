@@ -1,9 +1,12 @@
 ﻿using painter.shapes;
+using painter_declarations;
 using System;
+using System.ComponentModel.Composition;
 using System.Text.RegularExpressions;
 
 namespace painter.parsers
 {
+	[Export(typeof(IShapeParser))]
 	public class EllipseParser : IShapeParser
 	{
 		private readonly string _regex;
@@ -14,7 +17,7 @@ namespace painter.parsers
 		{
 			var regexGenerator = new RegexGenerator();
 			regexGenerator.Start();
-			regexGenerator.ParsePoint("lt");
+			regexGenerator.ParsePoint("ct");
 			regexGenerator.ParsePoint("sz");
 			regexGenerator.ParseColor("c");
 			regexGenerator.End();
@@ -35,7 +38,7 @@ namespace painter.parsers
 			}
 			else
 			{
-				throw new ArgumentException("invalid string format");
+				throw new ArgumentException($"Invalid ellipse data {description}");
 			}
 		}
 	}

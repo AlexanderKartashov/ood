@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using painter_declarations;
 
 namespace painter.Tests
 {
@@ -14,7 +15,7 @@ namespace painter.Tests
 	[Parallelizable]
 	public class EllipseParserTests
 	{
-		[TestCase("lt{1,2} sz{3, 4}c{red}")]
+		[TestCase("ct{1,2} sz{3, 4}c{red}")]
 		public void ParseEllipseSucceededTest(string testData)
 		{
 			var parser = new EllipseParser();
@@ -25,16 +26,16 @@ namespace painter.Tests
 		}
 
 		[TestCase("")]
-		[TestCase("lt")]
-		[TestCase("lt{}")]
-		[TestCase("lt{1}")]
-		[TestCase("lt{1.2}")]
-		[TestCase("lt{a,2}")]
-		[TestCase("lt{a,2}")]
-		[TestCase("lt{1,2}sz{1,2}")]
-		[TestCase("sz{1,2}sz{1,2}c{undefined}")]
-		[TestCase("lt{1,2} sz{3, 4},c{red}123")]
-		[TestCase("123 lt{1,2} sz{3, 4},c{red}")]
+		[TestCase("ct")]
+		[TestCase("ct{}")]
+		[TestCase("ct{1}")]
+		[TestCase("ct{1.2}")]
+		[TestCase("ct{a,2}")]
+		[TestCase("ct{a,2}")]
+		[TestCase("ct{1,2}sz{1,2}")]
+		[TestCase("cz{1,2}sz{1,2}c{undefined}")]
+		[TestCase("ct{1,2} sz{3, 4},c{red}123")]
+		[TestCase("123 lc{1,2} sz{3, 4},c{red}")]
 		[TestCase("v1{1,2} v2{3, 4} r{red}")]
 		public void ParseEllipseFailedTest(string testData)
 		{

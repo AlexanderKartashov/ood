@@ -1,4 +1,5 @@
-﻿using System;
+﻿using painter_declarations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace painter.shapes
 
 		public Triangle(Point? vertex1, Point? vertex2, Point? vertex3, Color color)
 		{
-			Color = color;
+			_color = color;
 			_vertex1 = vertex1 ?? throw new ArgumentNullException(nameof(vertex1));
 			_vertex2 = vertex2 ?? throw new ArgumentNullException(nameof(vertex2));
 			_vertex3 = vertex3 ?? throw new ArgumentNullException(nameof(vertex3));
