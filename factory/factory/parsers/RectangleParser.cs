@@ -12,6 +12,7 @@ namespace painter.parsers
 		private readonly string _regex;
 
 		public string ShapeType => "rectangle";
+		public string ShapeInfoFormat { get => _regex; }
 
 		public RectangleParser()
 		{

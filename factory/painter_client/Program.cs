@@ -31,14 +31,14 @@ namespace painter_client
 		static void DrawPicture(CommandLineOptions options)
 		{
 			CommandLineOptionsProcessor processor = new CommandLineOptionsProcessor();
-			var settings = processor.Process(options);
-			var canvasFactory = new SvgCanvasFactory();
 			var parsers = new List<IShapeParser>() {
 				new TriangleParser(),
 				new RectangleParser(),
 				new RectangularPolygonParser(),
 				new EllipseParser()
 			};
+			var settings = processor.Process(options, parsers);
+			var canvasFactory = new SvgCanvasFactory();
 			PictureDraw.DrawPictureOnCanvas(canvasFactory, settings, parsers);
 		}
 	}

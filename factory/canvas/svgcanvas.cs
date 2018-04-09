@@ -26,9 +26,11 @@ namespace canvas
 			_h = h;
 		}
 
-		public void DrawEllipse(Point center, Point size)
+		public void DrawEllipse(Point leftTop, Point size)
 		{
-			_content.AppendLine($"<ellipse cx=\"{center.X}\" cy=\"{center.Y}\" rx=\"{size.X}\" ry=\"{size.Y}\" stroke=\"{_color.ToString()}\" fill=\"{_color.ToString()}\"/>");
+			Point radius = new Point(size.X / 2, size.Y / 2);
+			Point center = new Point(leftTop.X + radius.X, leftTop.Y + radius.Y);
+			_content.AppendLine($"<ellipse cx=\"{center.X}\" cy=\"{leftTop.Y}\" rx=\"{radius.X}\" ry=\"{radius.Y}\" stroke=\"{_color.ToString()}\" fill=\"{_color.ToString()}\"/>");
 		}
 
 		public void DrawLine(Point from, Point to)

@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace painter_declarations
 {
-	public interface IShapeParser : IShapeInfo
+	public interface IParsingErrorHandler
 	{
-		Shape Parse(string description);
 	}
 }

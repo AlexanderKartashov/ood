@@ -43,6 +43,8 @@
     <Compile Include="Color.cs" />
     <Compile Include="ICanvas.cs" />
     <Compile Include="ICanvasFactory.cs" />
+    <Compile Include="IParsingErrorHandler.cs" />
+    <Compile Include="IShapeInfo.cs" />
     <Compile Include="IShapeParser.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

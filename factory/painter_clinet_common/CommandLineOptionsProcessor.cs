@@ -1,4 +1,5 @@
-﻿using System;
+﻿using painter_declarations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,21 +13,25 @@ namespace painter_clinet_common
 		public struct Options
 		{
 			public TextReader reader { get; set; }
+			public TextWriter errorHandler { get; set; }
 			public String output { get; set; }
 			public int w { get; set; }
 			public int h { get; set; }
 		}
 
-		public Options Process(CommandLineOptions options)
+		public Options Process(CommandLineOptions options, IEnumerable<IShapeInfo> shapeInfos)
 		{
-			TextReader textReader = null;
+			TextReader textReader = Console.In;
+			TextWriter errorHandler = Console.Out;
 			if (options.Input != null)
 			{
 				textReader = File.OpenText(GetAbsolutePath(options.Input));
 			}
 			else
 			{
-				textReader = Console.In;
+				ErrorHandlerWithHelp errorHandlerWithHelp = new ErrorHandlerWithHelp(Console.Out);
+				errorHandlerWithHelp.ShapeInfos = shapeInfos;
+				errorHandler = errorHandlerWithHelp;
 			}
 
 			string output = GetAbsolutePath(options.Output);
@@ -37,6 +42,7 @@ namespace painter_clinet_common
 
 			return new Options {
 				reader = textReader,
+				errorHandler = errorHandler,
 				output = output,
 				w = options.Width,
 				h = options.Height

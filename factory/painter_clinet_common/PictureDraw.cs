@@ -15,7 +15,7 @@ namespace painter_clinet_common
 			using (var canvas = canvasFactory.CreateCanvas(options.output, options.w, options.h))
 			{
 				var designer = new Designer(new ShapeFactory(supportedShapes));
-				var draft = designer.CreateDraft(options.reader, Console.Out);
+				var draft = designer.CreateDraft(options.reader, options.errorHandler);
 				var painter = new Painter();
 				painter.DrawPicture(draft, canvas);
 			}

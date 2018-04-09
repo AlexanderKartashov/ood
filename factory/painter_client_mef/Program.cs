@@ -44,12 +44,12 @@ namespace painter_client_mef
 
 			public void DrawPicture(CommandLineOptions options)
 			{
-				CommandLineOptionsProcessor processor = new CommandLineOptionsProcessor();
-				var settings = processor.Process(options);
-
 				var catalog = new DirectoryCatalog(Environment.CurrentDirectory);
 				var compositionContainer = new CompositionContainer(catalog);
 				compositionContainer.ComposeParts(this);
+
+				CommandLineOptionsProcessor processor = new CommandLineOptionsProcessor();
+				var settings = processor.Process(options, Parsers);
 
 				var factories = CanvasFactories.GetEnumerator();
 				while (factories.MoveNext())

@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="CommandLineOptions.cs" />
     <Compile Include="CommandLineOptionsProcessor.cs" />
+    <Compile Include="ErrorHandlerWithHelp.cs" />
     <Compile Include="PictureDraw.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

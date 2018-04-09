@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace painter_declarations
 {
-	public interface IShapeParser : IShapeInfo
+	public interface IShapeInfo
 	{
-		Shape Parse(string description);
+		string ShapeType { get; }
+
+		string ShapeInfoFormat { get; }
 	}
 }

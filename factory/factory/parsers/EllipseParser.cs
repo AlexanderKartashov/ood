@@ -12,12 +12,13 @@ namespace painter.parsers
 		private readonly string _regex;
 
 		public string ShapeType => "ellipse";
+		public string ShapeInfoFormat { get => _regex; }
 
 		public EllipseParser()
 		{
 			var regexGenerator = new RegexGenerator();
 			regexGenerator.Start();
-			regexGenerator.ParsePoint("ct");
+			regexGenerator.ParsePoint("lt");
 			regexGenerator.ParsePoint("sz");
 			regexGenerator.ParseColor("c");
 			regexGenerator.End();
