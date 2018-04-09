@@ -13,7 +13,7 @@ namespace streams
 
 		public InputFileStream(string filePath)
 		{
-			_file = new BinaryReader(new FileStream(filePath, FileMode.Open), Encoding.ASCII);
+			_file = new BinaryReader(new FileStream(filePath, FileMode.Open, FileAccess.Read), Encoding.ASCII);
 		}
 
 		public bool IsEOF()

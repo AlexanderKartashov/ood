@@ -23,7 +23,7 @@ namespace streams
 			var bytes = new List<byte>();
 			for (var i = 0; i < size; ++i)
 			{
-				if (!_stream.IsEOF())
+				if (!IsEOF())
 				{
 					bytes.Add(ReadByte());
 				}

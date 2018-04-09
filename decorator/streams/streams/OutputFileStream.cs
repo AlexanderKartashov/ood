@@ -13,7 +13,7 @@ namespace streams
 
 		public OutputFileStream(string filePath)
 		{
-			_file = new BinaryWriter(new FileStream(filePath, FileMode.Create), Encoding.ASCII);
+			_file = new BinaryWriter(new FileStream(filePath, FileMode.Create, FileAccess.Write), Encoding.ASCII);
 		}
 
 		public void Dispose()
