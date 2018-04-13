@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace painter_declarations
 {
-	public interface ICanvas : IDisposable
+	public interface ICanvas
 	{
 		void SetColor(Color color);
 		void DrawLine(Point from, Point to);
 		void DrawEllipse(Point center, Point size);
+		void Save(string directory);
 	}
 }

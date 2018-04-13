@@ -8,6 +8,6 @@ namespace painter_declarations
 {
 	public interface ICanvasFactory
 	{
-		ICanvas CreateCanvas(string directoryToSave, int w, int h);
+		ICanvas CreateCanvas(int w, int h);
 	}
 }

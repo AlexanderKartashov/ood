@@ -12,7 +12,7 @@ namespace painter_clinet_common
 	{
 		public static void DrawPictureOnCanvas(ICanvasFactory canvasFactory, CommandLineOptionsProcessor.Options options, IEnumerable<IShapeParser> supportedShapes)
 		{
-			using (var canvas = canvasFactory.CreateCanvas(options.output, options.w, options.h))
+			using (var canvas = new DisposableCanvasDecorator(canvasFactory.CreateCanvas(options.w, options.h), options.output))
 			{
 				var designer = new Designer(new ShapeFactory(supportedShapes));
 				var draft = designer.CreateDraft(options.reader, options.errorHandler);

@@ -11,9 +11,9 @@ namespace canvas
 	[Export(typeof(ICanvasFactory))]
 	public class SvgCanvasFactory : ICanvasFactory
 	{
-		public ICanvas CreateCanvas(string directoryToSave, int w, int h)
+		public ICanvas CreateCanvas(int w, int h)
 		{
-			return new SvgCanvas(directoryToSave, w, h);
+			return new SvgCanvas(w, h);
 		}
 	}
 }

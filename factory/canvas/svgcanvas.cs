@@ -19,9 +19,8 @@ namespace canvas
 		private readonly int _w;
 		private readonly int _h;
 
-		public SvgCanvas(string path, int w, int h)
+		public SvgCanvas(int w, int h)
 		{
-			_path = path ?? throw new ArgumentNullException(nameof(path));
 			_w = w;
 			_h = h;
 		}
@@ -43,15 +42,10 @@ namespace canvas
 			_color = color;
 		}
 
-		public void Dispose()
-		{
-			Save(_path);
-		}
-
-		private void Save(string path)
+		public void Save(string directory)
 		{
 			var template = "<!DOCTYPE html><html><body><svg width=\"{0}\" height=\"{1}\">{2}</svg></body></html>";
-			var filePath = Path.Combine(path, "index.html");
+			var filePath = Path.Combine(directory, "index.html");
 			using (var file = File.CreateText(filePath))
 			{
 				file.Write(string.Format(template, _w, _h, _content.ToString()));
