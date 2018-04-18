@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C2BA4EAC-767A-4F97-844A-9710B8766BB4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>command</RootNamespace>
+    <AssemblyName>command</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\command.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="commandFactory\IHelpInfo.cs" />
+    <Compile Include="commandFactory\InputParser.cs" />
+    <Compile Include="commandFactory\inputParser\DeleteParser.cs" />
+    <Compile Include="commandFactory\inputParser\HelpParser.cs" />
+    <Compile Include="commandFactory\inputParser\ICommandParser.cs" />
+    <Compile Include="commandFactory\inputParser\InsertImageParser.cs" />
+    <Compile Include="commandFactory\inputParser\InsertParagraphParser.cs" />
+    <Compile Include="commandFactory\inputParser\ListParser.cs" />
+    <Compile Include="commandFactory\parsingResults\ActionContainer.cs" />
+    <Compile Include="commandFactory\parsingResults\ActionsVisitor.cs" />
+    <Compile Include="commandFactory\parsingResults\CommandContainer.cs" />
+    <Compile Include="commandFactory\parsingResults\ListAction.cs" />
+    <Compile Include="commandFactory\inputParser\PositionParser.cs" />
+    <Compile Include="commandFactory\inputParser\RedoParser.cs" />
+    <Compile Include="commandFactory\inputParser\ReplaceTextParser.cs" />
+    <Compile Include="commandFactory\inputParser\ResizeImageParser.cs" />
+    <Compile Include="commandFactory\inputParser\SaveParser.cs" />
+    <Compile Include="commandFactory\inputParser\SetTitleParser.cs" />
+    <Compile Include="commandFactory\inputParser\UndoParser.cs" />
+    <Compile Include="commandFactory\parsingResults\SaveAction.cs" />
+    <Compile Include="commands\AbstractCommand.cs" />
+    <Compile Include="commands\ChangeDocumentTitle.cs" />
+    <Compile Include="commands\ChangeParagraphText.cs" />
+    <Compile Include="commands\DeleteItem.cs" />
+    <Compile Include="commands\InsertItem.cs" />
+    <Compile Include="commands\ResizeImage.cs" />
+    <Compile Include="commandFactory\CommandFactory.cs" />
+    <Compile Include="document\Document.cs" />
+    <Compile Include="document\DocumentItem.cs" />
+    <Compile Include="document\collection\DocumentItemsCollection.cs" />
+    <Compile Include="document\DocumentItemFactory.cs" />
+    <Compile Include="document\DocumentTitleMemento.cs" />
+    <Compile Include="document\IDocument.cs" />
+    <Compile Include="document\collection\IDocumentItemsCollection.cs" />
+    <Compile Include="document\IDocumentItemFactory.cs" />
+    <Compile Include="document\image\Image.cs" />
+    <Compile Include="document\image\ImageMemento.cs" />
+    <Compile Include="document\visitors\DocumentVisitor.cs" />
+    <Compile Include="externals\FileSystem.cs" />
+    <Compile Include="externals\HtmlEncoder.cs" />
+    <Compile Include="externals\IFileSystem.cs" />
+    <Compile Include="externals\IHtmlEncoder.cs" />
+    <Compile Include="document\visitors\ListVisitor.cs" />
+    <Compile Include="document\visitors\SaveVisitor.cs" />
+    <Compile Include="history\History.cs" />
+    <Compile Include="history\IHistory.cs" />
+    <Compile Include="document\IMemento.cs" />
+    <Compile Include="document\paragraph\ParagraphMemento.cs" />
+    <Compile Include="storage\FileStorage.cs" />
+    <Compile Include="storage\IFileStorage.cs" />
+    <Compile Include="document\image\IImage.cs" />
+    <Compile Include="document\paragraph\IParagraph.cs" />
+    <Compile Include="storage\IResource.cs" />
+    <Compile Include="document\paragraph\Paragraph.cs" />
+    <Compile Include="document\IMementoOriginator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="storage\Resource.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
