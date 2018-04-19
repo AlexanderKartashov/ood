@@ -26,10 +26,10 @@ namespace command.storage
 			}
 		}
 
-		public string FilePath => _fileSystem.GetFileName(_filePath);//Path.GetFileName(_filePath);
+		public string FilePath => _fileSystem.GetFileName(_filePath);
 
 		public void Remove() => _storage.Remove(this);
 
-		public void Dispose() => _fileSystem.DeleteFile(_filePath); //File.Delete(_filePath);
+		public void Dispose() => _fileSystem.DeleteFile(_filePath);
 	}
 }

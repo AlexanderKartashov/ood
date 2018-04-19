@@ -45,7 +45,7 @@ namespace command.commandFactory
 
 		public dynamic ParseInput(string command)
 		{
-			string pattern = @"^(\w+?)\s?(.*)$";
+			string pattern = @"^(\w+)\s?(.*)$";
 			var matches = Regex.Match(command, pattern, RegexOptions.IgnoreCase);
 			if (matches.Success && matches.Groups.Count == 3)
 			{
@@ -53,7 +53,7 @@ namespace command.commandFactory
 				var param = matches.Groups[2].Value;
 				foreach (var parser in _parsers)
 				{
-					if (parser.CommandName == name)
+					if (parser.CommandName.ToLower() == name.ToLower())
 					{
 						return parser.ParseCommand(param);
 					}
