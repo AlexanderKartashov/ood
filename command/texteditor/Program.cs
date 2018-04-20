@@ -42,6 +42,7 @@ namespace texteditor
 			while (str != null && str.Length != 0)
 			{
 				commandFactory.ParseInput(str);
+				str = textReader.ReadLine();
 			}
 		}
 	}

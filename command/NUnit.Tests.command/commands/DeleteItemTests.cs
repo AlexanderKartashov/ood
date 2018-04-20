@@ -31,6 +31,14 @@ namespace command.commands.Tests
 		}
 
 		[Test]
+		public void DeleteItemInitFailedTest()
+		{
+			var document = Substitute.For<IDocument>();
+			document.ItemsCount.Returns(0);
+			Assert.That(() => new DeleteItem(document, 1), Throws.TypeOf<CommandError>());
+		}
+
+		[Test]
 		public void ExecuteTest()
 		{
 			var document = Substitute.For<IDocument>();
@@ -46,6 +54,7 @@ namespace command.commands.Tests
 			var document = Substitute.For<IDocument>();
 			var item = Substitute.For<DocumentItem>();
 			document.GetItem(Arg.Any<int>()).Returns(item);
+			document.ItemsCount.Returns(0);
 			var command = new DeleteItem(document, 0);
 
 			Assert.That(() => command.Execute(), Throws.Nothing);
@@ -68,6 +77,7 @@ namespace command.commands.Tests
 			var document = Substitute.For<IDocument>();
 			document.When(x => x.DeleteItem(Arg.Any<int>())).Do(x => collection.RemoveAt(x.ArgAt<int>(0)));
 			document.When(x => x.InsertItem(Arg.Any<DocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<DocumentItem>(0)));
+			document.ItemsCount.Returns(collection.Count);
 
 			var command = new DeleteItem(document, 1);
 			Assert.That(() => command.Execute(), Throws.Nothing);
@@ -85,6 +95,7 @@ namespace command.commands.Tests
 				item1, item2, item3, item4
 			};
 			var document = Substitute.For<IDocument>();
+			document.ItemsCount.Returns(collection.Count);
 			document.When(x => x.DeleteItem(Arg.Any<int>())).Do(x => collection.RemoveAt(x.ArgAt<int>(0)));
 			document.GetItem(Arg.Any<int>()).Returns(x => collection.ElementAt(x.ArgAt<int>(0)));
 			document.When(x => x.InsertItem(Arg.Any<DocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<DocumentItem>(0)));

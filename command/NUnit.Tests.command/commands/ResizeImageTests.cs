@@ -71,7 +71,7 @@ namespace command.commands.Tests
 			{
 				get
 				{
-					yield return new TestCaseData(null, Throws.ArgumentNullException);
+					yield return new TestCaseData(null, Throws.TypeOf<CommandError>());
 					yield return new TestCaseData(Substitute.For<IImage>(), Throws.Nothing);
 				}
 			}

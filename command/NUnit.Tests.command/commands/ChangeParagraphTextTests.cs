@@ -63,8 +63,8 @@ namespace command.commands.Tests
 			{
 				get
 				{
-					yield return new TestCaseData(null, null, Throws.ArgumentNullException);
-					yield return new TestCaseData(null, "text", Throws.ArgumentNullException);
+					yield return new TestCaseData(null, null, Throws.TypeOf<CommandError>());
+					yield return new TestCaseData(null, "text", Throws.TypeOf<CommandError>());
 					yield return new TestCaseData(new Paragraph("text"), null, Throws.ArgumentNullException);
 					yield return new TestCaseData(new Paragraph("text"), "text", Throws.Nothing);
 				}

@@ -9,6 +9,7 @@ using NSubstitute;
 using command.document;
 using System.Collections;
 using NUnit.Framework.Constraints;
+using command.commands;
 
 namespace command.commandFactory.Tests
 {
@@ -54,6 +55,15 @@ namespace command.commandFactory.Tests
 			Assert.That(() => parser.ParseInput(data), Throws.ArgumentException);
 		}
 
+		[TestCase("ReSiZeImAge 2 1 20")]
+		public void ParserInputFailedIndexTest(string data)
+		{
+			var document = Substitute.For<IDocument>();
+			var documentFactory = Substitute.For<IDocumentItemFactory>();
+			var parser = new InputParser(document, documentFactory);
+			Assert.That(() => parser.ParseInput(data), Throws.TypeOf<CommandError>());
+		}
+
 		[TestCase("Help")]
 		[TestCase("List")]
 		[TestCase("undo")]
@@ -61,7 +71,6 @@ namespace command.commandFactory.Tests
 		[TestCase("DeleteItem 0")]
 		[TestCase("Save path to file")]
 		[TestCase("ReplaceText 0 newText")]
-		[TestCase("ReSiZeImAge 2 1 20")]
 		[TestCase("InsertParagraph 0 paragraph")]
 		[TestCase("insertImagE 0 10 20 path")]
 		public void ParserInputSucceededTest(string data)

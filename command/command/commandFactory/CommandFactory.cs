@@ -49,6 +49,10 @@ namespace command.commandFactory
 				ActionsVisitor visitor = new ActionsVisitor(_history, _inputParser, _textWriter, _fileStorage, _fileSystem, _encoder);
 				visitor.Visit((dynamic)parsedCommand);
 			}
+			catch(CommandError err)
+			{
+				_errorLogger.WriteLine(err.Message);
+			}
 			catch (Exception)
 			{
 				_errorLogger.WriteLine($"Invalid command {command}");

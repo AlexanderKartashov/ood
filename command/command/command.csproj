@@ -70,6 +70,7 @@
     <Compile Include="commands\AbstractCommand.cs" />
     <Compile Include="commands\ChangeDocumentTitle.cs" />
     <Compile Include="commands\ChangeParagraphText.cs" />
+    <Compile Include="commands\CommandError.cs" />
     <Compile Include="commands\DeleteItem.cs" />
     <Compile Include="commands\InsertItem.cs" />
     <Compile Include="commands\ResizeImage.cs" />

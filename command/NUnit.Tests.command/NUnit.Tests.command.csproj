@@ -64,13 +64,11 @@
     <Compile Include="commandFactory\inputParser\SaveParserTests.cs" />
     <Compile Include="commandFactory\inputParser\SetTitleParserTests.cs" />
     <Compile Include="commandFactory\inputParser\UndoParserTests.cs" />
-    <Compile Include="commandFactory\parsingResults\ActionsVisitorTests.cs" />
     <Compile Include="commands\ChangeDocumentTitleTests.cs" />
     <Compile Include="commands\ChangeParagraphTextTests.cs" />
     <Compile Include="commands\DeleteItemTests.cs" />
     <Compile Include="commands\InsertItemTests.cs" />
     <Compile Include="commands\ResizeImageTests.cs" />
-    <Compile Include="controller\CommandFactoryTests.cs" />
     <Compile Include="document\DocumentItemsCollectionTests.cs" />
     <Compile Include="document\DocumentTitleMementoTests.cs" />
     <Compile Include="document\ImageMementoTests.cs" />
@@ -79,7 +77,6 @@
     <Compile Include="document\ParagraphTests.cs" />
     <Compile Include="document\visitors\ListVisitorTests.cs" />
     <Compile Include="document\visitors\SaveVisitorTests.cs" />
-    <Compile Include="externals\FileSystemTests.cs" />
     <Compile Include="externals\HtmlEncoderTests.cs" />
     <Compile Include="history\HistoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -23,6 +23,10 @@ namespace command.commandFactory
 				var pos = matches.Groups[1].Value;
 				var text = matches.Groups[2].Value;
 				var position = int.Parse(pos);
+				if (position > _document.ItemsCount)
+				{
+					throw new CommandError($"Invalid position {position}");
+				}
 				return new CommandContainer() { Command = new ChangeParagraphText(_document.GetItem(position).DocumentParagraph, text) };
 			}
 			throw new ArgumentException($"Invalid command");

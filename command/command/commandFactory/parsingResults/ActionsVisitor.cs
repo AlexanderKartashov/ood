@@ -1,4 +1,5 @@
-﻿using command.document;
+﻿using command.commands;
+using command.document;
 using command.document.visitors;
 using command.externals;
 using command.history;
@@ -34,7 +35,10 @@ namespace command.commandFactory
 		public void Visit(SaveAction save)
 		{
 			SaveVisitor visitor = new SaveVisitor(_fileStorage, _htmlEncoder, _fileSystem, save.PathToSave);
-			visitor.VisitDocument(save.Document, _fileSystem.CreateTextFile(save.PathToSave));
+			using (var file = _fileSystem.CreateTextFile(visitor.AbsFilePath))
+			{
+				visitor.VisitDocument(save.Document, file);
+			}
 		}
 
 		public void Visit(CommandContainer command)
@@ -60,7 +64,7 @@ namespace command.commandFactory
 					}
 					else
 					{
-						throw new InvalidOperationException("Undo operation not allowed");
+						throw new CommandError("Undo operation not allowed");
 					}
 					break;
 				case ActionContainer.Action.Redo:
@@ -70,7 +74,7 @@ namespace command.commandFactory
 					}
 					else
 					{
-						throw new InvalidOperationException("Redo operation not allowed");
+						throw new CommandError("Redo operation not allowed");
 					}
 					break;
 				case ActionContainer.Action.Help:

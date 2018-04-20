@@ -16,7 +16,7 @@ namespace command.commands
 
 		public ResizeImage(IImage image, uint newWidth, uint newHeight)
 		{
-			_image = image ?? throw new ArgumentNullException(nameof(image));
+			_image = image ?? throw new CommandError("Not an image");
 			_memento = _image.CreateMemento();
 			_newWidth = newWidth;
 			_newHeight = newHeight;

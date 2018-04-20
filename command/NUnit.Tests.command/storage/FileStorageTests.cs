@@ -32,7 +32,14 @@ namespace command.storage.Tests
 			fs.DirectoryExists(Arg.Any<string>()).Returns(true);
 			fs.FileExists(Arg.Any<string>()).Returns(true);
 			var storage = new FileStorage(fs);
-			fs.Received(1).CreateDirectory(Arg.Is(tmp));
+			Received.InOrder(() => {
+				fs.GetTempDirectoryPath();
+				fs.GetRandomFileName(Arg.Any<string>());
+				fs.CombinePath(Arg.Any<string[]>());
+				fs.Received(1).CreateDirectory(Arg.Any<string>());
+			});
+			fs.ClearReceivedCalls();
+
 			var path = "path";
 			fs.ChangeExtension(Arg.Any<string>(), Arg.Any<string>()).Returns("path");
 			IResource res = null;
@@ -57,7 +64,7 @@ namespace command.storage.Tests
 			fs.DirectoryExists(Arg.Any<string>()).Returns(true);
 			fs.FileExists(Arg.Any<string>()).Returns(true);
 			var storage = new FileStorage(fs);
-			fs.Received(1).CreateDirectory(Arg.Is(tmp));
+			fs.Received(1).CreateDirectory(Arg.Any<string>());
 			var path = "path";
 			fs.ChangeExtension(Arg.Any<string>(), Arg.Any<string>()).Returns("path");
 			IResource res = null;
@@ -76,14 +83,14 @@ namespace command.storage.Tests
 			fs.DirectoryExists(Arg.Any<string>()).Returns(true);
 			fs.FileExists(Arg.Any<string>()).Returns(true);
 			var storage = new FileStorage(fs);
-			fs.Received(1).CreateDirectory(Arg.Is(tmp));
+			fs.Received(1).CreateDirectory(Arg.Any<string>());
 			var path = "path";
 			fs.ChangeExtension(Arg.Any<string>(), Arg.Any<string>()).Returns("path");
 			IResource res = null;
 			Assert.That(() => { res = storage.Add(path); }, Throws.Nothing);
 			Assert.That(res, Is.Not.Null);
 			Assert.That(() => storage.Dispose(), Throws.Nothing);
-			fs.Received(1).DeleteDirectory(Arg.Is(tmp));
+			fs.Received(1).DeleteDirectory(Arg.Any<string>());
 		}
 	}
 }

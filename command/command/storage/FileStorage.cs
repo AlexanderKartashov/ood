@@ -18,15 +18,17 @@ namespace command.storage
 		{
 			_fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
 
-			_tempFolder = _fileSystem.GetTempDirectoryPath();
+			_tempFolder = _fileSystem.CombinePath(_fileSystem.GetTempDirectoryPath(), _fileSystem.GetRandomFileName("temp"));
 			_fileSystem.CreateDirectory(_tempFolder);
 		}
 
 		public IResource Add(string path)
 		{
+			var absSrcPath = _fileSystem.IsAbsPath(path) ? path : _fileSystem.GetAbsPath(_fileSystem.GetDirectoryPath(_fileSystem.GetApplicationPath()), path);
+
 			var newTempFilePath = _fileSystem.CombinePath(_tempFolder, _fileSystem.GetRandomFileName("file"));
-			newTempFilePath = _fileSystem.ChangeExtension(newTempFilePath, _fileSystem.GetExtension(newTempFilePath));
-			_fileSystem.CopyFiles(path, newTempFilePath);
+			newTempFilePath = _fileSystem.ChangeExtension(newTempFilePath, _fileSystem.GetExtension(absSrcPath));
+			_fileSystem.CopyFiles(absSrcPath, newTempFilePath);
 			var newResource = new Resource(newTempFilePath, this, _fileSystem);
 			_resources.Add(newResource);
 			return newResource;

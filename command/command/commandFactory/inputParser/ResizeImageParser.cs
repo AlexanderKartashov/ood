@@ -24,6 +24,10 @@ namespace command.commandFactory
 				var width = matches.Groups[2].Value;
 				var height = matches.Groups[3].Value;
 				var position = int.Parse(pos);
+				if (position > _document.ItemsCount)
+				{
+					throw new CommandError($"Invalid position {position}");
+				}
 				return new CommandContainer() { Command = new ResizeImage(_document.GetItem(position).DocumentImage, uint.Parse(width), uint.Parse(height)) };
 			}
 			throw new ArgumentException($"Invalid command");

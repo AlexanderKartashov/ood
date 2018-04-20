@@ -15,7 +15,7 @@ namespace command.commands
 
 		public ChangeParagraphText(IParagraph paragraph, string newText)
 		{
-			_paragraph = paragraph ?? throw new ArgumentNullException(nameof(paragraph));
+			_paragraph = paragraph ?? throw new CommandError("Not a text paragraph");
 			_newText = newText ?? throw new ArgumentNullException(nameof(newText));
 			_memento = _paragraph.CreateMemento();
 		}

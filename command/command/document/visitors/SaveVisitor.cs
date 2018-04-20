@@ -25,19 +25,32 @@ namespace command.document.visitors
 
 			if (!_fileSystem.IsAbsPath(_filePath))
 			{
-				_filePath = _fileSystem.GetAbsPath(_fileSystem.GetApplicationPath(), _filePath);
+				_filePath = _fileSystem.GetAbsPath(_fileSystem.GetDirectoryPath(_fileSystem.GetApplicationPath()), _filePath);
+			}
+			var dir = _fileSystem.GetDirectoryPath(_filePath);
+			if (!_fileSystem.DirectoryExists(dir))
+			{
+				_fileSystem.CreateDirectory(dir);
 			}
 		}
 
+		public string AbsFilePath { get => _filePath; }
+
 		protected override void Visit(TextWriter textWriter, int i, IImage image)
 		{
-			var absDstPath = _fileSystem.CombinePath(_fileSystem.GetDirectoryPath(_filePath), "images", image.Resource.FilePath);
-			var relativeDstPath = _fileSystem.GetRelativePath(_fileSystem.GetDirectoryPath(_filePath), absDstPath);
+			var imagesPath = _fileSystem.CombinePath(_fileSystem.GetDirectoryPath(_filePath), "images");
+			if (_fileSystem.DirectoryExists(imagesPath))
+			{
+				_fileSystem.DeleteDirectory(imagesPath);
+			}
+			_fileSystem.CreateDirectory(imagesPath);
+			var absDstPath = _fileSystem.CombinePath(imagesPath, image.Resource.FilePath);
+			var relativeDstPath = _fileSystem.GetRelativePath(_filePath, absDstPath);
 			var absSrcPath = _fileSystem.GetAbsPath(_fileStorage.Path, image.Resource.FilePath);
 
 			_fileSystem.CopyFiles(absSrcPath, absDstPath);
 
-			textWriter.WriteLine($"<image src=\"{_htmlEncoder.Encode(relativeDstPath)}\"></image>");
+			textWriter.WriteLine($"<image src=\"{_htmlEncoder.Encode(relativeDstPath)}\" width=\"{image.Width}\" height=\"{image.Height}\"></image>");
 		}
 
 		protected override void Visit(TextWriter textWriter, int i, IParagraph paragraph)

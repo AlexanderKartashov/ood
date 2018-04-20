@@ -32,7 +32,7 @@ namespace command.commandFactory.Tests
 		[TestCase("1 2 3 ")]
 		[TestCase(" 1 2 3")]
 		[TestCase(" 1 2 3 ")]
-		public void ParseCommandSucceededTest(string data)
+		public void ParseCommandFailedTest(string data)
 		{
 			var document = Substitute.For<IDocument>();
 			var parser = new ResizeImageParser(document);
@@ -40,9 +40,20 @@ namespace command.commandFactory.Tests
 		}
 
 		[TestCase("1 2 3")]
-		public void ParseCommandFailedTest(string data)
+		public void ParseCommandFailedIndexTest(string data)
 		{
 			var document = Substitute.For<IDocument>();
+			document.ItemsCount.Returns(0);
+			var parser = new ResizeImageParser(document);
+			CommandContainer command;
+			Assert.That(() => { command = parser.ParseCommand(data); }, Throws.TypeOf<CommandError>());
+		}
+
+		[TestCase("1 2 3")]
+		public void ParseCommandFailedErrorTest(string data)
+		{
+			var document = Substitute.For<IDocument>();
+			document.ItemsCount.Returns(1);
 			var parser = new ResizeImageParser(document);
 			CommandContainer command;
 			Assert.That(() => { command = parser.ParseCommand(data); }, Throws.Nothing);

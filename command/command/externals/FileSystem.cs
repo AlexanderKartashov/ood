@@ -93,7 +93,7 @@ namespace command.externals
 		{
 			Uri uriBase = new Uri(basePath);
 			Uri uriAbs = new Uri(absPath);
-			Uri relativeUri = uriAbs.MakeRelativeUri(uriBase);
+			Uri relativeUri = uriBase.MakeRelativeUri(uriAbs);
 			return relativeUri.ToString();
 		}
 

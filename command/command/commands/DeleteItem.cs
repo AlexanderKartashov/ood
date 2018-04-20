@@ -16,6 +16,10 @@ namespace command.commands
 		public DeleteItem(IDocument document, int position)
 		{
 			_document = document ?? throw new ArgumentNullException(nameof(document));
+			if (position > _document.ItemsCount)
+			{
+				throw new CommandError($"Invalid position {position}");
+			}
 			_item = _document.GetItem(position);
 			_position = position;
 		}

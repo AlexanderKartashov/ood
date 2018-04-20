@@ -17,6 +17,10 @@ namespace command.commands
 		{
 			_document = document ?? throw new ArgumentNullException(nameof(document));
 			_item = item ?? throw new ArgumentNullException(nameof(item));
+			if (position > _document.ItemsCount)
+			{
+				throw new CommandError($"Invalid position {position}");
+			}
 			_position = position;
 		}
 
