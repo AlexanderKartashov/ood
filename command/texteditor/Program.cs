@@ -22,7 +22,7 @@ namespace texteditor
 				var fileSystem = new FileSystem();
 				var htmlEncoder = new HtmlEncoder();
 
-				using (var history = new History())
+				using (var history = new History(10))
 				using (var fileStorage = new FileStorage(fileSystem))
 				{
 					var documentItemFactoty = new DocumentItemFactory(fileStorage);
