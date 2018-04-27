@@ -15,7 +15,6 @@ namespace canvas
 		private Color _color = Color.Black;
 		private StringBuilder _content = new StringBuilder();
 
-		private readonly string _path;
 		private readonly int _w;
 		private readonly int _h;
 

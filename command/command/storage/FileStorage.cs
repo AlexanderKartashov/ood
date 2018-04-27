@@ -12,7 +12,7 @@ namespace command.storage
 	{
 		private readonly string _tempFolder;
 		private readonly IFileSystem _fileSystem;
-		private readonly IList<IResource> _resources = new List<IResource>();
+		private readonly IList<Resource> _resources = new List<Resource>();
 
 		public FileStorage(IFileSystem fileSystem)
 		{
@@ -38,7 +38,7 @@ namespace command.storage
 		{
 			foreach(var res in _resources)
 			{
-				res.Dispose();
+				res.Remove();
 			}
 			_resources.Clear();
 			_fileSystem.DeleteDirectory(_tempFolder);
@@ -48,8 +48,12 @@ namespace command.storage
 
 		public void Remove(IResource resource)
 		{
-			resource.Dispose();
-			_resources.Remove(resource);
+			var resInList = _resources.First(x => x.Equals(resource));
+			if (resInList != null)
+			{
+				resInList.Remove();
+				_resources.Remove(resInList);
+			}
 		}
 	}
 }

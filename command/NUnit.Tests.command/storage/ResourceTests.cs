@@ -56,7 +56,7 @@ namespace command.storage.Tests
 			fileSystem.FileExists(Arg.Any<string>()).Returns(true);
 			var resource = new Resource(filePath, storage, fileSystem);
 			Assert.That(() => resource.Remove(), Throws.Nothing);
-			storage.Received(1).Remove(Arg.Is(resource));
+			fileSystem.Received(1).DeleteFile(Arg.Is(filePath));
 		}
 
 		[Test]
@@ -82,7 +82,7 @@ namespace command.storage.Tests
 			fileSystem.FileExists(Arg.Any<string>()).Returns(true);
 			var resource = new Resource(filePath, storage, fileSystem);
 			Assert.That(() => resource.Dispose(), Throws.Nothing);
-			fileSystem.Received(1).DeleteFile(Arg.Is(filePath));
+			storage.Received(1).Remove(Arg.Is(resource));
 		}
 
 		static readonly IFileStorage[] Storages = { null, Substitute.For<IFileStorage>() };
