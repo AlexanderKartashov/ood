@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using painter.parsers;
 using painter_declarations;
+using painter.sdk;
 
 namespace painter
 {

@@ -7,8 +7,8 @@
     <ProjectGuid>{8012552C-F695-48AE-8DB8-FC4E18E02789}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>painter_declarations</RootNamespace>
-    <AssemblyName>painter_declarations</AssemblyName>
+    <RootNamespace>painter.sdk</RootNamespace>
+    <AssemblyName>painter.sdk</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,16 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Color.cs" />
-    <Compile Include="DisposableCanvasDecorator.cs" />
-    <Compile Include="ICanvas.cs" />
-    <Compile Include="ICanvasFactory.cs" />
-    <Compile Include="IParsingErrorHandler.cs" />
-    <Compile Include="IShapeInfo.cs" />
-    <Compile Include="IShapeParser.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="inerfaces\canvas\IBitmapCanvas.cs" />
+    <Compile Include="inerfaces\canvas\ICanvasVisitor.cs" />
+    <Compile Include="inerfaces\canvas\IVectorCanvas.cs" />
+    <Compile Include="types\Color.cs" />
+    <Compile Include="inerfaces\canvas\ICanvas.cs" />
+    <Compile Include="inerfaces\canvas\ICanvasFactory.cs" />
+    <Compile Include="utils\IParsingErrorHandler.cs" />
+    <Compile Include="inerfaces\shapes\IShapeInfo.cs" />
+    <Compile Include="inerfaces\shapes\IShapeParser.cs" />
+    <Compile Include="types\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shape.cs" />
+    <Compile Include="types\Shape.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -61,9 +61,9 @@
     <Compile Include="parsers\TriangleParser.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\painter_declarations\painter_declarations.csproj">
+    <ProjectReference Include="..\painter_declarations\painter.sdk.csproj">
       <Project>{8012552c-f695-48ae-8db8-fc4e18e02789}</Project>
-      <Name>painter_declarations</Name>
+      <Name>painter.sdk</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

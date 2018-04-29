@@ -1,22 +1,18 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-using painter;
-using painter.shapes;
-using painter_declarations;
+using painter.sdk;
 
 namespace canvas
 {
-	public class SvgCanvas : ICanvas
+	class SvgCanvas : IVectorCanvas
 	{
 		private Color _color = Color.Black;
 		private StringBuilder _content = new StringBuilder();
 
 		private readonly int _w;
 		private readonly int _h;
+
+		public string Data => _content.ToString();
 
 		public SvgCanvas(int w, int h)
 		{
@@ -41,14 +37,9 @@ namespace canvas
 			_color = color;
 		}
 
-		public void Save(string directory)
+		public void Accept(ICanvasVisitor visitor)
 		{
-			var template = "<!DOCTYPE html><html><body><svg width=\"{0}\" height=\"{1}\">{2}</svg></body></html>";
-			var filePath = Path.Combine(directory, "index.html");
-			using (var file = File.CreateText(filePath))
-			{
-				file.Write(string.Format(template, _w, _h, _content.ToString()));
-			}
+			visitor.Visit(this);
 		}
 	}
 }

@@ -1,9 +1,5 @@
-﻿using painter_declarations;
-using System;
-using System.Collections.Generic;
+﻿using painter.sdk;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace painter
 {

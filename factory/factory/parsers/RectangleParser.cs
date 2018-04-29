@@ -1,5 +1,5 @@
-﻿using painter.shapes;
-using painter_declarations;
+﻿using painter.sdk;
+using painter.shapes;
 using System;
 using System.ComponentModel.Composition;
 using System.Text.RegularExpressions;

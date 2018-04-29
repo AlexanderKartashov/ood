@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using CommandLine;
-using painter;
+using painter.sdk;
+using painter_clinet.utils;
 using painter_clinet_common;
-using painter_declarations;
+using System.Linq;
+using canvas;
 
 namespace painter_client_mef
 {
@@ -30,34 +28,29 @@ namespace painter_client_mef
 
 		static void DrawPicture(CommandLineOptions options)
 		{
-			DrawPictureMef draw = new DrawPictureMef();
-			draw.DrawPicture(options);
+			new MefCompsition().Run(options);
 		}
 
-		class DrawPictureMef
+		class MefCompsition
 		{
-			[ImportMany(typeof(IShapeParser))]
-			public IEnumerable<IShapeParser> Parsers { get; set; }
+			[ImportMany(typeof(IShapeParser))] IEnumerable<IShapeParser> Parsers { get; set; }
+			[ImportMany(typeof(ICanvasFactory))] IEnumerable<ICanvasFactory> CanvasFactories { get; set; }
+			[ImportMany(typeof(ICanvasVisitor))] IEnumerable<ICanvasVisitor> CanvasVisitors { get; set; }
 
-			[ImportMany(typeof(ICanvasFactory))]
-			public IEnumerable<ICanvasFactory> CanvasFactories { get; set; }
-
-			public void DrawPicture(CommandLineOptions options)
+			public void Run(CommandLineOptions options)
 			{
 				var catalog = new DirectoryCatalog(Environment.CurrentDirectory);
 				var compositionContainer = new CompositionContainer(catalog);
 				compositionContainer.ComposeParts(this);
 
 				CommandLineOptionsProcessor processor = new CommandLineOptionsProcessor();
-				var settings = processor.Process(options, Parsers);
+				var settings = processor.Process(options);
 
-				var factories = CanvasFactories.GetEnumerator();
-				while (factories.MoveNext())
-				{
-					PictureDraw.DrawPictureOnCanvas(factories.Current, settings, Parsers);
-				}
+				CanvasVisitors.Cast<FileCanvasPresenter>().ToList().ForEach(x => { x.Directory = settings.Output; });
+
+				DrawPicture drawPicture = new DrawPicture(Parsers, CanvasFactories, CanvasVisitors);
+				drawPicture.Draw(settings);
 			}
 		}
-
 	}
 }

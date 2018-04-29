@@ -1,4 +1,5 @@
-﻿using painter_declarations;
+﻿using painter.sdk;
+using painter_declarations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,15 +9,18 @@ using System.Threading.Tasks;
 
 namespace painter_clinet_common
 {
-	public class ErrorHandlerWithHelp : TextWriter
+	public class ErrorHandler : TextWriter
 	{
 		private readonly TextWriter _textWriter;
-
-		public ErrorHandlerWithHelp(TextWriter textWriter) => _textWriter = textWriter ?? throw new ArgumentNullException(nameof(textWriter));
 
 		public IEnumerable<IShapeInfo> ShapeInfos { private get; set; }
 
 		public override Encoding Encoding => _textWriter.Encoding;
+
+		public ErrorHandler(TextWriter textWriter)
+		{
+			_textWriter = textWriter ?? throw new ArgumentNullException(nameof(textWriter));
+		}
 
 		public override void WriteLine(string value)
 		{

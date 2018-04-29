@@ -1,15 +1,11 @@
 ﻿using System;
 using CommandLine;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using canvas;
-using painter;
 using painter.parsers;
-using painter.shapes;
 using painter_clinet_common;
-using painter_declarations;
+using painter.sdk;
+using painter_clinet.utils;
 
 namespace painter_client
 {
@@ -31,15 +27,25 @@ namespace painter_client
 		static void DrawPicture(CommandLineOptions options)
 		{
 			CommandLineOptionsProcessor processor = new CommandLineOptionsProcessor();
+			var settings = processor.Process(options);
+
 			var parsers = new List<IShapeParser>() {
 				new TriangleParser(),
 				new RectangleParser(),
 				new RectangularPolygonParser(),
 				new EllipseParser()
 			};
-			var settings = processor.Process(options, parsers);
-			var canvasFactory = new SvgCanvasFactory();
-			PictureDraw.DrawPictureOnCanvas(canvasFactory, settings, parsers);
+			var factories = new List<ICanvasFactory>() {
+				new SvgCanvasFactory(),
+				new BitmapCanvasFactory(),
+				new DummyCanvasFactory()
+			};
+			var visitors = new List<ICanvasVisitor>() {
+				new FileCanvasPresenter() { Directory = settings.Output }
+			};
+
+			var draw = new DrawPicture(parsers, factories, visitors);
+			draw.Draw(settings);
 		}
 	}
 }

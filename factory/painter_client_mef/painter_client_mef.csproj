@@ -87,13 +87,13 @@
       <Project>{F5AB24B1-4655-419F-80C2-C1CA5CB5FE98}</Project>
       <Name>painter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\painter_clinet_common\painter_client_common.csproj">
+    <ProjectReference Include="..\painter_clinet_common\painter_client.utils.csproj">
       <Project>{3a91229d-f578-4828-8834-501d38e90da2}</Project>
-      <Name>painter_client_common</Name>
+      <Name>painter_client.utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\painter_declarations\painter_declarations.csproj">
+    <ProjectReference Include="..\painter_declarations\painter.sdk.csproj">
       <Project>{8012552C-F695-48AE-8DB8-FC4E18E02789}</Project>
-      <Name>painter_declarations</Name>
+      <Name>painter.sdk</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

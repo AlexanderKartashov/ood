@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using painter_declarations;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
+using painter.sdk;
 
 namespace canvas
 {

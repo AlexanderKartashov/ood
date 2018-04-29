@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace painter_declarations
+namespace painter.sdk
 {
-	public interface ICanvasFactory
+	public interface IBitmapCanvas : ICanvas
 	{
-		ICanvas CreateCanvas(int w, int h);
+		Bitmap Data { get; }
 	}
 }

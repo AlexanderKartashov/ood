@@ -1,14 +1,10 @@
 ﻿using NUnit.Framework;
 using NSubstitute;
-using painter;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using painter.shapes;
-using painter_declarations;
+using painter.sdk;
 
 namespace painter.Tests
 {

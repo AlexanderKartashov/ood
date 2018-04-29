@@ -11,11 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "canvas", "canvas\canvas.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "painter_client", "painter_client\painter_client.csproj", "{0C7BFD1E-2679-42D0-9112-C67AFBD108C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "painter_client_common", "painter_clinet_common\painter_client_common.csproj", "{3A91229D-F578-4828-8834-501D38E90DA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "painter_client.utils", "painter_clinet_common\painter_client.utils.csproj", "{3A91229D-F578-4828-8834-501D38E90DA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "painter_client_mef", "painter_client_mef\painter_client_mef.csproj", "{E00C4E36-FAB9-46A8-BC35-B45B8D6F9C65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "painter_declarations", "painter_declarations\painter_declarations.csproj", "{8012552C-F695-48AE-8DB8-FC4E18E02789}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "painter.sdk", "painter_declarations\painter.sdk.csproj", "{8012552C-F695-48AE-8DB8-FC4E18E02789}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

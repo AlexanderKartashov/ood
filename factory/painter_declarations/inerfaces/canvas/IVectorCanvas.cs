@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace painter_declarations
+namespace painter.sdk
 {
-	public interface IShapeInfo
+	public interface IVectorCanvas : ICanvas
 	{
-		string ShapeType { get; }
-
-		string ShapeInfoFormat { get; }
+		string Data { get; }
 	}
 }

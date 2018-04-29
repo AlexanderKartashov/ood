@@ -4,15 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace painter_declarations
+namespace painter.sdk
 {
-	public enum Color
+	public interface ICanvasFactory
 	{
-		Green,
-		Red,
-		Blue,
-		Yellow,
-		Pink,
-		Black
+		ICanvas CreateCanvas(int w, int h);
 	}
 }
