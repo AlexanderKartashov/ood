@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassAdapter.cs" />
+    <Compile Include="ColorConverter.cs" />
     <Compile Include="ObjectAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

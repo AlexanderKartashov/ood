@@ -39,13 +39,15 @@ namespace modern_graphics_lib
 			_isDrawing = false;
 		}
 
-		public void DrawLine(Point start, Point end)
+		public void DrawLine(Point start, Point end, RGBAColor color)
 		{
 			if (!_isDrawing)
 			{
 				throw new InvalidOperationException("DrawLine is allowed between BeginDraw()/EndDraw() only");
 			}
-			_textWriter.WriteLine($"  <line fromX={start.X} fromY={start.Y} toX={end.X} toY={end.Y}/>");
+			_textWriter.WriteLine($"  <line fromX={start.X} fromY={start.Y} toX={end.X} toY={end.Y}>");
+			_textWriter.WriteLine($"    <color r={color.R:F2} g={color.G:F2} b={color.B:F2} a={color.A:F2}/>");
+			_textWriter.WriteLine($"  </line>");
 		}
 	}
 }

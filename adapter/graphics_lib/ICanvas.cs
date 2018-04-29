@@ -10,5 +10,6 @@ namespace graphics_lib
 	{
 		void Moveto(int x, int y);
 		void LineTo(int x, int y);
+		void SetColor(uint rgbColor);
 	}
 }

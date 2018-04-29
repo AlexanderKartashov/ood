@@ -37,7 +37,20 @@ namespace test_app
 
 		static void PaintPictureOnModernGraphicsRenderer()
 		{
+			Console.WriteLine("========================");
+			Console.WriteLine("object adapter");
+			Console.WriteLine("========================");
 			using (var painter = new ObjectAdapter(new ModernGraphicsRenderer(Console.Out)))
+			{
+				CanvasPainter canvasPainter = new CanvasPainter(painter);
+				Painiter picturePainter = new Painiter();
+				picturePainter.PaintPicture(canvasPainter);
+			}
+
+			Console.WriteLine("========================");
+			Console.WriteLine("class adapter");
+			Console.WriteLine("========================");
+			using (var painter = new ClassAdapter(Console.Out))
 			{
 				CanvasPainter canvasPainter = new CanvasPainter(painter);
 				Painiter picturePainter = new Painiter();

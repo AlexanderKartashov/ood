@@ -22,5 +22,13 @@ namespace graphics_lib
 		{
 			_textWriter.WriteLine($"Line to {x}, {y}");
 		}
+
+		public void SetColor(uint rgbColor)
+		{
+			byte r = (byte)((rgbColor >> 16) & 0x0000FF);
+			byte g = (byte)((rgbColor >> 8)  & 0x0000FF);
+			byte b = (byte)((rgbColor >> 0)  & 0x0000FF);
+			_textWriter.WriteLine($"Color #{r:X2}{g:X2}{b:X2}");
+		}
 	}
 }

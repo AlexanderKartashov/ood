@@ -12,6 +12,7 @@ namespace adapters
 	{
 		private readonly ModernGraphicsRenderer _modernGraphicsRenderer;
 		private Point _startPoint = new Point(0, 0);
+		private RGBAColor _currrentColor;
 
 		public ObjectAdapter(ModernGraphicsRenderer modernGraphicsRenderer)
 		{
@@ -27,13 +28,18 @@ namespace adapters
 		public void LineTo(int x, int y)
 		{
 			var endPoint = new Point(x, y);
-			_modernGraphicsRenderer.DrawLine(_startPoint, endPoint);
+			_modernGraphicsRenderer.DrawLine(_startPoint, endPoint, _currrentColor);
 			_startPoint = endPoint;
 		}
 
 		public void Moveto(int x, int y)
 		{
 			_startPoint = new Point(x, y);
+		}
+
+		public void SetColor(uint rgbColor)
+		{
+			_currrentColor = ColorConverter.Convert(rgbColor);
 		}
 	}
 }
