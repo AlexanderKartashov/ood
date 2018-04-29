@@ -9,14 +9,15 @@ using System.Threading.Tasks;
 
 namespace command.document.visitors
 {
-	public class SaveVisitor : DocumentVisitor
+	public class SaveBuilder : IDocumentContentBuilder
 	{
 		private readonly IFileStorage _fileStorage;
 		private readonly IHtmlEncoder _htmlEncoder;
 		private readonly IFileSystem _fileSystem;
 		private readonly string _filePath;
+		private readonly TextWriter _textWriter;
 
-		public SaveVisitor(IFileStorage fileStorage, IHtmlEncoder htmlEncoder, IFileSystem fileSystem, string filePath)
+		public SaveBuilder(IFileStorage fileStorage, IHtmlEncoder htmlEncoder, IFileSystem fileSystem, string filePath)
 		{
 			_fileStorage = fileStorage ?? throw new ArgumentNullException(nameof(fileStorage));
 			_htmlEncoder = htmlEncoder ?? throw new ArgumentNullException(nameof(htmlEncoder));
@@ -32,11 +33,21 @@ namespace command.document.visitors
 			{
 				_fileSystem.CreateDirectory(dir);
 			}
+
+			_textWriter = _fileSystem.CreateTextFile(_filePath);
 		}
 
-		public string AbsFilePath { get => _filePath; }
+		public void BuildTitle(string title)
+		{
+			_textWriter.WriteLine($"<title>{_htmlEncoder.Encode(title)}</title></head><body>");
+		}
 
-		protected override void Visit(TextWriter textWriter, int i, IImage image)
+		public void BuildParagraph(IParagraph paragraph)
+		{
+			_textWriter.WriteLine($"<p>{_htmlEncoder.Encode(paragraph.Text)}</p>");
+		}
+
+		public void BuildImage(IImage image)
 		{
 			var imagesPath = _fileSystem.CombinePath(_fileSystem.GetDirectoryPath(_filePath), "images");
 			if (_fileSystem.DirectoryExists(imagesPath))
@@ -50,27 +61,17 @@ namespace command.document.visitors
 
 			_fileSystem.CopyFiles(absSrcPath, absDstPath);
 
-			textWriter.WriteLine($"<image src=\"{_htmlEncoder.Encode(relativeDstPath)}\" width=\"{image.Width}\" height=\"{image.Height}\"></image>");
+			_textWriter.WriteLine($"<image src=\"{_htmlEncoder.Encode(relativeDstPath)}\" width=\"{image.Width}\" height=\"{image.Height}\"></image>");
 		}
 
-		protected override void Visit(TextWriter textWriter, int i, IParagraph paragraph)
+		public void BeforeBuild()
 		{
-			textWriter.WriteLine($"<p>{_htmlEncoder.Encode(paragraph.Text)}</p>");
+			_textWriter.WriteLine("<!DOCTYPE html><html><head>");
 		}
 
-		protected override void Visit(TextWriter textWriter, string title)
+		public void AfterBuild()
 		{
-			textWriter.WriteLine($"<title>{_htmlEncoder.Encode(title)}</title></head><body>");
-		}
-
-		protected override void BeforeVisit(TextWriter textWriter)
-		{
-			textWriter.WriteLine("<!DOCTYPE html><html><head>");
-		}
-
-		protected override void AfterVisit(TextWriter textWriter)
-		{
-			textWriter.WriteLine("</body></html>");
+			_textWriter.WriteLine("</body></html>");
 		}
 	}
 }

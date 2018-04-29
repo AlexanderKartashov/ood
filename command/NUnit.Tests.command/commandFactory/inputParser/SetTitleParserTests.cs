@@ -39,7 +39,7 @@ namespace command.commandFactory.Tests
 			CommandContainer container;
 			Assert.That(() => { container = parser.ParseCommand(data); }, Throws.Nothing);
 			Assert.That(container.Command, Is.Not.Null);
-			Assert.That(container.Command, Is.TypeOf<ChangeDocumentTitle>());
+			Assert.That(container.Command, Is.TypeOf<FunctionalCommand>());
 		}
 
 		[Test]

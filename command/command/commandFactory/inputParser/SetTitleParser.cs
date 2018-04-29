@@ -21,7 +21,14 @@ namespace command.commandFactory
 			if (matches.Success && matches.Groups.Count == 2)
 			{
 				var title = matches.Groups[1].Value;
-				return new CommandContainer() { Command = new ChangeDocumentTitle(_document, title) };
+				string oldTitle = (string)_document.Title.Clone();
+				return new CommandContainer() {
+					Command = new FunctionalCommand(
+						() => _document.Title = title,
+						() => _document.Title = oldTitle,
+						() => { }
+					)
+				};
 			}
 			throw new ArgumentException($"Invalid command");
 		}

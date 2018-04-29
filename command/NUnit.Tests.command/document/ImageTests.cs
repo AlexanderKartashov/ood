@@ -34,19 +34,6 @@ namespace command.document.Tests
 			Assert.That(image.Height, Is.EqualTo(h));
 		}
 
-		[Test()]
-		public void CreateMementoTest()
-		{
-			uint w = 5;
-			uint h = 10;
-			var res = Substitute.For<IResource>();
-			var image = new Image(res, 0, 0);
-			var memento = image.CreateMemento();
-			Assert.That(() => image.Resize(w, h), Throws.Nothing);
-			Assert.That(() => memento.Restore(), Throws.Nothing);
-			Assert.That(image.Width, Is.EqualTo(0));
-			Assert.That(image.Height, Is.EqualTo(0));
-		}
 
 		[Test()]
 		public void ResizeTest()
@@ -55,7 +42,8 @@ namespace command.document.Tests
 			uint h = 10;
 			var res = Substitute.For<IResource>();
 			var image = new Image(res, 0, 0);
-			Assert.That(() => image.Resize(w, h), Throws.Nothing);
+			Assert.That(() => image.Width = w, Throws.Nothing);
+			Assert.That(() => image.Height = h, Throws.Nothing);
 			Assert.That(image.Width, Is.EqualTo(w));
 			Assert.That(image.Height, Is.EqualTo(h));
 		}

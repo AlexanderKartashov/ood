@@ -45,14 +45,14 @@ namespace command.commands.Tests
 			var command = new DeleteItem(document, 0);
 			Assert.That(() => command.Execute(), Throws.Nothing);
 			document.Received(1).DeleteItem(Arg.Is(0));
-			document.DidNotReceive().InsertItem(Arg.Any<DocumentItem>(), Arg.Any<int>());
+			document.DidNotReceive().InsertItem(Arg.Any<IDocumentItem>(), Arg.Any<int>());
 		}
 
 		[Test]
 		public void UnexecuteTest()
 		{
 			var document = Substitute.For<IDocument>();
-			var item = Substitute.For<DocumentItem>();
+			var item = Substitute.For<IDocumentItem>();
 			document.GetItem(Arg.Any<int>()).Returns(item);
 			document.ItemsCount.Returns(0);
 			var command = new DeleteItem(document, 0);
@@ -67,52 +67,52 @@ namespace command.commands.Tests
 		[Test]
 		public void ExecuteOnCollectionTest()
 		{
-			var item1 = Substitute.For<DocumentItem>();
-			var item2 = Substitute.For<DocumentItem>();
-			var item3 = Substitute.For<DocumentItem>();
-			var item4 = Substitute.For<DocumentItem>();
-			var collection = new List<DocumentItem>(){
+			var item1 = Substitute.For<IDocumentItem>();
+			var item2 = Substitute.For<IDocumentItem>();
+			var item3 = Substitute.For<IDocumentItem>();
+			var item4 = Substitute.For<IDocumentItem>();
+			var collection = new List<IDocumentItem>(){
 				item1, item2, item3, item4
 			};
 			var document = Substitute.For<IDocument>();
 			document.When(x => x.DeleteItem(Arg.Any<int>())).Do(x => collection.RemoveAt(x.ArgAt<int>(0)));
-			document.When(x => x.InsertItem(Arg.Any<DocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<DocumentItem>(0)));
+			document.When(x => x.InsertItem(Arg.Any<IDocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<IDocumentItem>(0)));
 			document.ItemsCount.Returns(collection.Count);
 
 			var command = new DeleteItem(document, 1);
 			Assert.That(() => command.Execute(), Throws.Nothing);
-			CollectionAssert.AreEqual(new List<DocumentItem>() { item1, item3, item4 }, collection);
+			CollectionAssert.AreEqual(new List<IDocumentItem>() { item1, item3, item4 }, collection);
 		}
 
 		[Test]
 		public void UnexecuteOnCollectionTest()
 		{
-			var item1 = Substitute.For<DocumentItem>();
-			var item2 = Substitute.For<DocumentItem>();
-			var item3 = Substitute.For<DocumentItem>();
-			var item4 = Substitute.For<DocumentItem>();
-			var collection = new List<DocumentItem>(){
+			var item1 = Substitute.For<IDocumentItem>();
+			var item2 = Substitute.For<IDocumentItem>();
+			var item3 = Substitute.For<IDocumentItem>();
+			var item4 = Substitute.For<IDocumentItem>();
+			var collection = new List<IDocumentItem>(){
 				item1, item2, item3, item4
 			};
 			var document = Substitute.For<IDocument>();
 			document.ItemsCount.Returns(collection.Count);
 			document.When(x => x.DeleteItem(Arg.Any<int>())).Do(x => collection.RemoveAt(x.ArgAt<int>(0)));
 			document.GetItem(Arg.Any<int>()).Returns(x => collection.ElementAt(x.ArgAt<int>(0)));
-			document.When(x => x.InsertItem(Arg.Any<DocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<DocumentItem>(0)));
+			document.When(x => x.InsertItem(Arg.Any<IDocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<IDocumentItem>(0)));
 
 			var command = new DeleteItem(document, 1);
 			Assert.That(() => command.Execute(), Throws.Nothing);
-			CollectionAssert.AreEqual(new List<DocumentItem>() { item1, item3, item4 }, collection);
+			CollectionAssert.AreEqual(new List<IDocumentItem>() { item1, item3, item4 }, collection);
 
 			Assert.That(() => command.Unexecute(), Throws.Nothing);
-			CollectionAssert.AreEqual(new List<DocumentItem>() { item1, item2, item3, item4 }, collection);
+			CollectionAssert.AreEqual(new List<IDocumentItem>() { item1, item2, item3, item4 }, collection);
 		}
 
 		[Test]
 		public void DestroyExecutedTest()
 		{
 			var document = Substitute.For<IDocument>();
-			var item = Substitute.For<DocumentItem>();
+			var item = Substitute.For<IDocumentItem>();
 			document.GetItem(Arg.Any<int>()).Returns(item);
 			var command = new DeleteItem(document, 0);
 
@@ -125,7 +125,7 @@ namespace command.commands.Tests
 		public void DestroyUnexecutedTest()
 		{
 			var document = Substitute.For<IDocument>();
-			var item = Substitute.For<DocumentItem>();
+			var item = Substitute.For<IDocumentItem>();
 			document.GetItem(Arg.Any<int>()).Returns(item);
 			var command = new DeleteItem(document, 0);
 			Assert.That(() => command.Execute(), Throws.Nothing);
@@ -138,7 +138,7 @@ namespace command.commands.Tests
 		public void DestroyNotExecutedTest()
 		{
 			var document = Substitute.For<IDocument>();
-			var item = Substitute.For<DocumentItem>();
+			var item = Substitute.For<IDocumentItem>();
 			document.GetItem(Arg.Any<int>()).Returns(item);
 			var command = new DeleteItem(document, 0);
 			Assert.That(() => command.Dispose(), Throws.Nothing);

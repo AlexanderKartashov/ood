@@ -23,12 +23,27 @@ namespace command.history.Tests
 		}
 
 		[Test]
+		public void AbstractCommandTest()
+		{
+			var command = new EmptyCommand();
+			Assert.That(command.IsExecuted, Is.False);
+
+			Assert.That(() => command.Unexecute(), Throws.InvalidOperationException);
+			Assert.That(() => command.Execute(), Throws.Nothing);
+			Assert.That(command.IsExecuted, Is.True);
+			Assert.That(() => command.Execute(), Throws.InvalidOperationException);
+
+			Assert.That(() => command.Dispose(), Throws.Nothing);
+			Assert.That(() => command.Dispose(), Throws.Nothing);
+		}
+
+		[Test]
 		public void AddCommandTest()
 		{
 			Assert.That(() => _history.AddCommand(null), Throws.ArgumentNullException);
 
 			var command = Substitute.For<AbstractCommand>();
-			bool? executed = null;
+			bool executed = false;
 			command.IsExecuted.Returns(x => { return executed; });
 
 			Assert.That(() => _history.AddCommand(command), Throws.ArgumentException);
@@ -109,20 +124,19 @@ namespace command.history.Tests
 		{
 			Assert.That(() => _history.Redo(), Throws.InvalidOperationException);
 
-			var command1 = Substitute.For<AbstractCommand>();
-			command1.IsExecuted.Returns(true);
+			var command1 = new EmptyCommand();
+			command1.Execute();
 			Assert.That(() => _history.AddCommand(command1), Throws.Nothing); // 1 command
 			Assert.That(() => _history.Redo(), Throws.InvalidOperationException);
 
-			var command2 = Substitute.For<AbstractCommand>();
-			command2.IsExecuted.Returns(true);
+			var command2 = new EmptyCommand();
+			command2.Execute();
 			Assert.That(() => _history.AddCommand(command2), Throws.Nothing); // 2 commands
 			Assert.That(() => _history.Redo(), Throws.InvalidOperationException);
 
 			Assert.That(() => _history.Undo(), Throws.Nothing);
 
 			Assert.That(() => _history.Redo(), Throws.Nothing);
-			command2.Received(1).Execute();
 		}
 
 		[Test]
@@ -130,16 +144,15 @@ namespace command.history.Tests
 		{
 			Assert.That(() => _history.Undo(), Throws.InvalidOperationException);
 
-			var command1 = Substitute.For<AbstractCommand>();
-			command1.IsExecuted.Returns(true);
+			var command1 = new EmptyCommand();
+			command1.Execute();
 			Assert.That(() => _history.AddCommand(command1), Throws.Nothing); // 1 command
 
-			var command2 = Substitute.For<AbstractCommand>();
-			command2.IsExecuted.Returns(true);
+			var command2 = new EmptyCommand();
+			command2.Execute();
 			Assert.That(() => _history.AddCommand(command2), Throws.Nothing); // 2 commands
 
 			Assert.That(() => _history.Undo(), Throws.Nothing);
-			command2.Received(1).Unexecute();
 		}
 
 		[Test]
@@ -147,14 +160,14 @@ namespace command.history.Tests
 		{
 			Assert.That(_history.CanUndo, Is.False);
 
-			var command1 = Substitute.For<AbstractCommand>();
-			command1.IsExecuted.Returns(true);
+			var command1 = new EmptyCommand();
+			command1.Execute();
 			Assert.That(() => _history.AddCommand(command1), Throws.Nothing); // 1 command
 
 			Assert.That(_history.CanUndo, Is.True);
 
-			var command2 = Substitute.For<AbstractCommand>();
-			command2.IsExecuted.Returns(true);
+			var command2 = new EmptyCommand();
+			command2.Execute();
 			Assert.That(() => _history.AddCommand(command2), Throws.Nothing); // 2 commands
 			Assert.That(_history.CanUndo, Is.True);
 
@@ -176,13 +189,13 @@ namespace command.history.Tests
 		{
 			Assert.That(_history.CanRedo, Is.False);
 
-			var command1 = Substitute.For<AbstractCommand>();
-			command1.IsExecuted.Returns(true);
+			var command1 = new EmptyCommand();
+			command1.Execute();
 			Assert.That(() => _history.AddCommand(command1), Throws.Nothing); // 1 command
 			Assert.That(_history.CanRedo, Is.False);
 
-			var command2 = Substitute.For<AbstractCommand>();
-			command2.IsExecuted.Returns(true);
+			var command2 = new EmptyCommand();
+			command2.Execute();
 			Assert.That(() => _history.AddCommand(command2), Throws.Nothing); // 2 commands
 			Assert.That(_history.CanRedo, Is.False);
 
@@ -198,5 +211,17 @@ namespace command.history.Tests
 			Assert.That(() => _history.Redo(), Throws.Nothing);
 			Assert.That(_history.CanRedo, Is.False);
 		}
+
+		class EmptyCommand : AbstractCommand
+		{
+			protected override void ExecuteImpl()
+			{
+			}
+
+			protected override void UnexecuteImpl()
+			{
+			}
+		}
+
 	}
 }

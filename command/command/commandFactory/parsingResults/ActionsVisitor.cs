@@ -1,15 +1,10 @@
 ﻿using command.commands;
-using command.document;
 using command.document.visitors;
 using command.externals;
 using command.history;
 using command.storage;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace command.commandFactory
 {
@@ -21,6 +16,7 @@ namespace command.commandFactory
 		private readonly IFileStorage _fileStorage;
 		private readonly IFileSystem _fileSystem;
 		private readonly IHtmlEncoder _htmlEncoder;
+		private readonly BuilderDirector _director = new BuilderDirector();
 
 		public ActionsVisitor(IHistory history, IHelpInfo helpInfo, TextWriter textWriter, IFileStorage fileStorage, IFileSystem fileSystem, IHtmlEncoder htmlEncoder)
 		{
@@ -34,11 +30,8 @@ namespace command.commandFactory
 
 		public void Visit(SaveAction save)
 		{
-			SaveVisitor visitor = new SaveVisitor(_fileStorage, _htmlEncoder, _fileSystem, save.PathToSave);
-			using (var file = _fileSystem.CreateTextFile(visitor.AbsFilePath))
-			{
-				visitor.VisitDocument(save.Document, file);
-			}
+			var builder = new SaveBuilder(_fileStorage, _htmlEncoder, _fileSystem, save.PathToSave);
+			_director.Build(builder, save.Document);
 		}
 
 		public void Visit(CommandContainer command)
@@ -47,10 +40,10 @@ namespace command.commandFactory
 			_history.AddCommand(command.Command);
 		}
 
-		public void Visit(ListAction action)
+		public void Visit(ListAction list)
 		{
-			ListVisitor visitor = new ListVisitor();
-			visitor.VisitDocument(action.Document, _textWriter);
+			var builder = new ListBuilder(_textWriter);
+			_director.Build(builder, list.Document);
 		}
 
 		public void Visit(ActionContainer action)

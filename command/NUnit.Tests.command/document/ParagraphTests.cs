@@ -29,19 +29,6 @@ namespace command.document.Tests
 			Assert.That(() => paragraph.Text, Is.EqualTo(newText));
 		}
 
-		[Test]
-		public void CreateMementoTest()
-		{
-			var paragraph = new Paragraph("old text");
-			var oldText = paragraph.Text;
-			var newText = "new text";
-			var memento = paragraph.CreateMemento();
-			Assert.That(() => paragraph.Text = newText, Throws.Nothing);
-			Assert.That(paragraph.Text, Is.EqualTo(newText));
-			Assert.That(() => memento.Restore(), Throws.Nothing);
-			Assert.That(paragraph.Text, Is.EqualTo(oldText));
-		}
-
 		class Data
 		{
 			public static IEnumerable TestCases

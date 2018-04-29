@@ -45,7 +45,7 @@ namespace command.history
 			{
 				throw new ArgumentNullException(nameof(command));
 			}
-			if (!(command.IsExecuted.HasValue && command.IsExecuted.Value))
+			if (!command.IsExecuted)
 			{
 				throw new ArgumentException(nameof(command));
 			}

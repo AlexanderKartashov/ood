@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace command.document
 {
-	public interface DocumentItem : IDisposable
+	public interface IDocumentItem : IDisposable
 	{
 		IParagraph DocumentParagraph { get; }
 		IImage DocumentImage { get; }

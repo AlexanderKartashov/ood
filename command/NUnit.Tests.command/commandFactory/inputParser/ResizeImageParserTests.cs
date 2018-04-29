@@ -58,7 +58,7 @@ namespace command.commandFactory.Tests
 			CommandContainer command;
 			Assert.That(() => { command = parser.ParseCommand(data); }, Throws.Nothing);
 			Assert.That(command, Is.Not.Null);
-			Assert.That(command.Command, Is.TypeOf<ResizeImage>());
+			Assert.That(command.Command, Is.TypeOf<FunctionalCommand>());
 		}
 
 		[Test]

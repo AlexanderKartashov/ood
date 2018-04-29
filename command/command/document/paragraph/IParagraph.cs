@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace command.document
 {
-	public interface IParagraph : IMementoOriginator, DocumentItem
+	public interface IParagraph : IDocumentItem
 	{
 		string Text { get; set; }
 	}

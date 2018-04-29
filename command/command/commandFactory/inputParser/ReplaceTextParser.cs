@@ -27,7 +27,16 @@ namespace command.commandFactory
 				{
 					throw new CommandError($"Invalid position {position}");
 				}
-				return new CommandContainer() { Command = new ChangeParagraphText(_document.GetItem(position).DocumentParagraph, text) };
+				var paragraph = _document.GetItem(position).DocumentParagraph ?? throw new CommandError("Not a text paragraph");
+				string oldText = (string)paragraph.Text.Clone();
+				return new CommandContainer() {
+					Command = 
+					new FunctionalCommand(
+						() => paragraph.Text = text,
+						() => paragraph.Text = oldText,
+						() => { }
+					)
+				};
 			}
 			throw new ArgumentException($"Invalid command");
 		}

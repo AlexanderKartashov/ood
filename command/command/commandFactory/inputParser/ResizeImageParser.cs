@@ -28,7 +28,18 @@ namespace command.commandFactory
 				{
 					throw new CommandError($"Invalid position {position}");
 				}
-				return new CommandContainer() { Command = new ResizeImage(_document.GetItem(position).DocumentImage, uint.Parse(width), uint.Parse(height)) };
+				var image = _document.GetItem(position).DocumentImage ?? throw new CommandError("not an image");
+				var newW = uint.Parse(width);
+				var newH = uint.Parse(height);
+				var oldW = image.Width;
+				var oldH = image.Height;
+				return new CommandContainer() {
+					Command = new FunctionalCommand(
+						() => { image.Width = newW; image.Height = newH; },
+						() => { image.Width = oldW; image.Height = oldH; },
+						() => { }
+					)
+				};
 			}
 			throw new ArgumentException($"Invalid command");
 		}

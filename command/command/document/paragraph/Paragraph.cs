@@ -12,12 +12,10 @@ namespace command.document
 
 		public string Text { get; set; }
 
-		public IMemento CreateMemento() => new ParagraphMemento(this, String.Copy(Text));
-
 		public IParagraph DocumentParagraph => this;
-
 		public IImage DocumentImage => null;
 
+		public void ChangeText(string text) => Text = text;
 		public void Dispose(){}
 	}
 }

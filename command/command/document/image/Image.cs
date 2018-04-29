@@ -18,24 +18,13 @@ namespace command.document
 			Height = height;
 		}
 
-		public uint Width { get; private set; }
-
-		public uint Height { get; private set; }
-
+		public uint Width { get; set; }
+		public uint Height { get; set; }
 		public IResource Resource => _resource;
 
-		public IMemento CreateMemento() => new ImageMemento(this, Width, Height);
-
 		public IParagraph DocumentParagraph => null;
-
 		public IImage DocumentImage => this;
 
 		public void Dispose() => _resource.Dispose();
-
-		public void Resize(uint imageWidth, uint imageHeight)
-		{
-			Width = imageWidth;
-			Height = imageHeight;
-		}
 	}
 }

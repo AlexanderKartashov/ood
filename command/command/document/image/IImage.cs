@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace command.document
 {
-	public interface IImage : IMementoOriginator, DocumentItem
+	public interface IImage : IDocumentItem
 	{
-		uint Width { get; }
-		uint Height { get; }
+		uint Width { get; set; }
+		uint Height { get; set; }
 		IResource Resource { get; }
-
-		void Resize(uint imageWidth, uint imageHeight);
 	}
 }

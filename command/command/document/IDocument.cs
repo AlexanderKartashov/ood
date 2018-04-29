@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace command.document
 {
-	public interface IDocument : IMementoOriginator
+	public interface IDocument
 	{
-		void InsertItem(DocumentItem item, int position);
-		int ItemsCount { get; }
+		void InsertItem(IDocumentItem item, int position);
 		void DeleteItem(int position);
-		DocumentItem GetItem(int position);
+		IDocumentItem GetItem(int position);
+		int ItemsCount { get; }
+
 		string Title { get; set; }
 	}
 }

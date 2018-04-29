@@ -17,7 +17,7 @@ namespace command.commands.Tests
 	public class InsertItemTests
 	{
 		[TestCaseSource(typeof(Data), "TestCases")]
-		public void InsertItemTest(IDocument document, DocumentItem item, IResolveConstraint constraint)
+		public void InsertItemTest(IDocument document, IDocumentItem item, IResolveConstraint constraint)
 		{
 			Assert.That(() => new InsertItem(document, item, 0), constraint);
 		}
@@ -26,7 +26,7 @@ namespace command.commands.Tests
 		public void InitFailed()
 		{
 			var document = Substitute.For<IDocument>();
-			var item = Substitute.For<DocumentItem>();
+			var item = Substitute.For<IDocumentItem>();
 			document.ItemsCount.Returns(0);
 			Assert.That(() => new InsertItem(document, item, 1), Throws.TypeOf<CommandError>());
 		}
@@ -35,7 +35,7 @@ namespace command.commands.Tests
 		public void ExecuteTest()
 		{
 			var document = Substitute.For<IDocument>();
-			var item = Substitute.For<DocumentItem>();
+			var item = Substitute.For<IDocumentItem>();
 			var command = new InsertItem(document, item, 0);
 			Assert.That(() => command.Execute(), Throws.Nothing);
 			document.Received(1).InsertItem(Arg.Is(item), Arg.Is(0));
@@ -46,7 +46,7 @@ namespace command.commands.Tests
 		public void UnexecuteTest()
 		{
 			var document = Substitute.For<IDocument>();
-			var item = Substitute.For<DocumentItem>();
+			var item = Substitute.For<IDocumentItem>();
 			var command = new InsertItem(document, item, 0);
 
 			Assert.That(() => command.Execute(), Throws.Nothing);
@@ -60,7 +60,7 @@ namespace command.commands.Tests
 		public void DestroyExecutedTest()
 		{
 			var document = Substitute.For<IDocument>();
-			var item = Substitute.For<DocumentItem>();
+			var item = Substitute.For<IDocumentItem>();
 			var command = new InsertItem(document, item, 0);
 
 			Assert.That(() => command.Execute(), Throws.Nothing);
@@ -72,7 +72,7 @@ namespace command.commands.Tests
 		public void DestroyUnexecutedTest()
 		{
 			var document = Substitute.For<IDocument>();
-			var item = Substitute.For<DocumentItem>();
+			var item = Substitute.For<IDocumentItem>();
 			var command = new InsertItem(document, item, 0);
 			Assert.That(() => command.Execute(), Throws.Nothing);
 			Assert.That(() => command.Unexecute(), Throws.Nothing);
@@ -83,97 +83,97 @@ namespace command.commands.Tests
 		[Test]
 		public void ExecuteInsertInEndOnCollectionTest()
 		{
-			var item1 = Substitute.For<DocumentItem>();
-			var item2 = Substitute.For<DocumentItem>();
-			var newItem = Substitute.For<DocumentItem>();
-			var item4 = Substitute.For<DocumentItem>();
-			var collection = new List<DocumentItem>(){
+			var item1 = Substitute.For<IDocumentItem>();
+			var item2 = Substitute.For<IDocumentItem>();
+			var newItem = Substitute.For<IDocumentItem>();
+			var item4 = Substitute.For<IDocumentItem>();
+			var collection = new List<IDocumentItem>(){
 				item1, item2, item4
 			};
 			var document = Substitute.For<IDocument>();
 			document.ItemsCount.Returns(collection.Count);
 			document.When(x => x.DeleteItem(Arg.Any<int>())).Do(x => collection.RemoveAt(x.ArgAt<int>(0)));
-			document.When(x => x.InsertItem(Arg.Any<DocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<DocumentItem>(0)));
+			document.When(x => x.InsertItem(Arg.Any<IDocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<IDocumentItem>(0)));
 
 			var command = new InsertItem(document, newItem, 3);
 			Assert.That(() => command.Execute(), Throws.Nothing);
-			CollectionAssert.AreEqual(new List<DocumentItem>() { item1, item2, item4, newItem }, collection);
+			CollectionAssert.AreEqual(new List<IDocumentItem>() { item1, item2, item4, newItem }, collection);
 		}
 
 		[Test]
 		public void UnexecuteInsertInEndOnCollectionTest()
 		{
-			var item1 = Substitute.For<DocumentItem>();
-			var item2 = Substitute.For<DocumentItem>();
-			var newItem = Substitute.For<DocumentItem>();
-			var item4 = Substitute.For<DocumentItem>();
-			var collection = new List<DocumentItem>(){
+			var item1 = Substitute.For<IDocumentItem>();
+			var item2 = Substitute.For<IDocumentItem>();
+			var newItem = Substitute.For<IDocumentItem>();
+			var item4 = Substitute.For<IDocumentItem>();
+			var collection = new List<IDocumentItem>(){
 				item1, item2, item4
 			};
 			var document = Substitute.For<IDocument>();
 			document.ItemsCount.Returns(collection.Count);
 			document.When(x => x.DeleteItem(Arg.Any<int>())).Do(x => collection.RemoveAt(x.ArgAt<int>(0)));
-			document.When(x => x.InsertItem(Arg.Any<DocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<DocumentItem>(0)));
+			document.When(x => x.InsertItem(Arg.Any<IDocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<IDocumentItem>(0)));
 
 			var command = new InsertItem(document, newItem, 3);
 			Assert.That(() => command.Execute(), Throws.Nothing);
-			CollectionAssert.AreEqual(new List<DocumentItem>() { item1, item2, item4, newItem }, collection);
+			CollectionAssert.AreEqual(new List<IDocumentItem>() { item1, item2, item4, newItem }, collection);
 
 			Assert.That(() => command.Unexecute(), Throws.Nothing);
-			CollectionAssert.AreEqual(new List<DocumentItem>() { item1, item2, item4 }, collection);
+			CollectionAssert.AreEqual(new List<IDocumentItem>() { item1, item2, item4 }, collection);
 		}
 
 		[Test]
 		public void ExecuteOnCollectionTest()
 		{
-			var item1 = Substitute.For<DocumentItem>();
-			var item2 = Substitute.For<DocumentItem>();
-			var newItem = Substitute.For<DocumentItem>();
-			var item4 = Substitute.For<DocumentItem>();
-			var collection = new List<DocumentItem>(){
+			var item1 = Substitute.For<IDocumentItem>();
+			var item2 = Substitute.For<IDocumentItem>();
+			var newItem = Substitute.For<IDocumentItem>();
+			var item4 = Substitute.For<IDocumentItem>();
+			var collection = new List<IDocumentItem>(){
 				item1, item2, item4
 			};
 			var document = Substitute.For<IDocument>();
 			document.ItemsCount.Returns(collection.Count);
 			document.When(x => x.DeleteItem(Arg.Any<int>())).Do(x => collection.RemoveAt(x.ArgAt<int>(0)));
-			document.When(x => x.InsertItem(Arg.Any<DocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<DocumentItem>(0)));
+			document.When(x => x.InsertItem(Arg.Any<IDocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<IDocumentItem>(0)));
 
 			var command = new InsertItem(document, newItem, 2);
 			Assert.That(() => command.Execute(), Throws.Nothing);
-			CollectionAssert.AreEqual(new List<DocumentItem>() { item1, item2, newItem, item4 }, collection);
+			CollectionAssert.AreEqual(new List<IDocumentItem>() { item1, item2, newItem, item4 }, collection);
 		}
 
 		[Test]
 		public void UnexecuteOnCollectionTest()
 		{
-			var item1 = Substitute.For<DocumentItem>();
-			var item2 = Substitute.For<DocumentItem>();
-			var newItem = Substitute.For<DocumentItem>();
-			var item4 = Substitute.For<DocumentItem>();
-			var collection = new List<DocumentItem>(){
+			var item1 = Substitute.For<IDocumentItem>();
+			var item2 = Substitute.For<IDocumentItem>();
+			var newItem = Substitute.For<IDocumentItem>();
+			var item4 = Substitute.For<IDocumentItem>();
+			var collection = new List<IDocumentItem>(){
 				item1, item2, item4
 			};
 			var document = Substitute.For<IDocument>();
 			document.ItemsCount.Returns(collection.Count);
 			document.When(x => x.DeleteItem(Arg.Any<int>())).Do(x => collection.RemoveAt(x.ArgAt<int>(0)));
-			document.When(x => x.InsertItem(Arg.Any<DocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<DocumentItem>(0)));
+			document.When(x => x.InsertItem(Arg.Any<IDocumentItem>(), Arg.Any<int>())).Do(x => collection.Insert(x.ArgAt<int>(1), x.ArgAt<IDocumentItem>(0)));
 
 			var command = new InsertItem(document, newItem, 2);
 			Assert.That(() => command.Execute(), Throws.Nothing);
-			CollectionAssert.AreEqual(new List<DocumentItem>() { item1, item2, newItem, item4 }, collection);
+			CollectionAssert.AreEqual(new List<IDocumentItem>() { item1, item2, newItem, item4 }, collection);
 
 			Assert.That(() => command.Unexecute(), Throws.Nothing);
-			CollectionAssert.AreEqual(new List<DocumentItem>() { item1, item2, item4 }, collection);
+			CollectionAssert.AreEqual(new List<IDocumentItem>() { item1, item2, item4 }, collection);
 		}
 
 		[Test]
 		public void DestroyNotExecutedTest()
 		{
 			var document = Substitute.For<IDocument>();
-			var item = Substitute.For<DocumentItem>();
+			var item = Substitute.For<IDocumentItem>();
 			var command = new InsertItem(document, item, 0);
 			Assert.That(() => command.Dispose(), Throws.Nothing);
-			item.DidNotReceiveWithAnyArgs().Dispose();
+			item.Received(1).Dispose();
 		}
 
 		class Data
@@ -184,8 +184,8 @@ namespace command.commands.Tests
 				{
 					yield return new TestCaseData(null, null, Throws.ArgumentNullException);
 					yield return new TestCaseData(Substitute.For<IDocument>(), null, Throws.ArgumentNullException);
-					yield return new TestCaseData(null, Substitute.For<DocumentItem>(), Throws.ArgumentNullException);
-					yield return new TestCaseData(Substitute.For<IDocument>(), Substitute.For<DocumentItem>(), Throws.Nothing);
+					yield return new TestCaseData(null, Substitute.For<IDocumentItem>(), Throws.ArgumentNullException);
+					yield return new TestCaseData(Substitute.For<IDocument>(), Substitute.For<IDocumentItem>(), Throws.Nothing);
 				}
 			}
 		}

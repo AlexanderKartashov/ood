@@ -8,9 +8,9 @@ namespace command.document
 {
 	public interface IDocumentItemsCollection
 	{
-		void InsertItem(DocumentItem item, int position);
+		void InsertItem(IDocumentItem item, int position);
 		void DeleteItem(int position);
 		int ItemsCount { get; }
-		DocumentItem GetItem(int position);
+		IDocumentItem GetItem(int position);
 	}
 }
