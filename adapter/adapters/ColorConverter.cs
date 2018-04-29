@@ -11,12 +11,12 @@ namespace adapters
 	{
 		public static RGBAColor Convert(uint color)
 		{
-			return new RGBAColor() {
-				R = ((color >> 16) & 0x0000FF) / byte.MaxValue,
-				G = ((color >> 8) & 0x0000FF) / byte.MaxValue,
-				B = ((color >> 0) & 0x0000FF) / byte.MaxValue,
-				A = 1.0f
-			};
+			return new RGBAColor(
+				((color >> 16) & 0x0000FF) / byte.MaxValue,
+				((color >> 8) & 0x0000FF) / byte.MaxValue,
+				((color >> 0) & 0x0000FF) / byte.MaxValue,
+				1.0f
+			);			
 		}
 	}
 }

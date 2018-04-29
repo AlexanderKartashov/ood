@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace modern_graphics_lib
 {
-	public class Point
+	public struct Point
 	{
-		public Point(int x, int y)
+		public Point(int x = 0, int y = 0)
 		{
 			X = x;
 			Y = y;
 		}
 
-		public int X { get; private set; } = 0;
-		public int Y { get; private set; } = 0;
+		public int X { get; private set; }
+		public int Y { get; private set; }
 	}
 }
