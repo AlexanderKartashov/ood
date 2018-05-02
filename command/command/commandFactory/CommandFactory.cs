@@ -41,7 +41,7 @@ namespace command.commandFactory
 			try
 			{
 				var parsedCommand = _inputParser.ParseInput(command) ?? throw new InvalidOperationException(nameof(command));
-				ActionsVisitor visitor = new ActionsVisitor(_history, _inputParser, _textWriter, _fileStorage, _fileSystem, _encoder);
+				var visitor = new ActionsVisitor(_history, _inputParser, _textWriter, _fileStorage, _fileSystem, _encoder);
 				visitor.Visit((dynamic)parsedCommand);
 			}
 			catch(CommandError err)

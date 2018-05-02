@@ -30,8 +30,10 @@ namespace command.commandFactory
 
 		public void Visit(SaveAction save)
 		{
-			var builder = new SaveBuilder(_fileStorage, _htmlEncoder, _fileSystem, save.PathToSave);
-			_director.Build(builder, save.Document);
+			using (var builder = new SaveBuilder(_fileStorage, _htmlEncoder, _fileSystem, save.PathToSave))
+			{
+				_director.Build(builder, save.Document);
+			}
 		}
 
 		public void Visit(CommandContainer command)

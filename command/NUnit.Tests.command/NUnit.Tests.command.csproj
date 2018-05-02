@@ -65,6 +65,7 @@
     <Compile Include="commandFactory\inputParser\SetTitleParserTests.cs" />
     <Compile Include="commandFactory\inputParser\UndoParserTests.cs" />
     <Compile Include="commands\DeleteItemTests.cs" />
+    <Compile Include="commands\FunctionalCommandTests.cs" />
     <Compile Include="commands\InsertItemTests.cs" />
     <Compile Include="document\BuilderDirectorTests.cs" />
     <Compile Include="document\DocumentItemsCollectionTests.cs" />

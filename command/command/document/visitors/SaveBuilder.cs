@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace command.document.visitors
 {
-	public class SaveBuilder : IDocumentContentBuilder
+	public class SaveBuilder : IDocumentContentBuilder, IDisposable
 	{
 		private readonly IFileStorage _fileStorage;
 		private readonly IHtmlEncoder _htmlEncoder;
@@ -72,6 +72,12 @@ namespace command.document.visitors
 		public void AfterBuild()
 		{
 			_textWriter.WriteLine("</body></html>");
+		}
+
+		public void Dispose()
+		{
+			_textWriter?.Flush();
+			_textWriter.Dispose();
 		}
 	}
 }
