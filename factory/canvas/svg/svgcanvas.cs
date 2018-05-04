@@ -4,7 +4,7 @@ using painter.sdk;
 
 namespace canvas
 {
-	class SvgCanvas : IVectorCanvas
+	public class SvgCanvas : IVectorCanvas
 	{
 		private Color _color = Color.Black;
 		private StringBuilder _content = new StringBuilder();

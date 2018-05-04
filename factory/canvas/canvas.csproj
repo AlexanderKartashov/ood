@@ -44,14 +44,17 @@
   <ItemGroup>
     <Compile Include="bitmap\BitmapCanvas.cs" />
     <Compile Include="bitmap\BitmapCanvasFactory.cs" />
+    <Compile Include="bitmap\BitmapCanvasWithSave.cs" />
     <Compile Include="canvas_presenter\FileBitmapCanvasPresenter.cs" />
     <Compile Include="canvas_presenter\FileCanvasPresenter.cs" />
     <Compile Include="canvas_presenter\FileVectorCanvasPresenter.cs" />
     <Compile Include="dummy\DummyCanvas.cs" />
     <Compile Include="dummy\DummyCanvasFactory.cs" />
+    <Compile Include="dummy\DummyCanvasWithSave.cs" />
     <Compile Include="svg\svgcanvas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="svg\SvgCanvasFactory.cs" />
+    <Compile Include="svg\SVGCanvasWithSave.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\factory\painter.csproj">

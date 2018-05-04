@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace canvas
 {
-	class BitmapCanvas : IBitmapCanvas
+	public class BitmapCanvas : IBitmapCanvas
 	{
 		private readonly Bitmap _bmp;
 		private readonly Graphics _g;

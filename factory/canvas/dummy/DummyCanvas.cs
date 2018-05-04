@@ -3,7 +3,7 @@ using System.Text;
 
 namespace canvas
 {
-	class DummyCanvas : IVectorCanvas
+	public class DummyCanvas : IVectorCanvas
 	{
 		private readonly StringBuilder _content = new StringBuilder();
 
