@@ -5,47 +5,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using PointI = composite.Point<int>;
+
 namespace composite
 {
 	public class BitmapCanvas : ICanvas
 	{
-		private readonly Bitmap _bitmap = new Bitmap(0, 0);
+		private readonly Bitmap _bitmap;
 		private readonly Graphics _graphics;
 
-		private Pen _stroke;
-		private Brush _fill;
+		private Pen _stroke = new Pen(new SolidBrush(Color.Transparent), 0);
+		private Brush _fill = new SolidBrush(Color.Transparent);
+		private PointI _start = new PointI(0, 0);
 
-		public BitmapCanvas()
+		public BitmapCanvas(PointI size)
 		{
+			_bitmap = new Bitmap(size.X, size.Y);
 			_graphics = Graphics.FromImage(_bitmap);
 		}
 
-		public void BeginFill(RGBAColor color)
+		public void DrawEllipse(PointI lt, PointI size)
 		{
-			_fill = new SolidBrush(Color.FromArgb(color.ToARGB()));
+			_graphics.DrawEllipse(_stroke, lt.X, lt.Y, size.X, size.Y);
 		}
 
-		public void DrawEllipse(int left, int top, int width, int height)
+		public void FillEllipse(PointI lt, PointI size)
 		{
-			if (_fill != null)
-			{
-			}
-			_graphics.DrawEllipse(_stroke, left, top, width, height);
+			_graphics.FillEllipse(_fill, lt.X, lt.Y, size.X, size.Y);
 		}
 
-		public void EndFill()
+		public void MoveTo(PointI point)
 		{
-			_fill = null;
+			_start = point;
 		}
 
-		public void LineTo(int x, int y)
+		public void LineTo(PointI point)
 		{
-			
+			_graphics.DrawLine(_stroke, _start.X, _start.Y, point.X, point.Y);
+			_start = point;
 		}
-
-		public void MoveTo(int x, int y)
+		
+		public void FillPolygon(IEnumerable<PointI> points)
 		{
-			
+			_graphics.FillPolygon(_fill, points.ToList().Select(x => new Point(x.X, x.Y)).ToArray());
 		}
 
 		public void SetLineColor(RGBAColor color)
@@ -56,6 +58,11 @@ namespace composite
 		public void SetLineWidth(uint width)
 		{
 			_stroke.Width = width;
+		}
+
+		public void SetFillColor(RGBAColor color)
+		{
+			_fill = new SolidBrush(Color.FromArgb(color.ToARGB()));
 		}
 	}
 }

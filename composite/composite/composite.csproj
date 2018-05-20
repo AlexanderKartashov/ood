@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="canvas\BitmapCanvas.cs" />
     <Compile Include="canvas\DummyCanvas.cs" />
+    <Compile Include="shapes\CompositeFrame.cs" />
     <Compile Include="shapes\concreteShapes\Ellipse.cs" />
     <Compile Include="canvas\interfaces\ICanvas.cs" />
     <Compile Include="shapes\styles\CompositeFillStyle.cs" />

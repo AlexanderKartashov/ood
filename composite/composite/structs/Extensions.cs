@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using PointD = composite.Point<double>;
+using PointI = composite.Point<int>;
+
 namespace composite
 {
 	public static class Extensions
 	{
-		public static Point Clone(this Point value)
+		public static Point<T> Clone<T>(this Point<T> value)
 		{
-			return new Point(value.X, value.Y);
+			return new Point<T>(value.X, value.Y);
 		}
 
 		public static RGBAColor Clone(this RGBAColor value)
@@ -33,7 +36,7 @@ namespace composite
 			return new Rect(minX, minY, maxX, maxY);
 		}
 
-		public static Point Normalize(this Point value, Rect bounds)
+		public static PointD Normalize(this PointI value, Rect bounds)
 		{
 			double normalizeValue(double val, double min, double max, double size)
 			{
@@ -53,28 +56,28 @@ namespace composite
 				return res;
 			}
 
-			return new Point(
+			return new PointD(
 				normalizeValue(value.X, bounds.LeftTop.X, bounds.RightBottom.X, bounds.Size.X),
 				normalizeValue(value.Y, bounds.LeftTop.Y, bounds.RightBottom.Y, bounds.Size.Y)
 			).ClampNormalized();
 		}
 
-		public static Point Denormalize(this Point value, Rect bounds)
+		public static PointI Denormalize(this PointD value, Rect bounds)
 		{
 			var pt = value.ClampNormalized();
 
-			double denormalizeValue(double val, double size, double min)
+			int denormalizeValue(double val, double size, double min)
 			{
-				return val * size + min;
+				return (int)Math.Round(val * size + min);
 			}
 
-			return new Point(
+			return new PointI(
 				denormalizeValue(value.X, bounds.Size.X, bounds.LeftTop.X),
 				denormalizeValue(value.Y, bounds.Size.Y, bounds.LeftTop.Y)
 			);
 		}
 
-		public static Point ClampNormalized(this Point value)
+		public static PointD ClampNormalized(this PointD value)
 		{
 			double ClampValue(double val)
 			{
@@ -89,7 +92,7 @@ namespace composite
 				return val;
 			}
 
-			return new Point(
+			return new PointD(
 				ClampValue(value.X),
 				ClampValue(value.Y)
 			);

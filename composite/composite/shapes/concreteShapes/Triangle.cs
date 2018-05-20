@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+
+using PointI = composite.Point<int>;
+using PointD = composite.Point<double>;
 
 namespace composite
 {
 	public class Triangle : Shape
 	{
-		private readonly Point _vertex1;
-		private readonly Point _vertex2;
-		private readonly Point _vertex3;
+		private readonly PointD _vertex1;
+		private readonly PointD _vertex2;
+		private readonly PointD _vertex3;
 
-		public Triangle(Point vertex1, Point vertex2, Point vertex3)
+		public Triangle(PointD vertex1, PointD vertex2, PointD vertex3)
 		{
 			_vertex1 = vertex1;
 			_vertex2 = vertex2;
@@ -21,15 +25,12 @@ namespace composite
 			var v2 = _vertex2.Denormalize(Frame);
 			var v3 = _vertex3.Denormalize(Frame);
 
-			canvas.MoveTo(
-				(int)Math.Round(v1.X),
-				(int)Math.Round(v1.Y));
-			canvas.LineTo(
-				(int)Math.Round(v2.X),
-				(int)Math.Round(v2.Y));
-			canvas.LineTo(
-				(int)Math.Round(v3.X),
-				(int)Math.Round(v3.Y));
+			canvas.FillPolygon(new List<PointI>() { v1, v2, v3 });
+
+			canvas.MoveTo(v1);
+			canvas.LineTo(v2);
+			canvas.LineTo(v3);
+			canvas.LineTo(v1);
 		}
 	}
 }

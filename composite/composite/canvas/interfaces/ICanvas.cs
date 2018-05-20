@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using PointI = composite.Point<int>;
 
 namespace composite
 {
 	public interface ICanvas
 	{
-		void BeginFill(RGBAColor color);
-		void EndFill();
-
 		void SetLineColor(RGBAColor color);
 		void SetLineWidth(uint width);
+		void SetFillColor(RGBAColor color);
 
-		void MoveTo(int x, int y);
-		void LineTo(int x, int y);
+		void MoveTo(PointI point);
+		void LineTo(PointI point);
+		void FillPolygon(IEnumerable<PointI> points);
 
-		void DrawEllipse(int left, int top, int width, int height);
+		void FillEllipse(PointI lt, PointI size);
+		void DrawEllipse(PointI lt, PointI size);
 	}
 }

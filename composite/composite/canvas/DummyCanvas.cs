@@ -13,39 +13,44 @@ namespace composite
 
 		public DummyCanvas(TextWriter textWriter) => _textWriter = textWriter ?? throw new ArgumentNullException(nameof(textWriter));
 
-		public void BeginFill(RGBAColor color)
+		public void DrawEllipse(Point<int> lt, Point<int> size)
 		{
-			_textWriter.WriteLine($"Begin fill: r={color.R}, g={color.G}, b={color.B}, a={color.A}");
+			throw new NotImplementedException();
 		}
 
-		public void DrawEllipse(int left, int top, int width, int height)
+		public void FillEllipse(Point<int> lt, Point<int> size)
 		{
-			_textWriter.WriteLine($"Draw ellipse: left={left}, top={top}, width={width}, height={height}");
+			throw new NotImplementedException();
 		}
 
-		public void EndFill()
+		public void FillPolygon(IEnumerable<Point<int>> points)
 		{
-			_textWriter.WriteLine($"End fill");
+			throw new NotImplementedException();
 		}
 
-		public void LineTo(int x, int y)
+		public void LineTo(Point<int> point)
 		{
-			_textWriter.WriteLine($"Line to: x={x}, y={y}");
+			throw new NotImplementedException();
 		}
 
-		public void MoveTo(int x, int y)
+		public void MoveTo(Point<int> point)
 		{
-			_textWriter.WriteLine($"Move to: x={x}, y={y}");
+			throw new NotImplementedException();
+		}
+
+		public void SetFillColor(RGBAColor color)
+		{
+			throw new NotImplementedException();
 		}
 
 		public void SetLineColor(RGBAColor color)
 		{
-			_textWriter.WriteLine($"Line color: r={color.R}, g={color.G}, b={color.B}, a={color.A}");
+			throw new NotImplementedException();
 		}
 
 		public void SetLineWidth(uint width)
 		{
-			_textWriter.WriteLine($"Line width: width={width}");
+			throw new NotImplementedException();
 		}
 	}
 }

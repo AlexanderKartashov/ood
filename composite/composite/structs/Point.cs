@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace composite
+﻿namespace composite
 {
-	public struct Point
+	public struct Point<T>
 	{
-		public Point(double x, double y)
+		public Point(T x, T y)
 		{
 			X = x;
 			Y = y;
 		}
 
-		public double X { get; private set; }
-		public double Y { get; private set; }
+		public T X { get; private set; }
+		public T Y { get; private set; }
 	}
+
+
 }

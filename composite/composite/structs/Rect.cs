@@ -1,33 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using PointI = composite.Point<int>;
 
 namespace composite
 {
 	public struct Rect
 	{
-		public Rect(Point lt, Point rb)
+		public Rect(PointI lt, PointI rb)
 		{
 			LeftTop = lt;
 			RightBottom = rb;
 		}
 
-		public Rect(Point lt, double w, double h)
+		public Rect(PointI lt, int w, int h)
 		{
 			LeftTop = lt;
-			RightBottom = new Point(lt.X + w, lt.Y + h);
+			RightBottom = new PointI(lt.X + w, lt.Y + h);
 		}
 
-		public Rect(double l, double t, double r, double b)
+		public Rect(int l, int t, int w, int h)
 		{
-			LeftTop = new Point(l, t);
-			RightBottom = new Point(r, b);
+			LeftTop = new PointI(l, t);
+			RightBottom = new PointI(l + w, t + h);
 		}
 
-		public Point LeftTop { get; private set; }
-		public Point RightBottom { get; private set; }
-		public Point Size { get => new Point(RightBottom.X - LeftTop.X, RightBottom.Y - LeftTop.Y); }
+		public PointI LeftTop { get; private set; }
+		public PointI RightBottom { get; private set; }
+		public PointI Size { get => new PointI(RightBottom.X - LeftTop.X, RightBottom.Y - LeftTop.Y); }
 	}
 }

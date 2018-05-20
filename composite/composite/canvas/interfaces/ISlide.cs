@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PointI = composite.Point<int>;
 
 namespace composite
 {
 	public interface ISlide : IDrawable
 	{
-		Point Size { get; }
+		PointI Size { get; }
 
 		IShapes Shapes { get; }
 	}

@@ -10,18 +10,13 @@ namespace composite
 
 		public IEnumerable<IShape> Shapes => _shapes;
 
-		//public int Count => _shapes.Count;
-
 		public void Insert(IShape shape, int? position = null)
 		{
-			if ((position != null) && (position.Value >= _shapes.Count))
-			{
-				_shapes.Insert(position.Value, shape);
-			}
-			else
-			{
-				_shapes.Insert(_shapes.Count, shape);
-			}
+			var pos = ((position != null) && (position.Value >= _shapes.Count))
+				? position.Value
+				: _shapes.Count;
+
+			_shapes.Insert(pos, shape);
 		}
 
 		public void Remove(IShape shape) => _shapes.Remove(shape);
@@ -34,48 +29,35 @@ namespace composite
 		{
 			get => new CompositeLineStyle(EnumerateLineStyles());
 
-			set
-			{
-				var ls = new CompositeLineStyle(EnumerateLineStyles());
-				ls.Color = value.Color;
-				ls.Enable = value.Enable;
-				ls.LineWidth = value.LineWidth;
-			}
+			set => new CompositeLineStyle(EnumerateLineStyles())
+				{
+					Color = value.Color,
+					Enable = value.Enable,
+					LineWidth = value.LineWidth
+				};
 		}
 
 		public override IFillStyle FillStyle
 		{
 			get => new CompositeFillStyle(EnumerateFillStyles());
 
-			set
-			{
-				var fs = new CompositeFillStyle(EnumerateFillStyles());
-				fs.Color = value.Color;
-				fs.Enable = value.Enable;
-			}
+			set => new CompositeFillStyle(EnumerateFillStyles())
+				{
+					Color = value.Color,
+					Enable = value.Enable
+				};
 		}
 
 		public override Rect Frame
 		{
 			get
 			{
-				Rect result = new Rect(0, 0, 0, 0);
-
-				foreach (var shape in Shapes)
-				{
-					result = shape.Frame.Union(result);
-				}
-
-				return result;
+				return new CompositeFrame(Shapes).Frame;
 			}
 			set
 			{
-				var currentRect = Frame;
-
-				foreach (var shape in Shapes)
-				{
-					throw new NotImplementedException();
-				}
+				var comopsiteFrame = new CompositeFrame(Shapes);
+				comopsiteFrame.Frame = value;
 			}
 		}
 
@@ -88,6 +70,5 @@ namespace composite
 		{
 			return _shapes.Select(x => x.LineStyle);
 		}
-
 	}
 }

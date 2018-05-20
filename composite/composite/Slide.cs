@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using PointI = composite.Point<int>;
+
 namespace composite
 {
 	public class Slide : ISlide
 	{
-		public Point Size { get; private set; }
+		public Slide(PointI size) => Size = size;
+
+		public PointI Size { get; private set; }
 
 		public IShapes Shapes { get; } = new GroupShape();
 
