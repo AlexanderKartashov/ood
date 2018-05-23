@@ -1,56 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
+using PointI = composite.Point<int>;
 
 namespace composite
 {
 	public class DummyCanvas : ICanvas
 	{
-		private readonly TextWriter _textWriter;
+		private readonly StringBuilder _sb = new StringBuilder();
 
-		public DummyCanvas(TextWriter textWriter) => _textWriter = textWriter ?? throw new ArgumentNullException(nameof(textWriter));
-
-		public void DrawEllipse(Point<int> lt, Point<int> size)
+		public DummyCanvas(PointI size)
 		{
-			throw new NotImplementedException();
+			_sb.AppendLine($"Slide size: {size.X}, {size.Y}");
 		}
 
-		public void FillEllipse(Point<int> lt, Point<int> size)
+		public void DrawEllipse(PointI lt, PointI size)
 		{
-			throw new NotImplementedException();
+			_sb.AppendLine($"Draw ellipse: leftTop: {lt.X}, {lt.Y}, size: {size.X}, {size.Y}");
 		}
 
-		public void FillPolygon(IEnumerable<Point<int>> points)
+		public void FillEllipse(PointI lt, PointI size)
 		{
-			throw new NotImplementedException();
+			_sb.AppendLine($"Fill ellipse: leftTop: {lt.X}, {lt.Y}, size: {size.X}, {size.Y}");
 		}
 
-		public void LineTo(Point<int> point)
+		public void FillPolygon(IEnumerable<PointI> points)
 		{
-			throw new NotImplementedException();
+			_sb.AppendLine("Fill polygon:");
+			points.ToList().ForEach(x => _sb.AppendLine($"\tPoint: {x.X}, {x.Y}"));
+			_sb.AppendLine("End fill polygon");
 		}
 
-		public void MoveTo(Point<int> point)
+		public void LineTo(PointI point)
 		{
-			throw new NotImplementedException();
+			_sb.AppendLine($"Line to: leftTop: {point.X}, {point.Y}");
+		}
+
+		public void MoveTo(PointI point)
+		{
+			_sb.AppendLine($"Move to: leftTop: {point.X}, {point.Y}");
 		}
 
 		public void SetFillColor(RGBAColor color)
 		{
-			throw new NotImplementedException();
+			_sb.AppendLine($"Fill color: {color.ToRGBA()}");
 		}
 
 		public void SetLineColor(RGBAColor color)
 		{
-			throw new NotImplementedException();
+			_sb.AppendLine($"Line color: {color.ToRGBA()}");
 		}
 
 		public void SetLineWidth(uint width)
 		{
-			throw new NotImplementedException();
+			_sb.AppendLine($"Line width: {width}");
 		}
+
+		public string Data { get => _sb.ToString(); }
 	}
 }

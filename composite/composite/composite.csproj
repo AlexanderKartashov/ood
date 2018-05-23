@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="canvas\BitmapCanvas.cs" />
+    <Compile Include="canvas\BitmapSaver.cs" />
+    <Compile Include="canvas\CanvasVisitor.cs" />
     <Compile Include="canvas\DummyCanvas.cs" />
+    <Compile Include="canvas\DummySaver.cs" />
     <Compile Include="shapes\CompositeFrame.cs" />
     <Compile Include="shapes\concreteShapes\Ellipse.cs" />
     <Compile Include="canvas\interfaces\ICanvas.cs" />

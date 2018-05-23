@@ -60,9 +60,6 @@
     <Compile Include="GroupShapeTests.cs" />
     <Compile Include="CompositeFrameTests.cs" />
     <Compile Include="ExtensionsTests.cs" />
-    <Compile Include="EllipseTests.cs" />
-    <Compile Include="RectangleTests.cs" />
-    <Compile Include="TriangleTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

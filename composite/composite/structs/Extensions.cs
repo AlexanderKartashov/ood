@@ -30,10 +30,10 @@ namespace composite
 		{
 			var minX = Math.Min(value.LeftTop.X, other.LeftTop.X);
 			var maxX = Math.Max(value.RightBottom.X, other.RightBottom.X);
-			var minY = Math.Min(value.LeftTop.Y, other.LeftTop.X);
+			var minY = Math.Min(value.LeftTop.Y, other.LeftTop.Y);
 			var maxY = Math.Max(value.RightBottom.Y, other.RightBottom.Y);
 
-			return new Rect(minX, minY, maxX, maxY);
+			return new Rect(new PointI(minX, minY), new PointI(maxX, maxY));
 		}
 
 		public static PointD Normalize(this PointI value, Rect bounds)

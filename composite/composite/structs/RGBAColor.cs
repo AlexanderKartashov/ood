@@ -4,10 +4,10 @@
 	{
 		public RGBAColor(uint value)
 		{
-			R = (byte)(value >> 24 | 0xFF);
-			G = (byte)(value >> 16 | 0xFF);
-			B = (byte)(value >> 8 | 0xF);
-			A = (byte)(value | 0xFF);
+			R = (byte)(value >> 24 & 0xFF);
+			G = (byte)(value >> 16 & 0xFF);
+			B = (byte)(value >> 8 & 0xFF);
+			A = (byte)(value & 0xFF);
 		}
 
 		public RGBAColor(byte r, byte g, byte b, byte a)
@@ -23,23 +23,13 @@
 			return new RGBAColor(R, G, B, A);
 		}
 
-		public int ToARGB()
-		{
-			int result =
-				(A << 24 | 0xFF) |
-				(R << 16 | 0xFF) |
-				(G << 8 | 0xFF) |
-				(B | 0xFF);
-			return result;
-		}
-
 		public int ToRGBA()
 		{
 			int result =
-				(R << 24 | 0xFF) |
-				(G << 16 | 0xFF) |
-				(B << 8| 0xFF) |
-				(A | 0xFF);
+				(R << 24) |
+				(G << 16) |
+				(B << 8) |
+				(A);
 			return result;
 		}
 

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using PointI = composite.Point<int>;
 
@@ -52,7 +49,7 @@ namespace composite
 
 		public void SetLineColor(RGBAColor color)
 		{
-			_stroke = new Pen(new SolidBrush(Color.FromArgb(color.ToARGB())), 1);
+			_stroke = new Pen(new SolidBrush(Color.FromArgb(color.A, color.R, color.G, color.B)), 1);
 		}
 
 		public void SetLineWidth(uint width)
@@ -62,7 +59,9 @@ namespace composite
 
 		public void SetFillColor(RGBAColor color)
 		{
-			_fill = new SolidBrush(Color.FromArgb(color.ToARGB()));
+			_fill = new SolidBrush(Color.FromArgb(color.A, color.R, color.G, color.B));
 		}
+
+		public Bitmap Data { get => _bitmap; }
 	}
 }

@@ -82,7 +82,7 @@ namespace composite.Tests
 			var newRect = new Rect(0, 0, 30, 30);
 			Assert.That(() => compositeShapes.Frame = newRect, Throws.Nothing);
 			shape1.Received(1).Frame = new Rect(0, 0, 5, 5);
-			shape2.Received(1).Frame = new Rect(20, 20, 20, 20);
+			shape2.Received(1).Frame = new Rect(10, 10, 20, 20);
 		}
 
 		[Test]
@@ -98,7 +98,7 @@ namespace composite.Tests
 			var newRect = new Rect(0, 0, 90, 90);
 			Assert.That(() => compositeShapes.Frame = newRect, Throws.Nothing);
 			shape1.Received(1).Frame = new Rect(0, 0, 15, 15);
-			shape2.Received(1).Frame = new Rect(20, 20, 60, 60);
+			shape2.Received(1).Frame = new Rect(30, 30, 60, 60);
 		}
 
 		[Test]
@@ -114,7 +114,7 @@ namespace composite.Tests
 			var newRect = new Rect(10, 10, 90, 90);
 			Assert.That(() => compositeShapes.Frame = newRect, Throws.Nothing);
 			shape1.Received(1).Frame = new Rect(10, 10, 15, 15);
-			shape2.Received(1).Frame = new Rect(30, 30, 60, 60);
+			shape2.Received(1).Frame = new Rect(40, 40, 60, 60);
 		}
 	}
 }

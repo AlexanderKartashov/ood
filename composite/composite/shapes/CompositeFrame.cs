@@ -16,26 +16,42 @@ namespace composite
 		{
 			get
 			{
-				var result = new Rect(0, 0, 0, 0);
-				_shapes.ToList().ForEach(x => result = result.Union(x.Frame));
+				if (_shapes.Count() == 0)
+				{
+					return new Rect(0, 0, 0, 0);
+				}
+
+				var result = _shapes.First().Frame.Clone();
+				_shapes.ToList().ForEach(x => { result = result.Union(x.Frame); });
 				return result;
 			}
 			set
 			{
 				var currentFrame = Frame;
-				var deltaX = value.LeftTop.X - currentFrame.LeftTop.X;
-				var deltaY = value.LeftTop.Y - currentFrame.LeftTop.Y;
 				double deltaW = value.Size.X == currentFrame.Size.X ? 0 :
 					(double)(value.Size.X - currentFrame.Size.X) / (double)(currentFrame.Size.X);
 				double deltaH = value.Size.Y == currentFrame.Size.Y ? 0 :
 					(double)(value.Size.Y - currentFrame.Size.Y) / (double)(currentFrame.Size.Y);
 
 				_shapes.ToList().ForEach(x => {
+
+					int resize(int size, double delta)
+					{
+						if (delta >= 0)
+						{
+							return (int)Math.Round((double)size * Math.Abs(delta)) + size;
+						}
+						else
+						{
+							return (int)Math.Round((double)size * (1.0 - Math.Abs(delta)));
+						}
+					}
+
 					var shapeOldFrame = x.Frame;
-					var newX = shapeOldFrame.LeftTop.X + deltaX;
-					var newY = shapeOldFrame.LeftTop.Y + deltaY;
-					var newW = (int)Math.Round((double)shapeOldFrame.Size.X * Math.Abs(deltaW)) + (deltaW >= 0 ? shapeOldFrame.Size.X : (deltaW < -1 ? -1 * shapeOldFrame.Size.X : 0));
-					var newH = (int)Math.Round((double)shapeOldFrame.Size.Y * Math.Abs(deltaH)) + (deltaH >= 0 ? shapeOldFrame.Size.Y : (deltaH < -1 ? -1 * shapeOldFrame.Size.Y : 0));
+					var newX = value.LeftTop.X + resize(shapeOldFrame.LeftTop.X - currentFrame.LeftTop.X, deltaW);
+					var newY = value.LeftTop.Y + resize(shapeOldFrame.LeftTop.Y - currentFrame.LeftTop.Y, deltaH);
+					var newW = resize(shapeOldFrame.Size.X, deltaW);
+					var newH = resize(shapeOldFrame.Size.Y, deltaH);
 					var shapeNewFrame = new Rect(newX, newY, newW, newH);
 					x.Frame = shapeNewFrame;
 				});

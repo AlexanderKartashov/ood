@@ -25,7 +25,7 @@ namespace composite
 			var v2 = _vertex2.Denormalize(Frame);
 			var v3 = _vertex3.Denormalize(Frame);
 
-			canvas.FillPolygon(new List<PointI>() { v1, v2, v3 });
+			canvas.FillPolygon(new List<PointI>() { v1, v2, v3, v1 });
 
 			canvas.MoveTo(v1);
 			canvas.LineTo(v2);
