@@ -8,37 +8,15 @@
 
 		public virtual void Draw(ICanvas canvas)
 		{
-			SetFillStyle(canvas);
-			SetLineStyle(canvas);
-
+			BeforeDraw(canvas);
 			DrawImpl(canvas);
+			AfterDraw(canvas);
 		}
 
 		protected abstract void DrawImpl(ICanvas canvas);
 
-		private void SetFillStyle(ICanvas canvas)
-		{
-			var fillStyle = FillStyle;
+		protected virtual void BeforeDraw(ICanvas canvas) { }
 
-			canvas.SetFillColor((StyleEnabled(fillStyle) && fillStyle.Color.HasValue) ?
-				fillStyle.Color.Value :
-				new RGBAColor(0)
-			);
-		}
-
-		private void SetLineStyle(ICanvas canvas)
-		{
-			var defaultColor = new RGBAColor(0, 0, 0, 0);
-			var defaultW = 0u;
-			var lineStyle = LineStyle;
-
-			canvas.SetLineColor(lineStyle.Color != null ? (StyleEnabled(lineStyle) ? lineStyle.Color.Value : defaultColor) : defaultColor);
-			canvas.SetLineWidth(lineStyle.LineWidth != null ? (StyleEnabled(lineStyle) ? lineStyle.LineWidth.Value : defaultW) : defaultW);
-		}
-
-		private bool StyleEnabled(IStyle style)
-		{
-			return (style != null) && style.Enable.HasValue && style.Enable.Value;
-		}
+		protected virtual void AfterDraw(ICanvas canvas) { }
 	}
 }

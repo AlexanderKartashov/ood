@@ -21,9 +21,7 @@ namespace composite
 
 		public void Remove(IShape shape) => _shapes.Remove(shape);
 
-		public override void Draw(ICanvas canvas) => DrawImpl(canvas);
-
-		protected override void DrawImpl(ICanvas canvas) => _shapes.ToList().ForEach(x => x.Draw(canvas));
+		protected override sealed void DrawImpl(ICanvas canvas) => _shapes.ToList().ForEach(x => x.Draw(canvas));
 
 		public override ILineStyle LineStyle
 		{
@@ -50,25 +48,12 @@ namespace composite
 
 		public override Rect Frame
 		{
-			get
-			{
-				return new CompositeFrame(Shapes).Frame;
-			}
-			set
-			{
-				var comopsiteFrame = new CompositeFrame(Shapes);
-				comopsiteFrame.Frame = value;
-			}
+			get => new CompositeFrame(Shapes).Frame;
+			set => new CompositeFrame(Shapes) { Frame = value };
 		}
 
-		private IEnumerable<IFillStyle> EnumerateFillStyles()
-		{
-			return _shapes.Select(x => x.FillStyle);
-		}
+		private IEnumerable<IFillStyle> EnumerateFillStyles() => _shapes.Select(x => x.FillStyle);
 
-		private IEnumerable<ILineStyle> EnumerateLineStyles()
-		{
-			return _shapes.Select(x => x.LineStyle);
-		}
+		private IEnumerable<ILineStyle> EnumerateLineStyles() => _shapes.Select(x => x.LineStyle);
 	}
 }

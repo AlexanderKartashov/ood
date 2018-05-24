@@ -1,11 +1,9 @@
-﻿using System;
-
-using PointI = composite.Point<int>;
+﻿using PointI = composite.Point<int>;
 using PointD = composite.Point<double>;
 
 namespace composite
 {
-	public class Ellipse : Shape
+	public class Ellipse : SimpleShape
 	{
 		private readonly PointD _leftTop;
 		private readonly PointD _rightBottom;

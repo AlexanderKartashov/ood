@@ -6,7 +6,7 @@ using PointD = composite.Point<double>;
 
 namespace composite
 {
-	public class Triangle : Shape
+	public class Triangle : SimpleShape
 	{
 		private readonly PointD _vertex1;
 		private readonly PointD _vertex2;

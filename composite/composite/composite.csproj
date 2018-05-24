@@ -49,6 +49,7 @@
     <Compile Include="shapes\CompositeFrame.cs" />
     <Compile Include="shapes\concreteShapes\Ellipse.cs" />
     <Compile Include="canvas\interfaces\ICanvas.cs" />
+    <Compile Include="shapes\SimpleShape.cs" />
     <Compile Include="shapes\styles\CompositeFillStyle.cs" />
     <Compile Include="shapes\styles\CompositeLineStyle.cs" />
     <Compile Include="shapes\styles\CompositeStylesUtils.cs" />

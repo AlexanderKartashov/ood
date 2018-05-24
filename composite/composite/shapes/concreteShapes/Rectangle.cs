@@ -6,7 +6,7 @@ using PointD = composite.Point<double>;
 
 namespace composite
 {
-	public class Rectangle : Shape
+	public class Rectangle : SimpleShape
 	{
 		private readonly PointD _leftTop;
 		private readonly PointD _rightBottom;
