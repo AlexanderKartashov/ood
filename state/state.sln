@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "state_test", "state\state_test.csproj", "{098F0457-BB10-4536-8F14-B450785858DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GumBallMachineState", "GumBallMachineState\GumBallMachineState.csproj", "{8971476C-EC03-405B-9749-5238E544D4D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaiveGumballMachine", "NaiveGumballMachine\NaiveGumballMachine.csproj", "{A1B1F4F5-126C-4029-9509-AB384F0ACEAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GumBallMachineMenu", "GumBallMachineMenu\GumBallMachineMenu.csproj", "{5F4BE1E4-962D-40D4-A3E1-41320FE59952}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuCommon", "MenuCommon\MenuCommon.csproj", "{EEE00DCA-8380-40AF-A4D1-E7E17E41793F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GumBallMachineCommon", "GumballMachineCommon\GumBallMachineCommon.csproj", "{4D3A71D0-FEE2-402D-9B68-A9BE7D9BA39F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit.GumballMachineTest", "NUnit.GumballMachineTest\NUnit.GumballMachineTest.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{098F0457-BB10-4536-8F14-B450785858DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{098F0457-BB10-4536-8F14-B450785858DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{098F0457-BB10-4536-8F14-B450785858DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{098F0457-BB10-4536-8F14-B450785858DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8971476C-EC03-405B-9749-5238E544D4D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8971476C-EC03-405B-9749-5238E544D4D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8971476C-EC03-405B-9749-5238E544D4D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8971476C-EC03-405B-9749-5238E544D4D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B1F4F5-126C-4029-9509-AB384F0ACEAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B1F4F5-126C-4029-9509-AB384F0ACEAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B1F4F5-126C-4029-9509-AB384F0ACEAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B1F4F5-126C-4029-9509-AB384F0ACEAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F4BE1E4-962D-40D4-A3E1-41320FE59952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F4BE1E4-962D-40D4-A3E1-41320FE59952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F4BE1E4-962D-40D4-A3E1-41320FE59952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F4BE1E4-962D-40D4-A3E1-41320FE59952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEE00DCA-8380-40AF-A4D1-E7E17E41793F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEE00DCA-8380-40AF-A4D1-E7E17E41793F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEE00DCA-8380-40AF-A4D1-E7E17E41793F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEE00DCA-8380-40AF-A4D1-E7E17E41793F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D3A71D0-FEE2-402D-9B68-A9BE7D9BA39F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D3A71D0-FEE2-402D-9B68-A9BE7D9BA39F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D3A71D0-FEE2-402D-9B68-A9BE7D9BA39F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D3A71D0-FEE2-402D-9B68-A9BE7D9BA39F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {82523990-0001-4E0C-84E3-53E1A7A0D825}
+	EndGlobalSection
+EndGlobal
