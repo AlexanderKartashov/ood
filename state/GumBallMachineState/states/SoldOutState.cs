@@ -8,13 +8,11 @@ namespace GumBallMachineState
 		private readonly IGumballMachineFacade _machine;
 
 		public SoldOutState(IGumballMachineFacade machine, IErrorHandler errorHandler, IActionsLogger logger)
-			: base(errorHandler, logger) => _machine = machine ?? throw new ArgumentNullException(nameof(machine));
+			: base(errorHandler, logger, new SoldOutStateFailedMessages(), new SoldOutStateSucceededMessages())
+		{
+			_machine = machine ?? throw new ArgumentNullException(nameof(machine));
+		}
 
-		public override string DispenseMessage => "No gumball dispensed";
-		public override string EjectQuarterMessage => "Quarters returned";
-		public override string InsertQuarterMessage => "You can't insert a quarter, the machine is sold out";
-		public override string RefillMessage => "Refill machine";
-		public override string TurnCrankMessage => "You turned but there's no gumballs";
 		public override string StateDescription => "sold out";
 
 		protected override bool BeforeTurnCrank() => false;
@@ -24,7 +22,6 @@ namespace GumBallMachineState
 
 		protected override void RefillImpl(uint balls)
 		{
-			Log(RefillMessage);
 			_machine.Refill(balls);
 			if (_machine.NoMoreQuarters())
 			{
@@ -36,10 +33,24 @@ namespace GumBallMachineState
 			}
 		}
 
-		protected override void EjectQuarterImpl()
-		{
-			Log(EjectQuarterMessage);
-			_machine.EjectAllQuarters(); // do not change current state after quarters ejection
-		}
+		protected override void EjectQuarterImpl() => _machine.EjectAllQuarters(); // do not change current state after quarters ejection
+	}
+
+	public class SoldOutStateSucceededMessages : IStateMessages
+	{
+		public string DispenseMessage => "";
+		public string EjectQuarterMessage => "Quarters returned";
+		public string InsertQuarterMessage => "";
+		public string RefillMessage => "Refill machine";
+		public string TurnCrankMessage => "";
+	}
+
+	public class SoldOutStateFailedMessages : IStateMessages
+	{
+		public string DispenseMessage => "No gumball dispensed";
+		public string EjectQuarterMessage => "You haven't inserted a quarter";
+		public string InsertQuarterMessage => "You can't insert a quarter, the machine is sold out";
+		public string RefillMessage => "";
+		public string TurnCrankMessage => "You turned but there's no gumballs";
 	}
 }

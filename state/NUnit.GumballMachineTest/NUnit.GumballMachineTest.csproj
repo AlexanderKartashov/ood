@@ -54,9 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="gumballmachinestates\GumballMachineTests.cs" />
     <Compile Include="gumballmachinenaive\GumballMachineTests.cs" />
-    <Compile Include="menu\CommandHandlerTests.cs" />
     <Compile Include="menu\MenuTests.cs" />
     <Compile Include="parsers\EjectQuartersParserTests.cs" />
     <Compile Include="parsers\EndParserTests.cs" />

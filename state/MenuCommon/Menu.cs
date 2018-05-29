@@ -12,17 +12,17 @@ namespace MenuCommon
 		{
 			foreach (var command in commandSource.Commands)
 			{
+				if (command == null || command.Length == 0)
+				{
+					// command finished
+					return;
+				}
+
 				var commandHandled = false;
 				foreach (var parser in handler.Parsers)
 				{
 					try
 					{
-						if (command == null || command.Length == 0)
-						{
-							// command finished
-							return;
-						}
-
 						var parsedCommand = parser.Parse(command);
 						if (parsedCommand != null)
 						{

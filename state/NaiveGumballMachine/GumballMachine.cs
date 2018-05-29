@@ -6,13 +6,15 @@ namespace NaiveGumballMachine
 	public class GumballMachine
 	{
 		private readonly TextWriter _textWriter;
-		private uint _count = 0;
 		private State _state;
+		private uint _ballsCount = 0;
+		private uint _quartersCount = 0;
+		private uint _quartersLimit = 5;
 
 		public GumballMachine(TextWriter textWriter, uint count)
 		{
 			_textWriter = textWriter ?? throw new ArgumentNullException(nameof(textWriter));
-			_count = count;
+			_ballsCount = count;
 			_state = count > 0 ? State.NoQuarter : State.SoldOut;
 		}
 
@@ -25,10 +27,16 @@ namespace NaiveGumballMachine
 				break;
 			case State.NoQuarter:
 				_textWriter.WriteLine("You inserted a quarter");
+				++_quartersCount;
 				_state = State.HasQuarter;
 				break;
-			case State.HasQuarter:
+			case State.HasQuarter when _quartersLimit == _quartersCount:
+				++_quartersCount;
 				_textWriter.WriteLine("You can't insert another quarter");
+				break;
+			case State.HasQuarter:
+				_textWriter.WriteLine("Inserted another quarter");
+				++_quartersCount;
 				break;
 			case State.Sold:
 				_textWriter.WriteLine("Please wait, we're already giving you a gumball");
@@ -41,7 +49,8 @@ namespace NaiveGumballMachine
 			switch (_state)
 			{
 			case State.HasQuarter:
-				_textWriter.WriteLine("Quarter returned");
+				_textWriter.WriteLine("Quarters returned");
+				_quartersCount = 0;
 				_state = State.NoQuarter;
 				break;
 			case State.NoQuarter:
@@ -50,8 +59,11 @@ namespace NaiveGumballMachine
 			case State.Sold:
 				_textWriter.WriteLine("Sorry you already turned the crank");
 				break;
-			case State.SoldOut:
+			case State.SoldOut when _quartersCount == 0:
 				_textWriter.WriteLine("You can't eject, you haven't inserted a quarter yet");
+				break;
+			case State.SoldOut:
+				_textWriter.WriteLine("Quarters ejected");
 				break;
 			}
 		}
@@ -84,8 +96,10 @@ namespace NaiveGumballMachine
 				(_state == State.NoQuarter) ? "waiting for quarter" :
 				(_state == State.HasQuarter) ? "waiting for turn of crank"
 											   : "delivering a gumball";
-			var suffix = _count != 1 ? "s" : "";
-			return $"Mighty Gumball, Inc.\nC++ - enabled Standing Gumball Model #2016\nInventory: {_count} gumball {suffix} {state}";
+			var qSuffix = _quartersCount != 1 ? "s" : "";
+			var bSuffix = _ballsCount != 1 ? "s" : "";
+			return $"Mighty Gumball, Inc.\nC++ - enabled Standing Gumball Model #2016\nInventory: " +
+				$"{_ballsCount} gumball{bSuffix}, {qSuffix} quarters{qSuffix}{state}";
 		}
 
 		private void Dispense()
@@ -94,15 +108,23 @@ namespace NaiveGumballMachine
 			{
 			case State.Sold:
 				_textWriter.WriteLine("A gumball comes rolling out the slot");
-				--_count;
-				if (_count == 0)
+				--_ballsCount;
+				--_quartersCount;
+				if (_ballsCount == 0)
 				{
 					_textWriter.WriteLine("Oops, out of gumballs");
 					_state = State.SoldOut;
 				}
 				else
 				{
-					_state = State.NoQuarter;
+					if (_quartersCount == 0)
+					{
+						_state = State.NoQuarter;
+					}
+					else
+					{
+						_state = State.HasQuarter;
+					}
 				}
 				break;
 			case State.NoQuarter:
