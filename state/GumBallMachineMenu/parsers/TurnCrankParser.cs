@@ -7,7 +7,7 @@ namespace GumBallMachineMenu
 	{
 		private readonly Regex _pattern = new Regex("^TurnCrank$", RegexOptions.IgnoreCase);
 
-		public string Help => "Turn crank";
+		public string Help => "Turn crank <TurnCrank>";
 
 		public dynamic Parse(string input)
 		{

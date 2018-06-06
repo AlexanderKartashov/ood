@@ -7,7 +7,7 @@ namespace GumBallMachineMenu
 	{
 		private readonly Regex _pattern = new Regex("^EjectQuarters$", RegexOptions.IgnoreCase);
 
-		public string Help => "Eject all quarter";
+		public string Help => "Eject all quarters <EjectQuarters>";
 
 		public dynamic Parse(string input)
 		{

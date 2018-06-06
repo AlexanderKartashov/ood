@@ -18,8 +18,11 @@ namespace GumBallMachineState
 		protected override bool BeforeTurnCrank() => false;
 		protected override bool BeforeEjectQuarter() => false;
 		protected override bool BeforeDispense() => false;
-
-		protected override void InsertQuarterImpl() => _machine.SetQuarterInsertedState();
+		protected override void InsertQuarterImpl()
+		{
+			_machine.InsertAdditionalQuarter();
+			_machine.SetQuarterInsertedState();
+		}
 		protected override void RefillImpl(uint balls) => _machine.Refill(balls);
 	}
 

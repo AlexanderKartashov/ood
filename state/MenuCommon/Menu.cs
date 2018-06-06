@@ -24,7 +24,7 @@ namespace MenuCommon
 					try
 					{
 						var parsedCommand = parser.Parse(command);
-						if (parsedCommand != null)
+						if (!ReferenceEquals(parsedCommand, null))
 						{
 							if (handler.DoAction(parsedCommand))
 							{

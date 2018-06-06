@@ -7,7 +7,7 @@ namespace GumBallMachineMenu
 	{
 		private readonly Regex _pattern = new Regex("^Help$", RegexOptions.IgnoreCase);
 
-		public string Help => "Print actions list";
+		public string Help => "Print actions list <Help>";
 
 		public dynamic Parse(string input)
 		{

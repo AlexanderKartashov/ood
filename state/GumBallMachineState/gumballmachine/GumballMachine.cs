@@ -39,14 +39,18 @@ namespace GumBallMachineState
 			var message =
 				$"Mighty Gumball, Inc.\nC# - enabled Standing Gumball Model #2018 (with state)\n" +
 				$"Inventory: {BallsCount} gumball{ballsExt}, {QuartersCount} quarter{quartersExt}\n" +
-				$"Machine is {_currentState.ToString()}";
+				$"Machine is {CurrentState.ToString()}";
 			return message;
 		}
 
 		#region IGumballMachine
 		public void EjectQuarter() => CurrentState.EjectQuarter();
 		public void InsertQuarter() => CurrentState.InsertQuarter();
-		public void TurnCrank() => CurrentState.TurnCrank();
+		public void TurnCrank()
+		{
+			CurrentState.TurnCrank();
+			CurrentState.Dispense();
+		}
 		#endregion IGumballMachine
 
 		#region IGumballMachineMaintenance
@@ -78,13 +82,12 @@ namespace GumBallMachineState
 		}
 		public void SetQuarterInsertedState()
 		{
-			InsertAdditionalQuarter();
 			SetState(new HasQuarterState(this, _errorHandler, _logger));
 		}
 		public void SetSoldState() => SetState(new SoldState(this, _errorHandler, _logger));
 		public void SetSoldOutState() => SetState(new SoldOutState(this, _errorHandler, _logger));
 		#endregion IGumballMachineStatesMachine
 
-		private void SetState(IState newState) => _currentState = newState;
+		private void SetState(IState newState) => CurrentState = newState;
 	}
 }

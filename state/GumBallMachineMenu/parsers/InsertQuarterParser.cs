@@ -7,7 +7,7 @@ namespace GumBallMachineMenu
 	{
 		private readonly Regex _pattern = new Regex("^InsertQuarter$", RegexOptions.IgnoreCase);
 
-		public string Help => "Insert quarter";
+		public string Help => "Insert quarter <InsertQuarter>";
 
 		public dynamic Parse(string input)
 		{

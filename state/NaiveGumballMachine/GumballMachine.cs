@@ -1,45 +1,50 @@
-﻿using System;
+﻿using GumBallMachineCommon;
+using System;
 using System.IO;
 
 namespace NaiveGumballMachine
 {
-	public class GumballMachine
+	public class GumballMachine : IGumballMachine, IGumballMachineMaintenance
 	{
-		private readonly TextWriter _textWriter;
+		private readonly IErrorHandler _errorHandler;
+		private readonly IActionsLogger _actionsLogger;
+
 		private State _state;
 		private uint _ballsCount = 0;
 		private uint _quartersCount = 0;
 		private uint _quartersLimit = 5;
 
-		public GumballMachine(TextWriter textWriter, uint count)
+		public GumballMachine(uint balls, uint quartersLimit, IErrorHandler errorHandler, IActionsLogger actionsLogger)
 		{
-			_textWriter = textWriter ?? throw new ArgumentNullException(nameof(textWriter));
-			_ballsCount = count;
-			_state = count > 0 ? State.NoQuarter : State.SoldOut;
+			_errorHandler = errorHandler ?? throw new ArgumentNullException(nameof(errorHandler));
+			_actionsLogger = actionsLogger ?? throw new ArgumentNullException(nameof(actionsLogger));
+			_ballsCount = balls;
+			_state = balls > 0 ? State.NoQuarter : State.SoldOut;
+			_quartersLimit = quartersLimit;
 		}
 
+		#region IGumballMachine
 		public void InsertQuarter()
 		{
 			switch (_state)
 			{
 			case State.SoldOut:
-				_textWriter.WriteLine("You can't insert a quarter, the machine is sold out");
+				_errorHandler.InvalidAction("You can't insert a quarter, the machine is sold out");
 				break;
 			case State.NoQuarter:
-				_textWriter.WriteLine("You inserted a quarter");
+				_actionsLogger.Log("You inserted a quarter");
 				++_quartersCount;
 				_state = State.HasQuarter;
 				break;
 			case State.HasQuarter when _quartersLimit == _quartersCount:
-				++_quartersCount;
-				_textWriter.WriteLine("You can't insert another quarter");
+				_errorHandler.InvalidAction("You can't insert another quarter");
 				break;
 			case State.HasQuarter:
-				_textWriter.WriteLine("Inserted another quarter");
+				_actionsLogger.Log("Inserted another quarter");
 				++_quartersCount;
 				break;
 			case State.Sold:
-				_textWriter.WriteLine("Please wait, we're already giving you a gumball");
+				_errorHandler.InvalidAction("Please wait, we're already giving you a gumball");
 				break;
 			}
 		}
@@ -49,21 +54,22 @@ namespace NaiveGumballMachine
 			switch (_state)
 			{
 			case State.HasQuarter:
-				_textWriter.WriteLine("Quarters returned");
+				_actionsLogger.Log("Quarters returned");
 				_quartersCount = 0;
 				_state = State.NoQuarter;
 				break;
 			case State.NoQuarter:
-				_textWriter.WriteLine("You haven't inserted a quarter");
+				_errorHandler.InvalidAction("You haven't inserted a quarter");
 				break;
 			case State.Sold:
-				_textWriter.WriteLine("Sorry you already turned the crank");
+				_errorHandler.InvalidAction("Sorry you already turned the crank");
 				break;
 			case State.SoldOut when _quartersCount == 0:
-				_textWriter.WriteLine("You can't eject, you haven't inserted a quarter yet");
+				_errorHandler.InvalidAction("You can't eject, you haven't inserted a quarter yet");
 				break;
 			case State.SoldOut:
-				_textWriter.WriteLine("Quarters ejected");
+				_actionsLogger.Log("Quarters ejected");
+				_quartersCount = 0;
 				break;
 			}
 		}
@@ -73,21 +79,49 @@ namespace NaiveGumballMachine
 			switch (_state)
 			{
 			case State.SoldOut:
-				_textWriter.WriteLine("You turned but there's no gumballs");
+				_errorHandler.InvalidAction("You turned but there's no gumballs");
 				break;
 			case State.NoQuarter:
-				_textWriter.WriteLine("You turned but there's no quarter");
+				_errorHandler.InvalidAction("You turned but there's no quarter");
 				break;
 			case State.HasQuarter:
-				_textWriter.WriteLine("You turned...");
+				_actionsLogger.Log("You turned...");
 				_state = State.Sold;
 				Dispense();
 				break;
 			case State.Sold:
-				_textWriter.WriteLine("Turning twice doesn't get you another gumball");
+				_errorHandler.InvalidAction("Turning twice doesn't get you another gumball");
 				break;
 			}
 		}
+		#endregion
+
+		#region
+		public void RefillBalls(uint balls)
+		{
+			switch (_state)
+			{
+			case State.Sold:
+				_errorHandler.InvalidAction("You can't refill machine now");
+				break;
+			case State.HasQuarter:
+			case State.NoQuarter:
+				_actionsLogger.Log($"Machine refilled, balls added {balls}");
+				_ballsCount += balls;
+				break;
+			case State.SoldOut when _quartersCount > 0:
+				_actionsLogger.Log($"Machine refilled, balls added {balls}");
+				_ballsCount += balls;
+					_state = State.HasQuarter;
+				break;
+			case State.SoldOut:
+				_actionsLogger.Log($"Machine refilled, balls added {balls}");
+				_ballsCount += balls;
+				_state = State.NoQuarter;
+				break;
+			}
+		}
+		#endregion
 
 		public override string ToString()
 		{
@@ -107,12 +141,12 @@ namespace NaiveGumballMachine
 			switch (_state)
 			{
 			case State.Sold:
-				_textWriter.WriteLine("A gumball comes rolling out the slot");
+				_actionsLogger.Log("A gumball comes rolling out the slot");
 				--_ballsCount;
 				--_quartersCount;
 				if (_ballsCount == 0)
 				{
-					_textWriter.WriteLine("Oops, out of gumballs");
+					//_actionsLogger.Log("Oops, out of gumballs");
 					_state = State.SoldOut;
 				}
 				else
@@ -128,13 +162,15 @@ namespace NaiveGumballMachine
 				}
 				break;
 			case State.NoQuarter:
-				_textWriter.WriteLine("You need to pay first");
+				_errorHandler.InvalidAction("You need to pay first");
 				break;
 			case State.SoldOut:
 			case State.HasQuarter:
-				_textWriter.WriteLine("No gumball dispensed");
+				_errorHandler.InvalidAction("No gumball dispensed");
 				break;
 			}
 		}
+
+
 	}
 }

@@ -7,7 +7,7 @@ namespace GumBallMachineMenu
 	{
 		private readonly Regex _pattern = new Regex("^End$", RegexOptions.IgnoreCase);
 
-		public string Help => "End";
+		public string Help => "End <End>";
 
 		public dynamic Parse(string input)
 		{

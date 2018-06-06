@@ -7,7 +7,7 @@ namespace GumBallMachineMenu
 	{
 		private readonly Regex _pattern = new Regex(@"^Refill\s+(\d+)$", RegexOptions.IgnoreCase);
 
-		public string Help => "Add balls in machine";
+		public string Help => "Add balls in machine <Refill N>";
 
 		public dynamic Parse(string input)
 		{
