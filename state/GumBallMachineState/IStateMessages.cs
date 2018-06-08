@@ -2,7 +2,7 @@
 
 namespace GumBallMachineState
 {
-	public interface IStateMessages
+	internal interface IStateMessages
 	{
 		String DispenseMessage { get; }
 		String EjectQuarterMessage { get; }

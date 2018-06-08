@@ -2,7 +2,7 @@
 
 namespace GumBallMachineState
 {
-	public interface IState
+	internal interface IState
 	{
 		void InsertQuarter();
 		void EjectQuarter();

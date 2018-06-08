@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace GumBallMachineMenu
 {
-	public class EndParser : IActionParser
+	internal class EndParser : IActionParser
 	{
 		private readonly Regex _pattern = new Regex("^End$", RegexOptions.IgnoreCase);
 

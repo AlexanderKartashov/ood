@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace GumBallMachineMenu
 {
-	public class HelpParser : IActionParser
+	internal class HelpParser : IActionParser
 	{
 		private readonly Regex _pattern = new Regex("^Help$", RegexOptions.IgnoreCase);
 

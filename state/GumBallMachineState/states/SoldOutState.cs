@@ -3,7 +3,7 @@ using System;
 
 namespace GumBallMachineState
 {
-	public class SoldOutState : StateBase
+	internal class SoldOutState : StateBase
 	{
 		private readonly IGumballMachineFacade _machine;
 

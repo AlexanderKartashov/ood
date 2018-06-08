@@ -3,7 +3,7 @@ using System;
 
 namespace GumBallMachineState
 {
-	public abstract class StateBase : IState
+	internal abstract class StateBase : IState
 	{
 		private readonly IErrorHandler _errorHandler;
 		private readonly IActionsLogger _logger;

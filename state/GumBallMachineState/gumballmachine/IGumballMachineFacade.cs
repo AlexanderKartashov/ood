@@ -1,6 +1,6 @@
 ﻿namespace GumBallMachineState
 {
-	public interface IGumballMachineFacade : IGumballMachineStateInfo, IGumballMachineStatesMachine, IGumballMachineOperations
+	internal interface IGumballMachineFacade : IGumballMachineStateInfo, IGumballMachineStatesMachine, IGumballMachineOperations
 	{
 	}
 }

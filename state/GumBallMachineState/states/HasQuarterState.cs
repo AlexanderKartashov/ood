@@ -3,7 +3,7 @@ using System;
 
 namespace GumBallMachineState
 {
-	public class HasQuarterState : StateBase
+	internal class HasQuarterState : StateBase
 	{
 		private readonly IGumballMachineFacade _machine;
 

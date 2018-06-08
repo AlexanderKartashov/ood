@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace GumBallMachineMenu
 {
-	public class EjectQuartersParser : IActionParser
+	internal class EjectQuartersParser : IActionParser
 	{
 		private readonly Regex _pattern = new Regex("^EjectQuarters$", RegexOptions.IgnoreCase);
 

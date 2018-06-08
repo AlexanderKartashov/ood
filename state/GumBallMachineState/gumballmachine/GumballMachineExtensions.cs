@@ -1,6 +1,6 @@
 ﻿namespace GumBallMachineState
 {
-	public static class GumballMachineExtensions
+	internal static class GumballMachineExtensions
 	{
 		public static bool QuartersLimitReached(this IGumballMachineStateInfo state)
 		{

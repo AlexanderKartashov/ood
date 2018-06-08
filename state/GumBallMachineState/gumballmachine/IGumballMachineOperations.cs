@@ -1,6 +1,6 @@
 ﻿namespace GumBallMachineState
 {
-	public interface IGumballMachineOperations
+	internal interface IGumballMachineOperations
 	{
 		void ReleaseBallAndWriteOffQuarter();
 		void InsertAdditionalQuarter();

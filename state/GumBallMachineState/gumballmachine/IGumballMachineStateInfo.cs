@@ -1,6 +1,6 @@
 ﻿namespace GumBallMachineState
 {
-	public interface IGumballMachineStateInfo
+	internal interface IGumballMachineStateInfo
 	{
 		uint BallsCount { get; }
 		uint QuartersCount { get; }

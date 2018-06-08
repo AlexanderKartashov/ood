@@ -1,25 +1,25 @@
 ﻿namespace GumBallMachineMenu
 {
-	public struct InsertQuarter
+	internal struct InsertQuarter
 	{ }
 
-	public struct EjectQuarters
+	internal struct EjectQuarters
 	{ }
 
-	public struct TurnCrank
+	internal struct TurnCrank
 	{ }
 
-	public struct Refill
+	internal struct Refill
 	{
 		public uint Balls { get; set; }
 	}
 
-	public struct Help
+	internal struct Help
 	{ }
 
-	public struct End
+	internal struct End
 	{ }
 
-	public struct State
+	internal struct State
 	{ }
 }

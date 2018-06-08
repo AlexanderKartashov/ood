@@ -1,6 +1,6 @@
 ﻿namespace GumBallMachineState
 {
-	public interface IGumballMachineStatesMachine
+	internal interface IGumballMachineStatesMachine
 	{
 		void SetNoQuartersState();
 		void SetQuarterInsertedState();

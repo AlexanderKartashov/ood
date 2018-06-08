@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace GumBallMachineMenu
 {
-	public class RefillParser : IActionParser
+	internal class RefillParser : IActionParser
 	{
 		private readonly Regex _pattern = new Regex(@"^Refill\s+(\d+)$", RegexOptions.IgnoreCase);
 

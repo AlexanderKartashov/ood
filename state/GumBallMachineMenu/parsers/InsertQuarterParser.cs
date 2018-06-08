@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace GumBallMachineMenu
 {
-	public class InsertQuarterParser : IActionParser
+	internal class InsertQuarterParser : IActionParser
 	{
 		private readonly Regex _pattern = new Regex("^InsertQuarter$", RegexOptions.IgnoreCase);
 
