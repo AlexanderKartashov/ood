@@ -12,13 +12,15 @@ public class DocumentMenuActionSource extends ActionSource {
 
     @Override
     protected String GetActionDescription() throws IOException {
-        return _reader.readLine();
+        return _command;
     }
 
     @Override
     public boolean HasMoreActions() throws IOException {
-        return _reader.ready();
+        _command = _reader.readLine();
+        return !_command.isEmpty();
     }
 
+    private String _command;
     private final BufferedReader _reader;
 }

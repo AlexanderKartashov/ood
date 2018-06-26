@@ -1,5 +1,7 @@
 package fileSystem;
 
+import environment.fileSystem.IFile;
+import fileSystem.File;
 import environment.fileSystem.IFileOperations;
 import java.io.*;
 
@@ -7,8 +9,8 @@ class FileOperations implements IFileOperations {
     @Override
     public void Copy(String from, String to) throws IOException {
 
-        try (InputStream is = new FileInputStream(new File(from));
-             OutputStream os = new FileOutputStream(new File(to)))
+        try (InputStream is = new FileInputStream(new java.io.File(from));
+             OutputStream os = new FileOutputStream(new java.io.File(to)))
         {
             byte[] buffer = new byte[1024];
             int length;
@@ -24,10 +26,15 @@ class FileOperations implements IFileOperations {
 
     @Override
     public void Delete(String path) {
-        final File f = new File(path);
+        final java.io.File f = new java.io.File(path);
         if (f.exists())
         {
             f.delete();
         }
+    }
+
+    @Override
+    public IFile CreateFile(String path) throws FileNotFoundException {
+        return new fileSystem.File(path);
     }
 }

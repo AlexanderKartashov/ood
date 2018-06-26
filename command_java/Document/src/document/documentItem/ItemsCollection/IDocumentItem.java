@@ -4,6 +4,8 @@ import document.documentItem.IDocumentItemVisitor;
 import document.documentItem.image.IImage;
 import document.documentItem.paragraph.IParagraph;
 
+import java.io.IOException;
+
 public interface IDocumentItem extends AutoCloseable {
 
     default IParagraph GetParagraph() {
@@ -14,5 +16,5 @@ public interface IDocumentItem extends AutoCloseable {
         return null;
     }
 
-    void Accept(IDocumentItemVisitor visitor);
+    void Accept(IDocumentItemVisitor visitor) throws IOException;
 }

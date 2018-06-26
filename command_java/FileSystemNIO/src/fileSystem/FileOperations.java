@@ -1,5 +1,6 @@
 package fileSystem;
 
+import environment.fileSystem.IFile;
 import environment.fileSystem.IFileOperations;
 
 import java.io.IOException;
@@ -16,5 +17,10 @@ class FileOperations implements IFileOperations {
     @Override
     public void Delete(String path) throws IOException {
         Files.deleteIfExists(Paths.get(path));
+    }
+
+    @Override
+    public IFile CreateFile(String path) throws IOException {
+        return new File(path);
     }
 }

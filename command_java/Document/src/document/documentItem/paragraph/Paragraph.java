@@ -5,6 +5,8 @@ import document.documentItem.image.IImage;
 import hsitory.IMemento;
 import hsitory.IMementoOriginator;
 
+import java.io.IOException;
+
 public class Paragraph implements IMutableParagraph {
 
     public Paragraph(String text) {
@@ -25,7 +27,7 @@ public class Paragraph implements IMutableParagraph {
     }
 
     @Override
-    public void Accept(IDocumentItemVisitor visitor) {
+    public void Accept(IDocumentItemVisitor visitor) throws IOException {
         visitor.Visit(this);
     }
 

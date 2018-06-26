@@ -96,6 +96,7 @@ class FileStorageTest {
         when(_resources.CreateResource(name2, newPath2, _storage)).thenReturn(res2);
         assertNoThrows(()->when(_pathGenerators.RelativeToAbsolute(_tempFolder, name2)).thenReturn(newPath2));
         when(_pathChecks.IsAbsolute(path2)).thenReturn(true);
+        when(_pathChecks.PathExists(_tempFolder)).thenReturn(true);
         assertNoThrows(()->when(_pathGenerators.GetUniqueFileNameInDirectory(_tempFolder)).thenReturn(name1).thenReturn(name2));
 
         assertNoThrows(()-> _storage.Add(path1) );

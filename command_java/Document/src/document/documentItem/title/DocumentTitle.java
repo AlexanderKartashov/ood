@@ -4,6 +4,8 @@ import document.documentItem.IDocumentItemVisitor;
 import hsitory.IMemento;
 import hsitory.IMementoOriginator;
 
+import java.io.IOException;
+
 public class DocumentTitle  implements IMutableDocumentTitle {
 
     public DocumentTitle(String title){
@@ -21,7 +23,7 @@ public class DocumentTitle  implements IMutableDocumentTitle {
     }
 
     @Override
-    public void Accept(IDocumentItemVisitor visitor) {
+    public void Accept(IDocumentItemVisitor visitor) throws IOException {
         visitor.Visit(this);
     }
 

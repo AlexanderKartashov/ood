@@ -4,6 +4,8 @@ import document.documentItem.IDocumentItemVisitor;
 import hsitory.IMemento;
 import storage.IResource;
 
+import java.io.IOException;
+
 public class Image implements IMutableImage {
 
     public Image(IResource resource, Size size) {
@@ -32,7 +34,7 @@ public class Image implements IMutableImage {
     }
 
     @Override
-    public void Accept(IDocumentItemVisitor visitor) {
+    public void Accept(IDocumentItemVisitor visitor) throws IOException {
         visitor.Visit(this);
     }
 

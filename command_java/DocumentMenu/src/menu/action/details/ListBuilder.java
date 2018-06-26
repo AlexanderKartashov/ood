@@ -7,6 +7,8 @@ import document.documentItem.paragraph.IParagraph;
 import document.documentItem.title.IDocumentTitle;
 import menu.ILogger;
 
+import java.io.IOException;
+
 class ListBuilder implements IDocumentStateBuilder {
 
     public ListBuilder(ILogger logger) {
@@ -14,12 +16,12 @@ class ListBuilder implements IDocumentStateBuilder {
     }
 
     @Override
-    public void BuildTitle(IDocumentTitle title) {
+    public void BuildTitle(IDocumentTitle title) throws IOException {
         title.Accept(_visitor);
     }
 
     @Override
-    public void BuildDocumentItem(IDocumentItem item) {
+    public void BuildDocumentItem(IDocumentItem item) throws IOException {
         item.Accept(_visitor);
     }
 
